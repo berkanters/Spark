@@ -7,9 +7,9 @@ using Microsoft.EntityFrameworkCore;
 using Spark.Core.Models;
 
 
-namespace Spark.DataAccsessLayer.Configurations
+namespace Spark.DataAccessLayer.Configurations
 {
-public class UserConfiguration : IEntityTypeConfiguration<User>
+    public class UserConfiguration : IEntityTypeConfiguration<User>
     {
         public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<User> builder)
         {
@@ -19,16 +19,13 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             builder.Property(x => x.Email).HasMaxLength(50).IsRequired();
             builder.Property(x => x.LastName).HasMaxLength(50).IsRequired();
             builder.Property(x => x.Phone).HasMaxLength(20).IsRequired();
-            builder.Property(x => x.City).HasMaxLength(50).IsRequired();
-            builder.Property(x => x.IsActive).IsRequired();
-            builder.Property(x => x.IsDelete).IsRequired();
-            builder.Property(x => x.IsAdmin).IsRequired();
-            builder.Property(x => x.Age).IsRequired(); 
-            builder.Property(x => x.Gender).IsRequired();
+            builder.Property(x => x.Age).HasMaxLength(150);
+            builder.Property(x => x.Gender).HasMaxLength(50);
+            builder.ToTable("tblUsers");
 
 
         }
     }
 }
-    
+
 

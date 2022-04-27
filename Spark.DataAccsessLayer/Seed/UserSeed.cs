@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Spark.Core.Models;
 
-namespace Spark.DataAccsessLayer.Seed
+namespace Spark.DataAccessLayer.Seed
 {
     public class UserSeed : IEntityTypeConfiguration<User>
     {
