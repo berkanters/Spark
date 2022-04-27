@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32414.318
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spark.API", "Spark.API\Spark.API.csproj", "{8B22EF6C-279C-4A96-B7A8-A3C0E94BD698}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spark.API", "Spark.API\Spark.API.csproj", "{8B22EF6C-279C-4A96-B7A8-A3C0E94BD698}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spark.Core", "Spark.Core\Spark.Core.csproj", "{81EEBC17-0FF6-406E-A96D-F6528F1E04CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spark.Core", "Spark.Core\Spark.Core.csproj", "{81EEBC17-0FF6-406E-A96D-F6528F1E04CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spark.DataAccsessLayer", "Spark.DataAccsessLayer\Spark.DataAccsessLayer.csproj", "{7D6F1796-F871-43AA-8F72-C93E5900C400}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spark.DataAccessLayer", "Spark.DataAccsessLayer\Spark.DataAccessLayer.csproj", "{7D6F1796-F871-43AA-8F72-C93E5900C400}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spark.Services", "Spark.Services\Spark.Services.csproj", "{100201D3-ED57-46F3-AEE9-D821F97598A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spark.Services", "Spark.Services\Spark.Services.csproj", "{100201D3-ED57-46F3-AEE9-D821F97598A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spark.MVC", "Spark.MVC\Spark.MVC.csproj", "{8EB6E8B4-5B39-4DAB-9E31-2916CD9F7D4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spark.MVC", "Spark.MVC\Spark.MVC.csproj", "{8EB6E8B4-5B39-4DAB-9E31-2916CD9F7D4B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
