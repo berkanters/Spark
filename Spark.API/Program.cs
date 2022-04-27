@@ -16,6 +16,7 @@ builder.Services.AddDbContext<SparkDBContext>(options =>
     {
         sqlOptions.MigrationsAssembly("Spark.DataAccessLayer");
         sqlOptions.EnableRetryOnFailure();
+        //Branch icin deneme 
     });
 });
 
