@@ -8,5 +8,10 @@ namespace Spark.Core.Models
 {
     internal class Like
     {
+        public Guid Id { get; set; }
+        public Guid UserId { get; set; }
+        public Guid LikedUserId { get; set; }
+        public virtual Like
+
     }
 }
