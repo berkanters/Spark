@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Spark.Core.Models
 {
-    internal class UserAnswer
+    public class UserAnswer
     {
         public Guid Id { get; set; }
         public Guid UserId { get; set; }

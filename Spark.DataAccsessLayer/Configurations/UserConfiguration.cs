@@ -21,6 +21,8 @@ namespace Spark.DataAccessLayer.Configurations
             builder.Property(x => x.Phone).HasMaxLength(20).IsRequired();
             builder.Property(x => x.Age).HasMaxLength(150);
             builder.Property(x => x.Gender).HasMaxLength(50);
+            builder.Property(x => x.CreatedAt).IsRequired();
+            builder.Property(x => x.UpdatedAt).IsRequired();
             builder.ToTable("tblUsers");
 
 
