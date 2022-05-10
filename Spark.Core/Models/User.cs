@@ -19,6 +19,16 @@ namespace Spark.Core.Models
         public bool IsAdmin { get; set; }
         public bool IsActive { get; set; }
         public bool IsDelete { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
+        public DateTime DeletedAt { get; set; }
+        public virtual ICollection<UserAnswer> UserAnswers { get; set; }
+        public virtual ICollection<Like> Users { get; set; }
+        public virtual ICollection<Like> LikedUsers { get; set; }
+        public virtual ICollection<Status> LikeOwners { get; set; }
+        public virtual ICollection<Status> LikeTargets { get; set; }
         
+        
+
     }
 }
