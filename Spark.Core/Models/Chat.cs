@@ -13,7 +13,6 @@ namespace Spark.Core.Models
         public Guid User2Id { get; set; }
         public bool IsWin { get; set; }
         public bool IsMatch { get; set; }
-        public virtual User User1 { get; set; }
-        public virtual User User2 { get; set; }
+  
     }
 }
