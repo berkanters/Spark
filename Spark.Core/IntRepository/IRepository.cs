@@ -15,9 +15,6 @@ namespace Spark.Core.IntRepository
         T Update(T entity);
         void Remove(T entity);
         void RemoveRange(IEnumerable<T> entities);
-        void DeleteById(int id);
-        Task DeleteAsync(T entity);
-        void DeleteRangeAsync(IEnumerable<T> entities);
         Task<IEnumerable<T>> Where(Expression<Func<T, bool>> predicate);
         Task<T> FirstOrDefaultAsync(Expression<Func<T, bool>> predicate);
         Task<T> SingleOrDefaultAsync(Expression<Func<T, bool>> predicate);
