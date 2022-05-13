@@ -25,10 +25,8 @@ namespace Spark.Core.Models
         public virtual ICollection<UserAnswer> UserAnswers { get; set; }
         public virtual ICollection<Like> Users { get; set; }
         public virtual ICollection<Like> LikedUsers { get; set; }
-        public virtual ICollection<Status> LikeOwners { get; set; }
-        public virtual ICollection<Status> LikeTargets { get; set; }
-        
-        
+
+
 
     }
 }
