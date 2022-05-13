@@ -15,7 +15,5 @@ namespace Spark.Core.Models
         public bool IsMatch { get; set; }
         public virtual User User1 { get; set; }
         public virtual User User2 { get; set; }
-        public virtual Status IsWinsStatus { get; set; }
-        public virtual Status IsMatchStatus { get; set; }
     }
 }

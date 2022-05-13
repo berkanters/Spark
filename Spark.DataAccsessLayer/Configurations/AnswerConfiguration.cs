@@ -4,7 +4,7 @@ using Spark.Core.Models;
 
 namespace Spark.DataAccessLayer.Configurations
 {
-    public class AnswerConfiguration: IEntityTypeConfiguration<Answer>
+    public class AnswerConfiguration : IEntityTypeConfiguration<Answer>
     {
         public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Answer> builder)
         {
@@ -14,4 +14,5 @@ namespace Spark.DataAccessLayer.Configurations
             builder.HasOne(x => x.Question).WithMany(q => q.Answers).HasForeignKey(x => x.QuestionId);
             builder.ToTable("tblAnswers");
         }
+    }
 }
