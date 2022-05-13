@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Spark.DataAccessLayer;
 
@@ -11,9 +12,10 @@ using Spark.DataAccessLayer;
 namespace Spark.DataAccessLayer.Migrations
 {
     [DbContext(typeof(SparkDBContext))]
-    partial class SparkDBContextModelSnapshot : ModelSnapshot
+    [Migration("20220513140859_Init")]
+    partial class Init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -168,7 +170,6 @@ namespace Spark.DataAccessLayer.Migrations
                         },
                         new
                         {
-
                             Id = new Guid("79849760-1ff8-4729-90cd-f9deffd839d5"),
                             Age = (short)25,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),

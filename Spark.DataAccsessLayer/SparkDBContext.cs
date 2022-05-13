@@ -18,10 +18,25 @@ namespace Spark.DataAccessLayer
         }
 
         DbSet<User> Users { get; set; }
+        DbSet<Like> Likes { get; set; }
+        DbSet<Answer> Answers { get; set; }
+        DbSet<Question> Questions { get; set; }
+        DbSet<UserAnswer> UserAnswers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+     
+
             modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new LikeConfiguration());
+            modelBuilder.ApplyConfiguration(new AnswerConfiguration());
+            modelBuilder.ApplyConfiguration(new QuestionConfiguration());
+            modelBuilder.ApplyConfiguration(new UserAnswerConfiguration());
+
+
+
+
+
             modelBuilder.ApplyConfiguration(new UserSeed());
         }
     }
