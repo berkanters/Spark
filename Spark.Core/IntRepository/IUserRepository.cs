@@ -9,7 +9,7 @@ namespace Spark.Core.IntRepository
 {
     public interface IUserRepository:IRepository<User>
     {
-        Task<IEnumerable<User>> GetUserByGenderAndAge(string gender,short age);
+        Task<IEnumerable<User>> GetUserByGenderAndAge(string gender,short minAge,short maxAge);
        
     }
 }
