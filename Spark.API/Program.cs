@@ -1,5 +1,11 @@
 using Microsoft.EntityFrameworkCore;
+using Spark.Core.IntRepository;
+using Spark.Core.IntService;
+using Spark.Core.IntUnitOfWork;
 using Spark.DataAccessLayer;
+using Spark.DataAccessLayer.Repository;
+using Spark.DataAccessLayer.UnitOfWork;
+using Spark.Services.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,7 +26,10 @@ builder.Services.AddDbContext<SparkDBContext>(options =>
     });
 });
 
-   
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped(typeof(IService<>), typeof(Service<>));
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();
 
