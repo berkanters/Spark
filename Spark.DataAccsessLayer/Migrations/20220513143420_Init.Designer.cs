@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Spark.DataAccessLayer;
 
@@ -11,9 +12,10 @@ using Spark.DataAccessLayer;
 namespace Spark.DataAccessLayer.Migrations
 {
     [DbContext(typeof(SparkDBContext))]
-    partial class SparkDBContextModelSnapshot : ModelSnapshot
+    [Migration("20220513143420_Init")]
+    partial class Init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -151,7 +153,7 @@ namespace Spark.DataAccessLayer.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("aac8bf42-5c5f-452b-b4cb-deb7c2d0bdf9"),
+                            Id = new Guid("9a064491-aef2-49b9-be9a-67b38e34ab7d"),
                             Age = (short)20,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -168,9 +170,7 @@ namespace Spark.DataAccessLayer.Migrations
                         },
                         new
                         {
-
-
-                            Id = new Guid("79849760-1ff8-4729-90cd-f9deffd839d5"),
+                            Id = new Guid("d597efe6-2608-47e9-b250-cb2999904086"),
                             Age = (short)25,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
