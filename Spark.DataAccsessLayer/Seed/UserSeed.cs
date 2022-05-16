@@ -13,6 +13,7 @@ namespace Spark.DataAccessLayer.Seed
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
+
             builder.HasData(
                 new User()
                 {
@@ -29,6 +30,7 @@ namespace Spark.DataAccessLayer.Seed
                     Gender = "Man"
 
                 },
+          
                 new User()
                 {
                     Id = Guid.NewGuid(),
@@ -44,6 +46,41 @@ namespace Spark.DataAccessLayer.Seed
                     Gender = "Man"
 
                 });
+            for (int i = 0; i < 20; i++)
+            {
+                
+                
+                builder.HasData(
+                    new User()
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = FakeData.NameData.GetFirstName(),
+                        LastName = FakeData.NameData.GetSurname(),
+                        Email = FakeData.NetworkData.GetEmail(),
+                        Age = (short) FakeData.NumberData.GetNumber(18, 65),
+                        Password = "123456",
+                        IsAdmin = false,
+                        IsActive = true,
+                        IsDelete = false,
+                        Phone = FakeData.PhoneNumberData.GetPhoneNumber(),
+                        Gender = "Man"
+                    },
+                new User()
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = FakeData.NameData.GetFirstName(),
+                        LastName = FakeData.NameData.GetSurname(),
+                        Email = FakeData.NetworkData.GetEmail(),
+                        Age = (short)FakeData.NumberData.GetNumber(18, 65),
+                        Password = "123456",
+                        IsAdmin = false,
+                        IsActive = true,
+                        IsDelete = false,
+                        Phone = FakeData.PhoneNumberData.GetPhoneNumber(),
+                        Gender = "Woman"
+                    }
+                    );
+            }
         }
     }
 }
