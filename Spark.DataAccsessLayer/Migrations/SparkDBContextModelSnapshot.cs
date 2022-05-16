@@ -151,7 +151,7 @@ namespace Spark.DataAccessLayer.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("060c6eb9-9ced-4dbb-8ec8-490090342cb0"),
+                            Id = new Guid("aac8bf42-5c5f-452b-b4cb-deb7c2d0bdf9"),
                             Age = (short)20,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -168,6 +168,7 @@ namespace Spark.DataAccessLayer.Migrations
                         },
                         new
                         {
+
 
                             Id = new Guid("79849760-1ff8-4729-90cd-f9deffd839d5"),
                             Age = (short)25,

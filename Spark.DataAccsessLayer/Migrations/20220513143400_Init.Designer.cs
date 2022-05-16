@@ -12,7 +12,7 @@ using Spark.DataAccessLayer;
 namespace Spark.DataAccessLayer.Migrations
 {
     [DbContext(typeof(SparkDBContext))]
-    [Migration("20220513140859_Init")]
+    [Migration("20220513143400_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -153,7 +153,7 @@ namespace Spark.DataAccessLayer.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("060c6eb9-9ced-4dbb-8ec8-490090342cb0"),
+                            Id = new Guid("aac8bf42-5c5f-452b-b4cb-deb7c2d0bdf9"),
                             Age = (short)20,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -170,7 +170,7 @@ namespace Spark.DataAccessLayer.Migrations
                         },
                         new
                         {
-                            Id = new Guid("79849760-1ff8-4729-90cd-f9deffd839d5"),
+                            Id = new Guid("042cc7f4-9651-4622-9d89-5db9b4e3671e"),
                             Age = (short)25,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
