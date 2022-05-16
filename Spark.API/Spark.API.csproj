@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Spark.DataAccsessLayer\Spark.DataAccessLayer.csproj" />
+    <ProjectReference Include="..\Spark.Services\Spark.Services.csproj" />
   </ItemGroup>
 
 </Project>
