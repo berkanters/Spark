@@ -21,7 +21,8 @@ namespace Spark.DataAccessLayer.Repository
 
         public async Task<IEnumerable<User>> GetUserByGenderAndAge(string gender, short age)
         {
-            return (await SparkDBContext.)
+            var user=SparkDBContext.
+            return ()
         }
     }
 }
