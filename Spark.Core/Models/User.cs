@@ -18,7 +18,7 @@ namespace Spark.Core.Models
         public string Phone { get; set; }
         public bool IsAdmin { get; set; }
         public bool IsActive { get; set; }
-        public bool IsDelete { get; set; }
+        public bool IsDeleted { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
         public DateTime DeletedAt { get; set; }

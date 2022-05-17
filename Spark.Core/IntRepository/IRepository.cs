@@ -19,6 +19,7 @@ namespace Spark.Core.IntRepository
         Task<T> FirstOrDefaultAsync(Expression<Func<T, bool>> predicate);
         Task<T> SingleOrDefaultAsync(Expression<Func<T, bool>> predicate);
         Task<IQueryable<T>> QListAsync();
+        void SoftDelete(Guid id);
 
     }
     

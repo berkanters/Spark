@@ -25,7 +25,7 @@ namespace Spark.DataAccessLayer.Seed
                     Password = "123456",
                     IsAdmin = true,
                     IsActive = true,
-                    IsDelete = false,
+                    IsDeleted = false,
                     Phone = "05362454497",
                     Gender = "Man"
 
@@ -41,7 +41,7 @@ namespace Spark.DataAccessLayer.Seed
                     Password = "123456",
                     IsAdmin = true,
                     IsActive = true,
-                    IsDelete = false,
+                    IsDeleted = false,
                     Phone = "05394643458",
                     Gender = "Man"
 
@@ -61,7 +61,7 @@ namespace Spark.DataAccessLayer.Seed
                         Password = "123456",
                         IsAdmin = false,
                         IsActive = true,
-                        IsDelete = false,
+                        IsDeleted = false,
                         Phone = FakeData.PhoneNumberData.GetPhoneNumber(),
                         Gender = "Man"
                     },
@@ -75,7 +75,7 @@ namespace Spark.DataAccessLayer.Seed
                         Password = "123456",
                         IsAdmin = false,
                         IsActive = true,
-                        IsDelete = false,
+                        IsDeleted = false,
                         Phone = FakeData.PhoneNumberData.GetPhoneNumber(),
                         Gender = "Woman"
                     }

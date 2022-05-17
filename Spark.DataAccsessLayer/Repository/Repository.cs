@@ -69,5 +69,11 @@ namespace Spark.DataAccessLayer.Repository
         {
             return await Task.FromResult(_dbSet.AsQueryable());
         }
+
+        public void SoftDelete(Guid id)
+        {
+            _db.Entry(GetByIdAsync(id).Result).Property("IsDeleted").CurrentValue = true;
+            //_db.Entry(entity).Property("IsDeleted").CurrentValue = true;
+        }
     }
 }
