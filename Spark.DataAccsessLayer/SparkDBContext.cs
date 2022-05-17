@@ -25,7 +25,8 @@ namespace Spark.DataAccessLayer
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-     
+            
+
 
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new LikeConfiguration());

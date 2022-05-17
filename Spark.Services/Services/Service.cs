@@ -75,5 +75,11 @@ namespace Spark.Services.Services
         {
             return await _repo.QListAsync();
         }
+
+        public void SoftDelete(Guid id)
+        {
+            _repo.SoftDelete(id);
+            _unit.Commit();
+        }
     }
 }

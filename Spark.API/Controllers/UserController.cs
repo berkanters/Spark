@@ -52,5 +52,12 @@ namespace Spark.API.Controllers
             return NoContent();
         }
 
+        [HttpPut("delete/{id:guid}")]
+        public IActionResult Delete(Guid id)
+        {
+            _userService.SoftDelete(id);
+            return NoContent();
+        }
+
     }
 }
