@@ -29,5 +29,16 @@ namespace Spark.Services.Services
             _unit.Commit();
 
         }
+
+        public bool IsThereAnyMatch(Guid id, Guid lId)
+        {
+            return _unit.Like.IsThereAnyMatch(id, lId);
+        }
+
+        public void RemoveMatch(Guid id, Guid lId)
+        {
+            _unit.Like.RemoveMatch(id,lId);
+            _unit.Commit();
+        }
     }
 }
