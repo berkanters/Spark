@@ -12,21 +12,21 @@ namespace Spark.Services.Services
 {
     public class LikeService:Service<Like>,ILikeService
     {
-        public readonly IUnitOfWork _unit;
         private readonly IRepository<Like> _repo;
+        public readonly IUnitOfWork _unit;
 
         public LikeService(IUnitOfWork unit, IRepository<Like> repo) : base(unit, repo)
         {
-            _unit = unit;
             _repo = repo;
+            _unit = unit;
         }
 
-        public async Task<Like> PostUserByID(Guid id, Guid lId, Like entity)
-        {
 
-            _repo.AddAsync(entity);
-            _unit.CommitAsync();
-            return await _unit.Like.PostUserByID(id, lId, entity);
+        public void MatchUsersWithUserIDs(Guid id, Guid lId)
+        {
+            //_repo.MatchUsersWithUserIDs(id, lId, entity);
+            _unit.Like.MatchUsersWithUserIDs(id, lId);
+            _unit.Commit();
 
         }
     }

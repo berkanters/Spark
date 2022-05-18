@@ -12,7 +12,7 @@ namespace Spark.DataAccessLayer.Repository
 {
     public class LikeRepository : Repository<Like>, ILikeRepository
     {
-        public SparkDBContext sparkDbContext
+        public SparkDBContext sparkDBContext
         {
             get => _db as SparkDBContext;
         }
@@ -21,19 +21,22 @@ namespace Spark.DataAccessLayer.Repository
         }
 
 
-        public async Task<Like> PostUserByID(Guid id, Guid lId, Like entity)
+        public void MatchUsersWithUserIDs(Guid id, Guid lId)
         {
-            return null;
-        }
-
-        public Task<Like> GetByLikeID(Guid id, Guid lId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Like UpdateByLike(Like entity)
-        {
-            throw new NotImplementedException();
+            Like entity = new Like();
+            var checkLike = sparkDBContext.Likes.FirstOrDefaultAsync(x => x.LikedUserId == id && x.UserId == lId).Result;
+            if (checkLike == null)
+            {
+                entity.UserId = id;
+                entity.LikedUserId = lId;
+                _dbSet.AddAsync(entity);
+            }
+            else
+            {
+                entity = sparkDBContext.Likes.FirstOrDefaultAsync(x => x.LikedUserId == id && x.UserId == lId).Result;
+                entity.IsMatch = true;
+                _dbSet.Update(entity);
+            }
         }
     }
 }

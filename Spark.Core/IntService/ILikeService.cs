@@ -9,6 +9,6 @@ namespace Spark.Core.IntService
 {
     public interface ILikeService:IService<Like>
     {
-        Task<Like> PostUserByID(Guid id, Guid lId, Like entity);
+        void MatchUsersWithUserIDs(Guid id, Guid lId);
     }
 }

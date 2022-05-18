@@ -24,27 +24,15 @@ namespace Spark.API.Controllers
         public async Task<IActionResult> GetAll()
         {
             var like = await _likeService.GetAllAsync();
-            return Ok(like);
+            return Ok(_mapper.Map<IEnumerable<LikeDto>>(like));
         }
 
         [HttpPost("{id:guid}/{lId:guid}")]
-        public async Task<IActionResult> Save(LikeDto likeDto,Guid id,Guid lId)
+        public async Task<IActionResult> Save(Guid id, Guid lId)
         {
-            if (await _likeService.GetByIdAsync().FirstOrDefaultAsync(l => l.LikedUserId != id && l.UserId != lId) == null)
-                sparkDbContext.AddAsync(entity);
-            return entity;
-
-            //entity.UserId = id;
-            //entity.LikedUserId = lId;
-            //await sparkDbContext.Likes.AddAsync(entity);
-            //await sparkDbContext.SaveChangesAsync();
-            //return entity;
+            _likeService.MatchUsersWithUserIDs(id, lId);
+            return NoContent();
         }
-        else
-        {
-            var like = await sparkDbContext.Likes.FirstOrDefaultAsync(x => x.LikedUserId == id && x.UserId == lId);
-            return await GetByIdAsync(like.Id);
-        }
-}
+        
     }
 }

@@ -9,10 +9,8 @@ namespace Spark.Core.IntRepository
 {
     public interface ILikeRepository : IRepository<Like>
     {
-        Task<Like> PostUserByID(Guid id, Guid lId,Like entity);
-        Task<Like> GetByLikeID(Guid id, Guid lId);
-
-        Like UpdateByLike(Like entity);
+        void MatchUsersWithUserIDs(Guid id, Guid lId);
+      
 
     }
 }
