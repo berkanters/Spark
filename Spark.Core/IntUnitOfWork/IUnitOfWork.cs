@@ -11,6 +11,7 @@ namespace Spark.Core.IntUnitOfWork
     {
         IAnswerRepository Answer { get; }
         IUserRepository User { get; }
+        ILikeRepository Like { get; }
         Task CommitAsync();
         void Commit();
     }

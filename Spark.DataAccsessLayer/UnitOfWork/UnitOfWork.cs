@@ -13,6 +13,7 @@ namespace Spark.DataAccessLayer.UnitOfWork
     {
         private readonly SparkDBContext _db;
         private UserRepository _userRepository;
+        private LikeRepository _likeRepository;
 
 
         public UnitOfWork(SparkDBContext db)
@@ -21,6 +22,7 @@ namespace Spark.DataAccessLayer.UnitOfWork
         }
         public IAnswerRepository Answer { get; }
         public IUserRepository User => _userRepository ?? new UserRepository(_db);
+        public ILikeRepository Like => _likeRepository ?? new LikeRepository(_db);
         public Task CommitAsync()
         {
             return _db.SaveChangesAsync();

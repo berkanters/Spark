@@ -7,9 +7,10 @@ using Spark.Core.Models;
 
 namespace Spark.Core.IntRepository
 {
-    public interface IUserRepository:IRepository<User>
+    public interface ILikeRepository : IRepository<Like>
     {
-        Task<IEnumerable<User>> GetUserByGenderAndAge(string gender,short minAge,short maxAge);
-        
+        void MatchUsersWithUserIDs(Guid id, Guid lId);
+      
+
     }
 }

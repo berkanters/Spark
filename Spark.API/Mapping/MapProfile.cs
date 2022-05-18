@@ -11,6 +11,8 @@ using AutoMapper;
         {
         CreateMap<User, UserDto>();
         CreateMap<UserDto, User>();
-    }
+        CreateMap<Like, LikeDto>();
+        CreateMap<LikeDto, Like>();
+        }
     
 }
