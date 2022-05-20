@@ -12,7 +12,7 @@ using Spark.DataAccessLayer;
 namespace Spark.DataAccessLayer.Migrations
 {
     [DbContext(typeof(SparkDBContext))]
-    [Migration("20220518110514_Init")]
+    [Migration("20220520134222_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,6 +43,35 @@ namespace Spark.DataAccessLayer.Migrations
                     b.HasIndex("QuestionId");
 
                     b.ToTable("tblAnswers", (string)null);
+                });
+
+            modelBuilder.Entity("Spark.Core.Models.Chat", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("MessageDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("MessageText")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<Guid>("User1Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("User2Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("User1Id");
+
+                    b.HasIndex("User2Id");
+
+                    b.ToTable("tblChatLog", (string)null);
                 });
 
             modelBuilder.Entity("Spark.Core.Models.Like", b =>
@@ -153,7 +182,7 @@ namespace Spark.DataAccessLayer.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("8d8fd1fb-71bf-4f72-9587-398942fecbeb"),
+                            Id = new Guid("7987e50e-ff10-4f05-81d0-c69b026efce3"),
                             Age = (short)20,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -170,7 +199,7 @@ namespace Spark.DataAccessLayer.Migrations
                         },
                         new
                         {
-                            Id = new Guid("472af041-6ee3-482a-9a6b-b01e93a8cb60"),
+                            Id = new Guid("937bd554-8298-42c5-94e6-614d2c1befcc"),
                             Age = (short)25,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -187,682 +216,682 @@ namespace Spark.DataAccessLayer.Migrations
                         },
                         new
                         {
-                            Id = new Guid("7b4108a6-ad2a-4fbf-ba0b-6e15a463f699"),
-                            Age = (short)28,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "Andrea.Baldwin@flipkart.biz",
-                            Gender = "Man",
-                            IsActive = true,
-                            IsAdmin = false,
-                            IsDeleted = false,
-                            LastName = "Mcfarlane",
-                            Name = "Alexander",
-                            Password = "123456",
-                            Phone = "01586-501375",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = new Guid("0d3b8bb2-74c5-4c08-bde5-b3db73ecf068"),
-                            Age = (short)19,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "Mia.Wyatt@arstechnica.net",
-                            Gender = "Woman",
-                            IsActive = true,
-                            IsAdmin = false,
-                            IsDeleted = false,
-                            LastName = "Obrien",
-                            Name = "Scott",
-                            Password = "123456",
-                            Phone = "01438-815801",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = new Guid("2d738a80-e0da-4ebd-a059-77fe144078ee"),
-                            Age = (short)43,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "S.Taylor@lego.biz",
-                            Gender = "Man",
-                            IsActive = true,
-                            IsAdmin = false,
-                            IsDeleted = false,
-                            LastName = "Hooper",
-                            Name = "Kayden",
-                            Password = "123456",
-                            Phone = "01312-780298",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = new Guid("25a5a20f-cd7e-4b1d-82e7-d683cfc5aeaf"),
-                            Age = (short)25,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "B.Briggs@live.org",
-                            Gender = "Woman",
-                            IsActive = true,
-                            IsAdmin = false,
-                            IsDeleted = false,
-                            LastName = "Akhtar",
-                            Name = "Hunter",
-                            Password = "123456",
-                            Phone = "01246-072703",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = new Guid("9189270e-02f1-487a-a379-c0ca5f0c1ae9"),
+                            Id = new Guid("81d89a2d-43c2-4b06-a743-08c8197f89de"),
                             Age = (short)62,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "N.Jones@studio1337.info",
-                            Gender = "Man",
-                            IsActive = true,
-                            IsAdmin = false,
-                            IsDeleted = false,
-                            LastName = "Cullen",
-                            Name = "Natalie",
-                            Password = "123456",
-                            Phone = "01148-394473",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = new Guid("e43b6d44-0e86-4a50-9463-3e8131b86eb7"),
-                            Age = (short)20,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "Lucas.Briggs@wikipedia.org.uk",
-                            Gender = "Woman",
-                            IsActive = true,
-                            IsAdmin = false,
-                            IsDeleted = false,
-                            LastName = "Briggs",
-                            Name = "Ryder",
-                            Password = "123456",
-                            Phone = "01957-581879",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = new Guid("919c5840-8168-4511-8cf1-1c208c35c423"),
-                            Age = (short)52,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "Nathaniel.Nelson@maplin.org.uk",
-                            Gender = "Man",
-                            IsActive = true,
-                            IsAdmin = false,
-                            IsDeleted = false,
-                            LastName = "Buckley",
-                            Name = "Maya",
-                            Password = "123456",
-                            Phone = "01049-553151",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = new Guid("381b6806-de13-4517-b57d-34bfd69ac2ab"),
-                            Age = (short)64,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "I.Watson@google.org.uk",
-                            Gender = "Woman",
-                            IsActive = true,
-                            IsAdmin = false,
-                            IsDeleted = false,
-                            LastName = "Walker",
-                            Name = "Nevaeh",
-                            Password = "123456",
-                            Phone = "01663-313904",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = new Guid("76282dbd-9f44-47ec-abbb-5cd84cefc503"),
-                            Age = (short)43,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "Charles.Carroll@ebay.org.uk",
-                            Gender = "Man",
-                            IsActive = true,
-                            IsAdmin = false,
-                            IsDeleted = false,
-                            LastName = "Sinclair",
-                            Name = "Henry",
-                            Password = "123456",
-                            Phone = "01303-517065",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = new Guid("b067e4fd-46d2-479d-b825-7eff0d32f52a"),
-                            Age = (short)24,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "H.Thompson@globo.org",
-                            Gender = "Woman",
-                            IsActive = true,
-                            IsAdmin = false,
-                            IsDeleted = false,
-                            LastName = "White",
-                            Name = "Isaac",
-                            Password = "123456",
-                            Phone = "01331-673262",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = new Guid("baad8c61-32c5-4b64-ba28-c23efbe4bfa7"),
-                            Age = (short)63,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "Evelyn.Sanders@etsy.info",
-                            Gender = "Man",
-                            IsActive = true,
-                            IsAdmin = false,
-                            IsDeleted = false,
-                            LastName = "Hancock",
-                            Name = "Mackenzie",
-                            Password = "123456",
-                            Phone = "01068-974306",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = new Guid("77d7c1d7-29a7-4d5d-9daa-0bd33ec27267"),
-                            Age = (short)47,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "C.Robinson@ask.us",
-                            Gender = "Woman",
-                            IsActive = true,
-                            IsAdmin = false,
-                            IsDeleted = false,
-                            LastName = "Weaver",
-                            Name = "Olivia",
-                            Password = "123456",
-                            Phone = "01418-544079",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = new Guid("5a4ae0c3-f40c-4876-a31b-b1741f0fdb32"),
-                            Age = (short)19,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "G.Adam@ask.org",
-                            Gender = "Man",
-                            IsActive = true,
-                            IsAdmin = false,
-                            IsDeleted = false,
-                            LastName = "Dale",
-                            Name = "Blake",
-                            Password = "123456",
-                            Phone = "01402-446042",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = new Guid("945dbc03-8b17-46f2-a306-b23538cc72f4"),
-                            Age = (short)31,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "Carter.Little@globo.co.uk",
-                            Gender = "Woman",
-                            IsActive = true,
-                            IsAdmin = false,
-                            IsDeleted = false,
-                            LastName = "Wright",
-                            Name = "Jacob",
-                            Password = "123456",
-                            Phone = "01367-178666",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = new Guid("7137a0b6-f8a2-423b-9829-76271514c38e"),
-                            Age = (short)53,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "Kevin.Stuart@flipkart.net",
-                            Gender = "Man",
-                            IsActive = true,
-                            IsAdmin = false,
-                            IsDeleted = false,
-                            LastName = "Mcgrath",
-                            Name = "Savannah",
-                            Password = "123456",
-                            Phone = "01633-771304",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = new Guid("f2a8a7aa-1018-4053-af9c-fb94a51869fe"),
-                            Age = (short)30,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "S.Schofield@sky.net",
-                            Gender = "Woman",
-                            IsActive = true,
-                            IsAdmin = false,
-                            IsDeleted = false,
-                            LastName = "Hooper",
-                            Name = "Damian",
-                            Password = "123456",
-                            Phone = "01429-849012",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = new Guid("d3214b15-d75e-4182-b85a-3e7f458f2bb3"),
-                            Age = (short)62,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "K.Mcgrath@wikipedia.info",
-                            Gender = "Man",
-                            IsActive = true,
-                            IsAdmin = false,
-                            IsDeleted = false,
-                            LastName = "Walker",
-                            Name = "Aaron",
-                            Password = "123456",
-                            Phone = "01993-701301",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = new Guid("b1253c47-e311-45b0-876d-c90daa5d576e"),
-                            Age = (short)35,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "Mia.Walker@bing.org",
-                            Gender = "Woman",
-                            IsActive = true,
-                            IsAdmin = false,
-                            IsDeleted = false,
-                            LastName = "Mann",
-                            Name = "Alyssa",
-                            Password = "123456",
-                            Phone = "01418-085571",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = new Guid("bf8beaff-a62a-4ea6-94e0-0a4acb64423d"),
-                            Age = (short)59,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "Juan.Shepherd@amazon.net",
-                            Gender = "Man",
-                            IsActive = true,
-                            IsAdmin = false,
-                            IsDeleted = false,
-                            LastName = "Stuart",
-                            Name = "Chase",
-                            Password = "123456",
-                            Phone = "01919-185575",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = new Guid("706a4f02-3fbb-428a-82ab-9517c0382dbe"),
-                            Age = (short)28,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "Ava.Hilton@maplin.co",
-                            Gender = "Woman",
-                            IsActive = true,
-                            IsAdmin = false,
-                            IsDeleted = false,
-                            LastName = "Sanders",
-                            Name = "Dominic",
-                            Password = "123456",
-                            Phone = "01102-309400",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = new Guid("30db0a72-70af-4335-84bb-f571e1602f9c"),
-                            Age = (short)35,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "Emily.Nash@deviantart.com",
-                            Gender = "Man",
-                            IsActive = true,
-                            IsAdmin = false,
-                            IsDeleted = false,
-                            LastName = "Weaver",
-                            Name = "Christian",
-                            Password = "123456",
-                            Phone = "01263-063007",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = new Guid("a899fae7-c405-40de-92c8-25c2a08aa2f1"),
-                            Age = (short)51,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "Madison.Jennings@flipkart.com",
-                            Gender = "Woman",
-                            IsActive = true,
-                            IsAdmin = false,
-                            IsDeleted = false,
-                            LastName = "Shepherd",
-                            Name = "Kimberly",
-                            Password = "123456",
-                            Phone = "01684-661988",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = new Guid("3736b9be-38fa-4ea8-8156-d2d53e4045bf"),
-                            Age = (short)63,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "Emma.Abbott@maplin.com",
-                            Gender = "Man",
-                            IsActive = true,
-                            IsAdmin = false,
-                            IsDeleted = false,
-                            LastName = "Cassidy",
-                            Name = "Nicholas",
-                            Password = "123456",
-                            Phone = "01226-959150",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = new Guid("47d43e18-4cfb-49fe-b003-717c2a618824"),
-                            Age = (short)18,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "Connor.Schofield@flipkart.info",
-                            Gender = "Woman",
-                            IsActive = true,
-                            IsAdmin = false,
-                            IsDeleted = false,
-                            LastName = "Swift",
-                            Name = "Landon",
-                            Password = "123456",
-                            Phone = "01035-764931",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = new Guid("88564521-fdd1-4f2b-a55e-d66e34cc8c6d"),
-                            Age = (short)18,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "Ethan.Perkins@bing.biz",
-                            Gender = "Man",
-                            IsActive = true,
-                            IsAdmin = false,
-                            IsDeleted = false,
-                            LastName = "Mcfarlane",
-                            Name = "Robert",
-                            Password = "123456",
-                            Phone = "01711-023372",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = new Guid("e2bb4a66-37ab-45e5-bcd8-e5ff1bcaeb34"),
-                            Age = (short)30,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "L.Giles@linkedin.co.uk",
-                            Gender = "Woman",
-                            IsActive = true,
-                            IsAdmin = false,
-                            IsDeleted = false,
-                            LastName = "Mac",
-                            Name = "Hudson",
-                            Password = "123456",
-                            Phone = "01853-230625",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = new Guid("af314107-1fc8-46cd-a1b1-e9d785ad11e2"),
-                            Age = (short)25,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "L.Little@bbc.org",
-                            Gender = "Man",
-                            IsActive = true,
-                            IsAdmin = false,
-                            IsDeleted = false,
-                            LastName = "Carroll",
-                            Name = "Olivia",
-                            Password = "123456",
-                            Phone = "01275-649503",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = new Guid("8c2aafa6-1eaf-4bd7-8d05-d8b1d371ef45"),
-                            Age = (short)42,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "N.Harris@live.org.uk",
-                            Gender = "Woman",
-                            IsActive = true,
-                            IsAdmin = false,
-                            IsDeleted = false,
-                            LastName = "Schofield",
-                            Name = "Jason",
-                            Password = "123456",
-                            Phone = "01211-686004",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = new Guid("4eb48729-1e92-4b54-808f-3e422c48199c"),
-                            Age = (short)36,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "Alex.Adam@bbc.org.uk",
-                            Gender = "Man",
-                            IsActive = true,
-                            IsAdmin = false,
-                            IsDeleted = false,
-                            LastName = "Jones",
-                            Name = "Brody",
-                            Password = "123456",
-                            Phone = "01343-427267",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = new Guid("e6d6fe77-4157-445a-9e1c-7ba6bc9cdee0"),
-                            Age = (short)44,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "Nathan.Jones@msdn.info",
-                            Gender = "Woman",
-                            IsActive = true,
-                            IsAdmin = false,
-                            IsDeleted = false,
-                            LastName = "Hilton",
-                            Name = "Katherine",
-                            Password = "123456",
-                            Phone = "01793-154534",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = new Guid("540fa515-f608-4e79-9dd2-dbf62cd2bcab"),
-                            Age = (short)61,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "R.Coles@bet365.org.uk",
-                            Gender = "Man",
-                            IsActive = true,
-                            IsAdmin = false,
-                            IsDeleted = false,
-                            LastName = "Bradshaw",
-                            Name = "Eva",
-                            Password = "123456",
-                            Phone = "01168-213325",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = new Guid("91c8f99b-4580-4bf3-848c-956c7440d605"),
-                            Age = (short)43,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "D.Walters@google.org",
-                            Gender = "Woman",
-                            IsActive = true,
-                            IsAdmin = false,
-                            IsDeleted = false,
-                            LastName = "Nash",
-                            Name = "Parker",
-                            Password = "123456",
-                            Phone = "01931-257613",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = new Guid("7c813924-ffb5-46e8-a251-2baabe13e50c"),
-                            Age = (short)42,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "Eva.Watson@arstechnica.info",
-                            Gender = "Man",
-                            IsActive = true,
-                            IsAdmin = false,
-                            IsDeleted = false,
-                            LastName = "Schofield",
-                            Name = "Logan",
-                            Password = "123456",
-                            Phone = "01698-446110",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = new Guid("e0900abe-6386-4fba-9271-e36ad8715ddd"),
-                            Age = (short)45,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "R.Summers@live.net",
-                            Gender = "Woman",
-                            IsActive = true,
-                            IsAdmin = false,
-                            IsDeleted = false,
-                            LastName = "Jones",
-                            Name = "Naomi",
-                            Password = "123456",
-                            Phone = "01349-502530",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = new Guid("f1eb9aab-9485-4716-b27f-bb0c8d9dd02c"),
-                            Age = (short)19,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "Sofia.Schofield@paypal.us",
-                            Gender = "Man",
-                            IsActive = true,
-                            IsAdmin = false,
-                            IsDeleted = false,
-                            LastName = "Blair",
-                            Name = "Mark",
-                            Password = "123456",
-                            Phone = "01700-597743",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = new Guid("88c166b5-2b68-4e7a-88b1-eb7b3f5098b5"),
-                            Age = (short)50,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "M.Walters@techcrunch.org.uk",
-                            Gender = "Woman",
-                            IsActive = true,
-                            IsAdmin = false,
-                            IsDeleted = false,
-                            LastName = "Haines",
-                            Name = "Carson",
-                            Password = "123456",
-                            Phone = "01313-471878",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = new Guid("dbc62751-85e2-45ef-8c80-113267e6c281"),
-                            Age = (short)56,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "Liam.Perkins@wikia.org.uk",
-                            Gender = "Man",
-                            IsActive = true,
-                            IsAdmin = false,
-                            IsDeleted = false,
-                            LastName = "Peters",
-                            Name = "Chloe",
-                            Password = "123456",
-                            Phone = "01039-724757",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = new Guid("3b0c8783-4a95-45bc-b167-09a938d92fb3"),
-                            Age = (short)43,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "A.Green@baidu.net",
-                            Gender = "Woman",
-                            IsActive = true,
-                            IsAdmin = false,
-                            IsDeleted = false,
-                            LastName = "Thornton",
-                            Name = "Connor",
-                            Password = "123456",
-                            Phone = "01256-575226",
-                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = new Guid("be5df69c-c7c3-4a71-8830-f8c8a61f1df4"),
-                            Age = (short)56,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "Olivia.Mcgrath@163.net",
+                            Email = "Amelia.Hooper@stackoverflow.co",
                             Gender = "Man",
                             IsActive = true,
                             IsAdmin = false,
                             IsDeleted = false,
                             LastName = "Naylor",
-                            Name = "Ava",
+                            Name = "Joseph",
                             Password = "123456",
-                            Phone = "01494-108621",
+                            Phone = "01547-183487",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Id = new Guid("649bc2c7-0375-46ab-b7cf-9e77460ef069"),
-                            Age = (short)32,
+                            Id = new Guid("c1a4e5fd-45a5-411c-b0b1-299ac77ff599"),
+                            Age = (short)58,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "A.Hooper@globo.us",
+                            Email = "Austin.Naylor@google.co.uk",
                             Gender = "Woman",
                             IsActive = true,
                             IsAdmin = false,
                             IsDeleted = false,
-                            LastName = "Joyce",
+                            LastName = "Mac",
+                            Name = "Serenity",
+                            Password = "123456",
+                            Phone = "01120-685209",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("e89227b6-5cb6-4ac8-8cef-9e96d916c335"),
+                            Age = (short)51,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Carlos.Evans@wordpress.info",
+                            Gender = "Man",
+                            IsActive = true,
+                            IsAdmin = false,
+                            IsDeleted = false,
+                            LastName = "Osborne",
+                            Name = "Anna",
+                            Password = "123456",
+                            Phone = "01079-801013",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("80c4eb51-84cc-4f33-bcb1-39572f75e1bb"),
+                            Age = (short)34,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "E.Weaver@expedia.net",
+                            Gender = "Woman",
+                            IsActive = true,
+                            IsAdmin = false,
+                            IsDeleted = false,
+                            LastName = "Robinson",
+                            Name = "Amelia",
+                            Password = "123456",
+                            Phone = "01754-282276",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("906c493e-015f-4269-9d47-51ac6a7d9b0e"),
+                            Age = (short)52,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Bentley.Wright@linkedin.co.uk",
+                            Gender = "Man",
+                            IsActive = true,
+                            IsAdmin = false,
+                            IsDeleted = false,
+                            LastName = "Little",
+                            Name = "Luke",
+                            Password = "123456",
+                            Phone = "01458-280890",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("4a7baf7c-0785-4e9c-a963-e67f50dd4846"),
+                            Age = (short)21,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Cooper.Chadwick@theguardian.co.uk",
+                            Gender = "Woman",
+                            IsActive = true,
+                            IsAdmin = false,
+                            IsDeleted = false,
+                            LastName = "Taylor",
+                            Name = "Violet",
+                            Password = "123456",
+                            Phone = "01887-447565",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("da4e3396-a0f7-4470-980e-959cf3e9301a"),
+                            Age = (short)55,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Kayden.Mcgregor@youtube.biz",
+                            Gender = "Man",
+                            IsActive = true,
+                            IsAdmin = false,
+                            IsDeleted = false,
+                            LastName = "Brown",
+                            Name = "Audrey",
+                            Password = "123456",
+                            Phone = "01563-769921",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("cb1d4d69-7077-4d91-ae33-63d413a8d9da"),
+                            Age = (short)27,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "F.Seymour@taobao.org.uk",
+                            Gender = "Woman",
+                            IsActive = true,
+                            IsAdmin = false,
+                            IsDeleted = false,
+                            LastName = "Buckley",
+                            Name = "Ella",
+                            Password = "123456",
+                            Phone = "01379-619409",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("5f788a73-877f-45aa-be67-eac743238570"),
+                            Age = (short)37,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "J.Little@yahoo.org.uk",
+                            Gender = "Man",
+                            IsActive = true,
+                            IsAdmin = false,
+                            IsDeleted = false,
+                            LastName = "Adam",
+                            Name = "Bailey",
+                            Password = "123456",
+                            Phone = "01834-033738",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("f07d88bd-02cc-46d9-97ab-6b55c796a715"),
+                            Age = (short)64,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "A.Wyatt@flipkart.biz",
+                            Gender = "Woman",
+                            IsActive = true,
+                            IsAdmin = false,
+                            IsDeleted = false,
+                            LastName = "Smith",
+                            Name = "Wyatt",
+                            Password = "123456",
+                            Phone = "01651-551934",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("3a1a78f7-3722-48d7-a55d-4c940fcada98"),
+                            Age = (short)33,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "James.Wood@maplin.org",
+                            Gender = "Man",
+                            IsActive = true,
+                            IsAdmin = false,
+                            IsDeleted = false,
+                            LastName = "Cassidy",
+                            Name = "Benjamin",
+                            Password = "123456",
+                            Phone = "01081-993405",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("e62ffdb5-26c0-439b-ab30-8042e1b8ced0"),
+                            Age = (short)57,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "John.Carroll@yelp.biz",
+                            Gender = "Woman",
+                            IsActive = true,
+                            IsAdmin = false,
+                            IsDeleted = false,
+                            LastName = "Mcgrath",
+                            Name = "Ellie",
+                            Password = "123456",
+                            Phone = "01630-401107",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("b06d2ef6-6a3e-406e-9d6b-ef398a9d5856"),
+                            Age = (short)47,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Lydia.Mellor@wikia.biz",
+                            Gender = "Man",
+                            IsActive = true,
+                            IsAdmin = false,
+                            IsDeleted = false,
+                            LastName = "Whittaker",
+                            Name = "Arianna",
+                            Password = "123456",
+                            Phone = "01160-980345",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("fcc83050-30cd-4909-bad5-aef555ff6871"),
+                            Age = (short)19,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Savannah.Thomas@pinterest.info",
+                            Gender = "Woman",
+                            IsActive = true,
+                            IsAdmin = false,
+                            IsDeleted = false,
+                            LastName = "Thornton",
+                            Name = "Gavin",
+                            Password = "123456",
+                            Phone = "01979-714702",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("39cb0ac5-e06c-45ff-a265-ab8d3092ff71"),
+                            Age = (short)35,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "B.Mohamed@bestbuy.org",
+                            Gender = "Man",
+                            IsActive = true,
+                            IsAdmin = false,
+                            IsDeleted = false,
+                            LastName = "Lewis",
                             Name = "James",
                             Password = "123456",
-                            Phone = "01710-967965",
+                            Phone = "01017-349511",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("ee15986c-11de-4057-8911-630c5f6f11b8"),
+                            Age = (short)39,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Liam.Power@techcrunch.biz",
+                            Gender = "Woman",
+                            IsActive = true,
+                            IsAdmin = false,
+                            IsDeleted = false,
+                            LastName = "Summers",
+                            Name = "Jonathan",
+                            Password = "123456",
+                            Phone = "01487-240588",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("93172229-d102-431a-b684-52153f0d1b98"),
+                            Age = (short)48,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "L.White@wikipedia.com",
+                            Gender = "Man",
+                            IsActive = true,
+                            IsAdmin = false,
+                            IsDeleted = false,
+                            LastName = "Cassidy",
+                            Name = "Madelyn",
+                            Password = "123456",
+                            Phone = "01545-598973",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("16fbf7f5-6333-46dd-a4f1-3327f49ae62a"),
+                            Age = (short)57,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Connor.Thornton@amazon.us",
+                            Gender = "Woman",
+                            IsActive = true,
+                            IsAdmin = false,
+                            IsDeleted = false,
+                            LastName = "Evans",
+                            Name = "Luke",
+                            Password = "123456",
+                            Phone = "01245-636393",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("9d1c8cb9-3a44-4d5c-a0a8-0cfe1f51a5f0"),
+                            Age = (short)46,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Logan.Roberts@adamriddick.net",
+                            Gender = "Man",
+                            IsActive = true,
+                            IsAdmin = false,
+                            IsDeleted = false,
+                            LastName = "Thompson",
+                            Name = "Jackson",
+                            Password = "123456",
+                            Phone = "01088-557962",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("0dad43b3-b7b0-4c36-885c-c669730e9172"),
+                            Age = (short)56,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "M.Fleming@stackoverflow.co",
+                            Gender = "Woman",
+                            IsActive = true,
+                            IsAdmin = false,
+                            IsDeleted = false,
+                            LastName = "Naylor",
+                            Name = "Mark",
+                            Password = "123456",
+                            Phone = "01920-313820",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("b04c49b8-8702-41f2-bf7c-c0aed472e0e9"),
+                            Age = (short)21,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "E.Adam@wikia.org.uk",
+                            Gender = "Man",
+                            IsActive = true,
+                            IsAdmin = false,
+                            IsDeleted = false,
+                            LastName = "Mcgrath",
+                            Name = "Gavin",
+                            Password = "123456",
+                            Phone = "01453-820825",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("ac7293ed-2bda-4b25-8129-5f35d8b6c8b8"),
+                            Age = (short)61,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Gianna.Nelson@paypal.co",
+                            Gender = "Woman",
+                            IsActive = true,
+                            IsAdmin = false,
+                            IsDeleted = false,
+                            LastName = "Weaver",
+                            Name = "Bailey",
+                            Password = "123456",
+                            Phone = "01875-501896",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("ee297258-46fe-4367-8c96-fc68369819e7"),
+                            Age = (short)31,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Sydney.Davies@google.info",
+                            Gender = "Man",
+                            IsActive = true,
+                            IsAdmin = false,
+                            IsDeleted = false,
+                            LastName = "Wood",
+                            Name = "Henry",
+                            Password = "123456",
+                            Phone = "01410-287945",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("d66de2f1-ec9c-432f-aab7-b89ecda631ce"),
+                            Age = (short)39,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Brody.Rossi@expedia.com",
+                            Gender = "Woman",
+                            IsActive = true,
+                            IsAdmin = false,
+                            IsDeleted = false,
+                            LastName = "Naylor",
+                            Name = "Ethan",
+                            Password = "123456",
+                            Phone = "01973-083247",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("f16b7eda-16dd-4675-b0ca-f2e08f0fccd3"),
+                            Age = (short)27,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "W.Little@sky.org.uk",
+                            Gender = "Man",
+                            IsActive = true,
+                            IsAdmin = false,
+                            IsDeleted = false,
+                            LastName = "Mcgrath",
+                            Name = "Mackenzie",
+                            Password = "123456",
+                            Phone = "01748-979581",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("f3e84985-7a63-4a44-b275-156b98a8ca99"),
+                            Age = (short)57,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "A.Lord@msdn.biz",
+                            Gender = "Woman",
+                            IsActive = true,
+                            IsAdmin = false,
+                            IsDeleted = false,
+                            LastName = "Walker",
+                            Name = "Mark",
+                            Password = "123456",
+                            Phone = "01312-974461",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("a7c7fe59-eea5-48bd-bd38-b74f997ba08f"),
+                            Age = (short)53,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "S.Wright@yelp.biz",
+                            Gender = "Man",
+                            IsActive = true,
+                            IsAdmin = false,
+                            IsDeleted = false,
+                            LastName = "Hancock",
+                            Name = "Kennedy",
+                            Password = "123456",
+                            Phone = "01761-662083",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("437bb8a7-2f3a-46d4-a1e2-f25fdbb80ec2"),
+                            Age = (short)20,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Levi.Baldwin@yelp.com",
+                            Gender = "Woman",
+                            IsActive = true,
+                            IsAdmin = false,
+                            IsDeleted = false,
+                            LastName = "Williams",
+                            Name = "Serenity",
+                            Password = "123456",
+                            Phone = "01510-923331",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("9bffbd62-3595-4986-8726-c0ab72e1c221"),
+                            Age = (short)53,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "S.Leach@youtube.org",
+                            Gender = "Man",
+                            IsActive = true,
+                            IsAdmin = false,
+                            IsDeleted = false,
+                            LastName = "Rossi",
+                            Name = "Taylor",
+                            Password = "123456",
+                            Phone = "01307-370126",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("5560627a-d454-49a1-8f1c-76b0f53857ab"),
+                            Age = (short)24,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "T.Obrien@yahoo.com",
+                            Gender = "Woman",
+                            IsActive = true,
+                            IsAdmin = false,
+                            IsDeleted = false,
+                            LastName = "Nash",
+                            Name = "Sydney",
+                            Password = "123456",
+                            Phone = "01880-268172",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("5db650b8-fccf-4698-aad9-e94a0c5e8f72"),
+                            Age = (short)36,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Trinity.Seymour@stackoverflow.us",
+                            Gender = "Man",
+                            IsActive = true,
+                            IsAdmin = false,
+                            IsDeleted = false,
+                            LastName = "Thornton",
+                            Name = "Luke",
+                            Password = "123456",
+                            Phone = "01805-118788",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("b0b84691-9f3a-456b-bde9-f601e02fb25a"),
+                            Age = (short)24,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Carter.Jennings@yahoo.net",
+                            Gender = "Woman",
+                            IsActive = true,
+                            IsAdmin = false,
+                            IsDeleted = false,
+                            LastName = "Mcfarlane",
+                            Name = "Lily",
+                            Password = "123456",
+                            Phone = "01519-020139",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("06adf891-4687-44f8-931d-cb4c61ac3ae5"),
+                            Age = (short)45,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "J.Sinclair@deviantart.net",
+                            Gender = "Man",
+                            IsActive = true,
+                            IsAdmin = false,
+                            IsDeleted = false,
+                            LastName = "Jackson",
+                            Name = "Hannah",
+                            Password = "123456",
+                            Phone = "01519-312376",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("b84c9bfd-fc90-4cfa-9e70-7438564df9d2"),
+                            Age = (short)23,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "M.Wyatt@expedia.org.uk",
+                            Gender = "Woman",
+                            IsActive = true,
+                            IsAdmin = false,
+                            IsDeleted = false,
+                            LastName = "Mcgregor",
+                            Name = "Grace",
+                            Password = "123456",
+                            Phone = "01104-395314",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("74056842-6b58-43f6-bbc3-f974bf92d99d"),
+                            Age = (short)27,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Natalie.Burrows@sohu.net",
+                            Gender = "Man",
+                            IsActive = true,
+                            IsAdmin = false,
+                            IsDeleted = false,
+                            LastName = "Evans",
+                            Name = "Hannah",
+                            Password = "123456",
+                            Phone = "01829-985477",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("8246ffc5-ae60-4702-b775-3f55e41d9672"),
+                            Age = (short)39,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Bryson.Riddick@ebay.co.uk",
+                            Gender = "Woman",
+                            IsActive = true,
+                            IsAdmin = false,
+                            IsDeleted = false,
+                            LastName = "Thompson",
+                            Name = "Kayden",
+                            Password = "123456",
+                            Phone = "01028-767519",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("9c3258de-a89a-4b84-a0d0-25bbf4e46578"),
+                            Age = (short)22,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "C.Dale@deviantart.biz",
+                            Gender = "Man",
+                            IsActive = true,
+                            IsAdmin = false,
+                            IsDeleted = false,
+                            LastName = "Thornton",
+                            Name = "Genesis",
+                            Password = "123456",
+                            Phone = "01257-384691",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("219e732d-689e-4c99-b497-792f830c245b"),
+                            Age = (short)24,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Ian.Carroll@theguardian.us",
+                            Gender = "Woman",
+                            IsActive = true,
+                            IsAdmin = false,
+                            IsDeleted = false,
+                            LastName = "Whelan",
+                            Name = "Benjamin",
+                            Password = "123456",
+                            Phone = "01570-394606",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("b97054f4-5d5f-405b-9915-533882c66a6b"),
+                            Age = (short)26,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Anthony.Barlow@studio1337.co",
+                            Gender = "Man",
+                            IsActive = true,
+                            IsAdmin = false,
+                            IsDeleted = false,
+                            LastName = "Cullen",
+                            Name = "John",
+                            Password = "123456",
+                            Phone = "01931-697379",
+                            UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("2e5f9124-faf9-48b0-a476-574e6f8030bd"),
+                            Age = (short)30,
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Z.Thompson@taobao.com",
+                            Gender = "Woman",
+                            IsActive = true,
+                            IsAdmin = false,
+                            IsDeleted = false,
+                            LastName = "Wood",
+                            Name = "Scarlett",
+                            Password = "123456",
+                            Phone = "01724-538380",
                             UpdatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
@@ -897,6 +926,25 @@ namespace Spark.DataAccessLayer.Migrations
                         .IsRequired();
 
                     b.Navigation("Question");
+                });
+
+            modelBuilder.Entity("Spark.Core.Models.Chat", b =>
+                {
+                    b.HasOne("Spark.Core.Models.User", "User1")
+                        .WithMany("User1Chats")
+                        .HasForeignKey("User1Id")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Spark.Core.Models.User", "User2")
+                        .WithMany("User2Chats")
+                        .HasForeignKey("User2Id")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("User1");
+
+                    b.Navigation("User2");
                 });
 
             modelBuilder.Entity("Spark.Core.Models.Like", b =>
@@ -950,6 +998,10 @@ namespace Spark.DataAccessLayer.Migrations
             modelBuilder.Entity("Spark.Core.Models.User", b =>
                 {
                     b.Navigation("LikedUsers");
+
+                    b.Navigation("User1Chats");
+
+                    b.Navigation("User2Chats");
 
                     b.Navigation("UserAnswers");
 

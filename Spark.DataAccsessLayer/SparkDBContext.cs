@@ -22,6 +22,7 @@ namespace Spark.DataAccessLayer
         public DbSet<Answer> Answers { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<UserAnswer> UserAnswers { get; set; }
+        public DbSet<Chat> Chats { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -33,6 +34,7 @@ namespace Spark.DataAccessLayer
             modelBuilder.ApplyConfiguration(new AnswerConfiguration());
             modelBuilder.ApplyConfiguration(new QuestionConfiguration());
             modelBuilder.ApplyConfiguration(new UserAnswerConfiguration());
+            modelBuilder.ApplyConfiguration(new ChatConfiguration());
 
 
 

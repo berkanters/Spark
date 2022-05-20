@@ -11,8 +11,10 @@ namespace Spark.Core.Models
         public Guid Id { get; set; }
         public Guid User1Id { get; set; }
         public Guid User2Id { get; set; }
-        public bool IsWin { get; set; }
-        public bool IsMatch { get; set; }
-  
+        public string MessageText { get; set; }
+        public DateTime MessageDate { get; set; }
+
+        public virtual User User1 { get; set; }
+        public virtual User User2 { get; set; }
     }
 }

@@ -13,6 +13,8 @@ using AutoMapper;
         CreateMap<UserDto, User>();
         CreateMap<Like, LikeDto>();
         CreateMap<LikeDto, Like>();
+        CreateMap<ChatDto, Chat>();
+        CreateMap<Chat, ChatDto>();
         }
     
 }
