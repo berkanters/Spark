@@ -20,9 +20,10 @@ namespace Spark.DataAccessLayer.UnitOfWork
         {
             _db = db;
         }
-        public IAnswerRepository Answer { get; }
         public IUserRepository User => _userRepository ?? new UserRepository(_db);
         public ILikeRepository Like => _likeRepository ?? new LikeRepository(_db);
+        public IGameRepository Game { get; }
+
         public Task CommitAsync()
         {
             return _db.SaveChangesAsync();

@@ -7,8 +7,9 @@ using Spark.Core.Models;
 
 namespace Spark.Core.IntService
 {
-    public interface IAnswerService:IService<Answer>
+    public interface IGameService
     {
-        Task<UserAnswer> GetUserAnswerWithQuestionId(Guid id);        
+        Task<IEnumerable<Question>> GetAllWithAnswersAsync();
+        Task<Question> GetWithAnswersByIdAsync(Guid qId);
     }
 }

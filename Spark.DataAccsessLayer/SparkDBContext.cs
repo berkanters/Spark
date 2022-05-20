@@ -25,7 +25,15 @@ namespace Spark.DataAccessLayer
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+            Guid q1 = Guid.NewGuid();
+            Guid q2 = Guid.NewGuid();
+            Guid q3 = Guid.NewGuid();
+            Guid q4 = Guid.NewGuid();
+            Guid q5 = Guid.NewGuid();
+            Guid q6 = Guid.NewGuid();
+            Guid q7 = Guid.NewGuid();
+            Guid q8 = Guid.NewGuid();
+            Guid q9 = Guid.NewGuid();
 
 
             modelBuilder.ApplyConfiguration(new UserConfiguration());
@@ -34,11 +42,18 @@ namespace Spark.DataAccessLayer
             modelBuilder.ApplyConfiguration(new QuestionConfiguration());
             modelBuilder.ApplyConfiguration(new UserAnswerConfiguration());
 
+            modelBuilder.ApplyConfiguration(new QuestionSeed(new Guid[] { q1, q2, q3, q4, q5, q6, q7 ,q8,q9}));
+            modelBuilder.ApplyConfiguration(new AnswerSeed(new Guid[] { q1, q2, q3, q4, q5, q6, q7, q8,q9}));
+
 
 
 
 
             modelBuilder.ApplyConfiguration(new UserSeed());
+        }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.EnableSensitiveDataLogging();
         }
     }
 }

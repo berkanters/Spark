@@ -7,8 +7,9 @@ using Spark.Core.Models;
 
 namespace Spark.Core.IntRepository
 {
-    public interface IAnswerRepository:IRepository<UserAnswer>
+    public interface IGameRepository: IRepository<Question>
     {
-        Task<UserAnswer> GetUserAnswerWithQuestionId(Guid id);
+        Task<IEnumerable<Question>> GetAllWithAnswersAsync();
+        Task<Question> GetWithAnswersByIdAsync(Guid qId);
     }
 }
