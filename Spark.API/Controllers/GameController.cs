@@ -10,22 +10,22 @@ namespace Spark.API.Controllers
     [ApiController]
     public class GameController : ControllerBase
     {
-        private IGameService _questionService;
+        private IGameService _gameService;
 
-        public GameController(IGameService questionService)
+        public GameController(IGameService gameService)
         {
-            _questionService = questionService;
+            _gameService = gameService;
         }
         [HttpGet]
-        public async Task<IEnumerable<IActionResult>> GetAllWithAnswer()
+        public async Task<IActionResult> GetAllWithAnswer()
         {
-            var que= await _questionService.GetAllWithAnswersAsync();
-            return Ok(que);
+            var que= await _gameService.GetAllWithAnswersAsync();
+            return  Ok(que);
         }
         [HttpGet("{qId:guid}")]
         public async Task<IActionResult> GetById(Guid qId)
         {
-            var que = await _questionService.GetWithAnswersByIdAsync(qId);
+            var que = await _gameService.GetWithAnswersByIdAsync(qId);
             return Ok(que);
         }
     }

@@ -9,7 +9,7 @@ namespace Spark.Core.IntRepository
 {
     public interface IGameRepository: IRepository<Question>
     {
-        Task<IEnumerable<Question>> GetAllWithAnswersAsync();
+        Task<IEnumerable<Question>>GetAllWithAnswersAsync();
         Task<Question> GetWithAnswersByIdAsync(Guid qId);
     }
 }

@@ -10,7 +10,7 @@ using Spark.Core.Models;
 
 namespace Spark.DataAccessLayer.Repository
 {
-    public class GameRepository : Repository<Question>, Core.IntRepository.IGameRepository
+    public class GameRepository : Repository<Question>,IGameRepository
     {
         private SparkDBContext sparkDbContext
         {
@@ -24,7 +24,7 @@ namespace Spark.DataAccessLayer.Repository
 
         public async Task<IEnumerable<Question>> GetAllWithAnswersAsync()
         {
-            var question = sparkDbContext.Questions.Include("Answer").ToListAsync();
+            var question = sparkDbContext.Questions.Include(s=>s.Answers).ToListAsync();
             return (await question);
         }
 
