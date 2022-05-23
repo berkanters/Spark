@@ -15,6 +15,7 @@ namespace Spark.DataAccessLayer.UnitOfWork
         private UserRepository _userRepository;
         private LikeRepository _likeRepository;
         private GameRepository _gameRepository;
+        private UserAnswerRepository _userAnswerRepository;
 
 
         public UnitOfWork(SparkDBContext db)
@@ -24,6 +25,7 @@ namespace Spark.DataAccessLayer.UnitOfWork
         public IUserRepository User => _userRepository ?? new UserRepository(_db);
         public ILikeRepository Like => _likeRepository ?? new LikeRepository(_db);
         public IGameRepository Game => _gameRepository ?? new GameRepository(_db);
+        public IUserAnswerRepository userAnswer => _userAnswerRepository ?? new UserAnswerRepository(_db);
 
         public Task CommitAsync()
         {

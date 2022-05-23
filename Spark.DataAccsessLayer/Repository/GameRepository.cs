@@ -10,7 +10,7 @@ using Spark.Core.Models;
 
 namespace Spark.DataAccessLayer.Repository
 {
-    public class GameRepository : Repository<Question>,IGameRepository
+    public class GameRepository : Repository<Question>, IGameRepository
     {
         private SparkDBContext sparkDbContext
         {

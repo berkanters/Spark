@@ -11,6 +11,11 @@ namespace Spark.DataAccessLayer.Seed
 {
     public class UserSeed : IEntityTypeConfiguration<User>
     {
+        //private readonly Guid[] _guids;
+        //public UserSeed(Guid[] guids)
+        //{
+        //    _guids = guids;
+        //}
         public void Configure(EntityTypeBuilder<User> builder)
         {
 

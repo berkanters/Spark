@@ -12,6 +12,8 @@ namespace Spark.Core.Models
         public Guid UserId { get; set; }
         public virtual User User { get; set; }
         public Guid AnswerId { get; set; }
+        public Guid QuestionId { get; set; }
         public virtual Answer Answer { get; set; }
+        public virtual Question Question { get; set; }
     }
 }

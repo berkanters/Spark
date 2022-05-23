@@ -11,5 +11,6 @@ namespace Spark.Core.Models
         public Guid Id { get; set; }
         public string QuestionBody { get; set; }
         public virtual ICollection<Answer> Answers { get; set; }
+        public virtual ICollection<UserAnswer> UserAnswers { get; set; }
     }
 }
