@@ -20,9 +20,9 @@ namespace Spark.Services.Services
             _unit = unit;
         }
 
-        public Task<IQueryable<Chat>> GetMessagesBetween2Person(Guid id, Guid id2)
+        public async Task<IQueryable<Chat>> GetMessagesBetween2Person(Guid id, Guid id2)
         {
-            return _unit.Chat.GetMessagesBetween2Person(id, id2);
+            return await _unit.Chat.GetMessagesBetween2Person(id, id2);
             
         }
     }
