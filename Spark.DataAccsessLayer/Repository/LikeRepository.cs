@@ -54,8 +54,8 @@ namespace Spark.DataAccessLayer.Repository
 
         public void RemoveMatch(Guid id, Guid lId)
         {
-            var match1 = sparkDBContext.Likes.FirstOrDefaultAsync(x => x.LikedUserId == id && x.UserId == lId).Result;
-            var match2 = sparkDBContext.Likes.FirstOrDefaultAsync(x => x.UserId == id && x.LikedUserId == lId).Result;
+            var match1 = sparkDBContext.Likes.FirstOrDefaultAsync(x => x.LikedUserId == id && x.UserId == lId&&x.IsMatch==true).Result;
+            var match2 = sparkDBContext.Likes.FirstOrDefaultAsync(x => x.UserId == id && x.LikedUserId == lId && x.IsMatch == true).Result;
             if (match1 != null)
             {
                 sparkDBContext.Likes.Remove(match1);

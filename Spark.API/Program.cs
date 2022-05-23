@@ -31,6 +31,7 @@ builder.Services.AddScoped(typeof(IService<>), typeof(Service<>));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ILikeService, LikeService>();
+builder.Services.AddScoped<IChatService, ChatService>();
 
 var app = builder.Build();
 
