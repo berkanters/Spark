@@ -7,8 +7,9 @@ using Spark.Core.Models;
 
 namespace Spark.Core.IntRepository
 {
-    public interface IAnswerRepository:IRepository<UserAnswer>
+    public interface IUserAnswerRepository : IRepository<UserAnswer>
     {
-        Task<UserAnswer> GetUserAnswerWithQuestionId(Guid id);
+        void ChooseAnswer(Guid uId, Guid aId, Guid qId);
+        Task<UserAnswer> GetUserAnswerByQuestion(Guid uId, Guid qId);
     }
 }

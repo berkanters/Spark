@@ -15,6 +15,7 @@ namespace Spark.DataAccessLayer.Configurations
             builder.HasKey(x => x.Id);
             builder.HasOne(p => p.User).WithMany(p => p.UserAnswers).HasForeignKey(p => p.UserId);
             builder.HasOne(p => p.Answer).WithMany(p => p.UserAnswers).HasForeignKey(p => p.AnswerId);
+            builder.HasOne(p => p.Question).WithMany(p => p.UserAnswers).HasForeignKey(p => p.QuestionId).OnDelete(DeleteBehavior.Restrict);
             builder.ToTable("tblUserAnswer");
 
         }

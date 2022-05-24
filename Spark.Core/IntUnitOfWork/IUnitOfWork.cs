@@ -9,10 +9,12 @@ namespace Spark.Core.IntUnitOfWork
 {
     public interface IUnitOfWork
     {
-        IAnswerRepository Answer { get; }
         IUserRepository User { get; }
         ILikeRepository Like { get; }
+
         IChatRepository Chat { get; }
+        IGameRepository Game { get; }
+        IUserAnswerRepository userAnswer { get; }
         Task CommitAsync();
         void Commit();
     }

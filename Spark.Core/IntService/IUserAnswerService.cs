@@ -7,8 +7,9 @@ using Spark.Core.Models;
 
 namespace Spark.Core.IntService
 {
-    public interface IAnswerService:IService<Answer>
+    public interface IUserAnswerService:IService<UserAnswer>
     {
-        Task<UserAnswer> GetUserAnswerWithQuestionId(Guid id);        
+        Task<UserAnswer> ChooseAnswer(Guid uId, Guid aId,Guid qId);
+        Task<UserAnswer> GetUserAnswer(Guid uId, Guid qId);
     }
 }
