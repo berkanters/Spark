@@ -105,6 +105,7 @@ namespace Spark.DataAccessLayer
             modelBuilder.ApplyConfiguration(new AnswerConfiguration());
             modelBuilder.ApplyConfiguration(new QuestionConfiguration());
             modelBuilder.ApplyConfiguration(new UserAnswerConfiguration());
+            
 
             modelBuilder.ApplyConfiguration(new QuestionSeed(new Guid[] { q1, q2, q3, q4, q5, q6, q7 ,q8,q9}));
             modelBuilder.ApplyConfiguration(new AnswerSeed(new Guid[] { q1, q2, q3, q4, q5, q6, q7, q8,q9}));
