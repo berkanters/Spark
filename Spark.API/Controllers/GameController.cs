@@ -65,10 +65,10 @@ namespace Spark.API.Controllers
         [HttpPut("/Score/{id1:guid}/{id2:guid}/{score:int}")]
         public async Task<IActionResult> ScoreUp(Guid id1, Guid id2, int score)
         {
-            
-            _likeService.ScoreUp(id1,id2,score);
-            
-            if (_likeService.IsThereAnyWin(id1,id2))
+
+            _likeService.ScoreUp(id1, id2, score);
+
+            if (_likeService.IsThereAnyWin(id1, id2))
             {
                 return Ok("IsWin = True");
             }
@@ -76,7 +76,8 @@ namespace Spark.API.Controllers
             {
                 return NoContent();
             }
-            
+
+        }
 
         [HttpGet("{qId:guid}/{uId:guid}/answers")]
         public async Task<IActionResult> GetFakeAnswers(Guid qId, Guid uId)
