@@ -61,6 +61,7 @@ namespace Spark.API.Controllers
             return Ok();
         }
 
+
         [HttpPut("/Score/{id1:guid}/{id2:guid}/{score:int}")]
         public async Task<IActionResult> ScoreUp(Guid id1, Guid id2, int score)
         {
@@ -76,6 +77,12 @@ namespace Spark.API.Controllers
                 return NoContent();
             }
             
+
+        [HttpGet("{qId:guid}/{uId:guid}/answers")]
+        public async Task<IActionResult> GetFakeAnswers(Guid qId, Guid uId)
+        {
+            return Ok(_gameService.GetFakeAnswers(qId, uId));
+
         }
     }
 }
