@@ -11,5 +11,7 @@ namespace Spark.Core.IntService
     {
         Task<IEnumerable<Question>> GetAllWithAnswersAsync();
         Task<Question> GetWithAnswersByIdAsync(Guid qId);
+
+        Task<List<Answer>> GetFakeAnswers(Guid questId, Guid userId);
     }
 }

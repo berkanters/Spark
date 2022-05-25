@@ -27,6 +27,11 @@ namespace Spark.Services.Services
             {
                 return await _unit.Game.GetWithAnswersByIdAsync(qId);
             }
+
+            public async Task<List<Answer>> GetFakeAnswers(Guid questId, Guid userId)
+            {
+            return await _unit.Game.GetFakeAnswers(questId, userId);
         }
+    }
     }
 
