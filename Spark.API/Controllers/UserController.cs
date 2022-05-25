@@ -59,5 +59,13 @@ namespace Spark.API.Controllers
             return NoContent();
         }
 
+        [HttpGet("location/{id:guid}/{id2:guid}")]
+        public async Task<IActionResult> CalculateDistance(Guid id, Guid id2)
+        {
+            var location =  _userService.CalculateDistance(id, id2);
+            
+            return Ok((int)location + " KM");
+        }
+
     }
 }

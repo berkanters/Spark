@@ -62,9 +62,11 @@ namespace Spark.API.Controllers
         }
 
         [HttpPut("/Score/{id1:guid}/{id2:guid}/{score:int}")]
-        public IActionResult ScoreUp(Guid id1, Guid id2, int score)
+        public async Task<IActionResult> ScoreUp(Guid id1, Guid id2, int score)
         {
+            
             _likeService.ScoreUp(id1,id2,score);
+            
             if (_likeService.IsThereAnyWin(id1,id2))
             {
                 return Ok("IsWin = True");

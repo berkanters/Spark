@@ -22,6 +22,8 @@ namespace Spark.Core.Models
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
         public DateTime DeletedAt { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
         public virtual ICollection<UserAnswer> UserAnswers { get; set; }
         public virtual ICollection<Like> Users { get; set; }
         public virtual ICollection<Like> LikedUsers { get; set; }

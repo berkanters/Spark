@@ -49,7 +49,25 @@ namespace Spark.Services.Services
 
         public bool IsThereAnyWin(Guid id1, Guid id2)
         {
-            return _unit.Like.IsThereAnyWin(id1, id2);
+            //_unit.Like.IsThereAnyWin(id1, id2);
+            //_unit.Commit();
+            //return _unit.Like.IsThereAnyWin(id1, id2);
+
+            if (_unit.Like.IsThereAnyWin(id1, id2))
+            {
+                _unit.Commit();
+                return true;
+            }
+            else
+            {
+                _unit.Commit();
+                return false;
+            }
+        }
+
+        public async Task<IEnumerable<Like>> GetAllMyMatches(Guid id)
+        {
+            return await _unit.Like.GetAllMyMatches(id);
         }
     }
 }

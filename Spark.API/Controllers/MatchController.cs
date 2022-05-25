@@ -48,6 +48,13 @@ namespace Spark.API.Controllers
             return Ok("Unmatch Succeed");
 
         }
-        
+
+        [HttpGet("{id:guid}")]
+        public async Task<IActionResult> GetAllMyMatches(Guid id)
+        {
+            var like = await _likeService.GetAllMyMatches(id);
+            return Ok(_mapper.Map < IEnumerable<LikeDto>>(like));
+        }
+
     }
 }

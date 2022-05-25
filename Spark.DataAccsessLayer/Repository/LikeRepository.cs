@@ -84,29 +84,53 @@ namespace Spark.DataAccessLayer.Repository
 
         public bool IsThereAnyWin(Guid id1, Guid id2)
         {
-            var checkWin1 = sparkDBContext.Likes.FirstOrDefaultAsync(x => x.UserId == id1 && x.LikedUserId == id2).Result;
-            var checkWin2 = sparkDBContext.Likes.FirstOrDefaultAsync(x => x.LikedUserId == id1 && x.UserId == id2).Result;
-            if (checkWin1!=null&&checkWin1.User1Score != null && checkWin1.User2Score != null && (checkWin1.User1Score+checkWin1.User2Score)/2 >= 10)
-            {
-                checkWin1.IsWin = true;
-                sparkDBContext.Likes.Update(checkWin1);
-                return true;
-            }
-            else if (checkWin2!=null&&checkWin2.User1Score!=null && checkWin2.User2Score!=null&& (checkWin2.User1Score/checkWin2.User2Score)/2 >= 10)
-            {
-                checkWin2.IsWin = true;
-                sparkDBContext.Likes.Update(checkWin2);
-                return true;
-            }
-            else if (checkWin1 != null && checkWin1.User1Score != null && checkWin1.User2Score != null&& (checkWin1.User1Score + checkWin1.User2Score)/2 <=10)
-            {
-                RemoveMatch(id1, id2);
-            }else if (checkWin2 != null&&checkWin2.User1Score != null && checkWin2.User2Score != null&& (checkWin2.User1Score / checkWin2.User2Score) / 2 >= 10)
-            {
-                RemoveMatch(id2, id1);
-            }
+            var checkWin1 = sparkDBContext.Likes.FirstOrDefaultAsync(x => x.UserId == id1 && x.LikedUserId == id2&& x.IsMatch == true).Result;
+            var checkWin2 = sparkDBContext.Likes.FirstOrDefaultAsync(x => x.LikedUserId == id1 && x.UserId == id2 && x.IsMatch == true).Result;
 
+            if (checkWin1 != null)
+            {
+                if (checkWin1.User1Score == null || checkWin1.User2Score == null)
+                {
+                    return false;
+                }
+               
+                else if (checkWin1.User1Score + checkWin1.User2Score >= 10)
+                {
+                    checkWin1.IsWin = true;
+                    sparkDBContext.Likes.Update(checkWin1);
+                    return true;
+                }
+                else if (checkWin1.User1Score>0&& checkWin1.User2Score>0&&(checkWin1.User1Score + checkWin1.User2Score < 10))
+                {
+                    sparkDBContext.Likes.Remove(checkWin1);
+                    return false;
+                }
+                
+            }
+            else if (checkWin2 != null)
+            {
+                if (checkWin2.User1Score == null || checkWin2.User2Score == null)
+                {
+                    return false;
+                }
+                else if (checkWin2.User1Score + checkWin2.User2Score >= 10)
+                {
+                    checkWin2.IsWin = true;
+                    sparkDBContext.Likes.Update(checkWin2);
+                    return true;
+                }
+                else if (checkWin2.User1Score > 0 && checkWin2.User2Score > 0 && (checkWin2.User1Score + checkWin2.User2Score < 10))
+                {
+                    sparkDBContext.Likes.Remove(checkWin2);
+                    return false;
+                }
+            }
             return false;
+        }
+
+        public async Task<IEnumerable<Like>> GetAllMyMatches(Guid id)
+        {
+            return await sparkDBContext.Likes.Where(x =>( x.UserId == id|| x.LikedUserId==id) && x.IsMatch == true).ToListAsync();
         }
     }
 }
