@@ -40,5 +40,16 @@ namespace Spark.Services.Services
             _unit.Like.RemoveMatch(id,lId);
             _unit.Commit();
         }
+
+        public void ScoreUp(Guid id1, Guid id2, int score)
+        {
+            _unit.Like.ScoreUp(id1, id2, score);
+            _unit.Commit();
+        }
+
+        public bool IsThereAnyWin(Guid id1, Guid id2)
+        {
+            return _unit.Like.IsThereAnyWin(id1, id2);
+        }
     }
 }

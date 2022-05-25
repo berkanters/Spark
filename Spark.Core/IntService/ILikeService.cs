@@ -12,5 +12,7 @@ namespace Spark.Core.IntService
         void MatchUsersWithUserIDs(Guid id, Guid lId);
         bool IsThereAnyMatch(Guid id, Guid lId);
         void RemoveMatch(Guid id, Guid lId);
+        void ScoreUp(Guid id1, Guid id2, int score);
+        bool IsThereAnyWin(Guid id1, Guid id2);
     }
 }
