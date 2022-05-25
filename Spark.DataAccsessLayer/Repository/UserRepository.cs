@@ -26,5 +26,25 @@ namespace Spark.DataAccessLayer.Repository
                 .ToListAsync();
             return (await user);
         }
+
+        public double CalculateDistance(Guid user1Id, Guid user2Id)
+        {
+            var user1 = sparkDBContext.Users.FirstOrDefault(x => x.Id == user1Id);
+            var user2 = sparkDBContext.Users.FirstOrDefault(x => x.Id == user2Id);
+            //Math.PI* usr1Lat / 180;
+            double usr1Lat = Math.PI * user1.Latitude / 180;
+            double usr1Lon = Math.PI * user1.Longitude / 180;
+            double usr2Lat = Math.PI * user2.Latitude / 180;
+            double usr2Lon = Math.PI * user2.Longitude / 180;
+
+            double dLon = usr2Lon - usr1Lon;
+            double dLat = usr2Lat - usr1Lat;
+
+            double a = Math.Pow(Math.Sin(dLat / 2), 2) + Math.Cos(usr1Lat) * Math.Cos(usr2Lat) * Math.Pow(Math.Sin(dLon / 2), 2);
+            double c = 2 * Math.Asin(Math.Sqrt(a));
+            double r = 6371;
+            double d = c * r;
+            return d;
+        }
     }
 }

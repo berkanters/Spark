@@ -13,6 +13,12 @@ namespace Spark.Core.IntRepository
         bool IsThereAnyMatch(Guid id,Guid lId);
         void RemoveMatch(Guid id, Guid lId);
 
+        void ScoreUp(Guid id1, Guid id2, int score);
+
+        bool IsThereAnyWin(Guid id1, Guid id2);
+
+        Task<IEnumerable<Like>> GetAllMyMatches(Guid id);
+
 
     }
 }

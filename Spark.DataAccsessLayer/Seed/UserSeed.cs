@@ -32,7 +32,9 @@ namespace Spark.DataAccessLayer.Seed
                     IsActive = true,
                     IsDeleted = false,
                     Phone = "05362454497",
-                    Gender = "Man"
+                    Gender = "Man",
+                    Latitude = FakeData.NumberData.GetNumber(-90, 90),
+                    Longitude = FakeData.NumberData.GetNumber(-180, 180)
 
                 },
           
@@ -48,7 +50,9 @@ namespace Spark.DataAccessLayer.Seed
                     IsActive = true,
                     IsDeleted = false,
                     Phone = "05394643458",
-                    Gender = "Man"
+                    Gender = "Man",
+                    Latitude = FakeData.NumberData.GetNumber(-90, 90),
+                    Longitude = FakeData.NumberData.GetNumber(-180, 180)
 
                 });
             for (int i = 0; i < 20; i++)
@@ -68,7 +72,9 @@ namespace Spark.DataAccessLayer.Seed
                         IsActive = true,
                         IsDeleted = false,
                         Phone = FakeData.PhoneNumberData.GetPhoneNumber(),
-                        Gender = "Man"
+                        Gender = "Man",
+                        Latitude = FakeData.NumberData.GetNumber(-90,90),
+                        Longitude = FakeData.NumberData.GetNumber(-180,180)
                     },
                 new User()
                     {
@@ -82,8 +88,10 @@ namespace Spark.DataAccessLayer.Seed
                         IsActive = true,
                         IsDeleted = false,
                         Phone = FakeData.PhoneNumberData.GetPhoneNumber(),
-                        Gender = "Woman"
-                    }
+                        Gender = "Woman",
+                        Latitude = FakeData.NumberData.GetNumber(-90, 90),
+                        Longitude = FakeData.NumberData.GetNumber(-180, 180)
+                }
                     );
             }
         }

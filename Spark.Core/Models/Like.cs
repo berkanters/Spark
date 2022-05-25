@@ -16,7 +16,6 @@ namespace Spark.Core.Models
         public bool IsMatch { get; set; } = false;
         public bool IsWin { get; set; } = false;
         
-
         public virtual User User { get; set; }
         public virtual User LikedUser { get; set; }
         

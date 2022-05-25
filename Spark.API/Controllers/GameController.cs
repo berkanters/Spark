@@ -12,11 +12,13 @@ namespace Spark.API.Controllers
     {
         private IGameService _gameService;
         private IUserAnswerService _userAnswerService;
+        private ILikeService _likeService;
 
-        public GameController(IGameService gameService, IUserAnswerService userAnswerService)
+        public GameController(IGameService gameService, IUserAnswerService userAnswerService, ILikeService likeService)
         {
             _gameService = gameService;
             _userAnswerService = userAnswerService;
+            _likeService = likeService;
         }
 
         [HttpGet]
@@ -59,10 +61,28 @@ namespace Spark.API.Controllers
             return Ok();
         }
 
+
+        [HttpPut("/Score/{id1:guid}/{id2:guid}/{score:int}")]
+        public async Task<IActionResult> ScoreUp(Guid id1, Guid id2, int score)
+        {
+            
+            _likeService.ScoreUp(id1,id2,score);
+            
+            if (_likeService.IsThereAnyWin(id1,id2))
+            {
+                return Ok("IsWin = True");
+            }
+            else
+            {
+                return NoContent();
+            }
+            
+
         [HttpGet("{qId:guid}/{uId:guid}/answers")]
         public async Task<IActionResult> GetFakeAnswers(Guid qId, Guid uId)
         {
             return Ok(_gameService.GetFakeAnswers(qId, uId));
+
         }
     }
 }

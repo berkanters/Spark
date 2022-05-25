@@ -10,6 +10,8 @@ namespace Spark.Core.IntRepository
     public interface IUserRepository:IRepository<User>
     {
         Task<IEnumerable<User>> GetUserByGenderAndAge(string gender,short minAge,short maxAge);
-        
+
+        double CalculateDistance(Guid user1Id, Guid user2Id);
+
     }
 }
