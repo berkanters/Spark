@@ -13,6 +13,8 @@ namespace Spark.Core.IntRepository
         Task<IEnumerable<Question>>GetAllWithAnswersAsync();
         Task<Question> GetWithAnswersByIdAsync(Guid qId);
         //Task<Question> GetWithAnswersAndUserAnswerByIdAsync(Guid qId);
-        
+
+        Task<List<Answer>> GetFakeAnswers(Guid questId, Guid userId);
+
     }
 }

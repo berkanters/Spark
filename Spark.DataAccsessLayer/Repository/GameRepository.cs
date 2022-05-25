@@ -32,5 +32,29 @@ namespace Spark.DataAccessLayer.Repository
         {
             return (await _db.Questions.Include(s => s.Answers).FirstOrDefaultAsync(s => s.Id == qId))!;
         }
+
+        public async Task<List<Answer>> GetFakeAnswers(Guid questId, Guid userId)
+        {
+            
+            
+            var userAnswer = sparkDbContext.UserAnswers.FirstOrDefaultAsync(s => s.User.Id == userId && s.Question.Id == questId).Result;
+            var fakeAnswers = sparkDbContext.Answers.Where(s => s.Question.Id == questId && s.Id != userAnswer!.AnswerId).ToList();
+            int[] ansRandom = new int[3];
+
+
+            do
+            {
+                ansRandom[0] = new Random().Next(0, fakeAnswers.Count);
+                ansRandom[1] = new Random().Next(0, fakeAnswers.Count);
+                ansRandom[2] = new Random().Next(0, fakeAnswers.Count);
+            } while ((ansRandom[0] == ansRandom[1]) || (ansRandom[1] == ansRandom[2]) || (ansRandom[0] == ansRandom[2]));
+
+            List<Answer> fakeAns = new List<Answer>();
+            for (int i = 0; i < 3; i++)
+            {
+                fakeAns.Add(fakeAnswers[ansRandom[i]]);
+            }
+            return fakeAns;
+        }
     }
 }

@@ -58,5 +58,11 @@ namespace Spark.API.Controllers
 
             return Ok();
         }
+
+        [HttpGet("{qId:guid}/{uId:guid}/answers")]
+        public async Task<IActionResult> GetFakeAnswers(Guid qId, Guid uId)
+        {
+            return Ok(_gameService.GetFakeAnswers(qId, uId));
+        }
     }
 }
