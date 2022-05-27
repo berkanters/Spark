@@ -7,18 +7,22 @@ import DatePicker from 'react-native-date-picker';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+
 const RegisterScreen = props => {
   const [opens, setOpens] = React.useState(false);
   const [value, setValue] = React.useState(null);
   const [items, setItems] = React.useState([
-    {label: 'Man', value: 'Female'},
-    {label: 'Other'},
+    {label: 'Man', value: 'Man'},
+    {label:'Woman',value:'Woman'},
+    {label:'Other',value:'Other'}
   ]);
   const [date, setDate] = React.useState(new Date());
   const [open, setOpen] = React.useState(false);
+ const [name,setName]=React.useState('')
+const tarih = date.getDate()+'-'+date.getMonth()+'-'+date.getFullYear()
   return (
     <View style={styles.container}>
-      <View style={{flex: 5, justifyContent: 'center', alignItems: 'center'}}>
+      <View style={{flex: 7, justifyContent: 'center', alignItems: 'center'}}>
         <TextInput
           style={styles.textInput}
           mode="outlined"
@@ -54,9 +58,10 @@ const RegisterScreen = props => {
           outlineColor="#ffd500"
           activeOutlineColor="#ffd500"
           activeUnderlineColor="ffd500"></TextInput>
-        <SafeAreaView style={{justifyContent:'center', alignItems:'center'}}>
+        <View style={{flex:1,justifyContent:'center', alignItems:'center',flexDirection:'row',paddingHorizontal:20}}>
+            <View style={{flex:1,justifyContent:'center'}}>
           <DropDownPicker
-            style={{width: '20%'}}
+            style={{}}
             open={opens}
             value={value}
             items={items}
@@ -64,10 +69,15 @@ const RegisterScreen = props => {
             setValue={setValue}
             setItems={setItems}
           />
-          <Button style={styles.button} title="Open" onPress={() => setOpen(true)} >Birthday</Button>
+          </View>
+          <View style={{flex:1}}>
+          <TouchableOpacity style={{borderWidth:1,borderColor:'black',paddingVertical:15,borderRadius:8,marginLeft:5,alignItems:'center'}} title="Open" onPress={() => setOpen(true)}>
+           <Text >{name === false ? tarih :'Birthday'}</Text> 
+          
+          </TouchableOpacity>
           <DatePicker
           
-            modal
+            modal 
             open={open}
             mode="date"
             androidVariant="iosClone"
@@ -75,12 +85,15 @@ const RegisterScreen = props => {
             onConfirm={date => {
               setOpen(false);
               setDate(date);
+              setName(false)
             }}
             onCancel={() => {
               setOpen(false);
             }}
           />
-        </SafeAreaView>
+      
+          </View>
+        </View>
 
         <Button
           style={styles.button}
@@ -116,7 +129,7 @@ const styles = {
   textInput: {
     width: '90%',
     marginTop: 10,
-    height: '5%',
+    height: 40,
   },
   button: {
     width: '70%',

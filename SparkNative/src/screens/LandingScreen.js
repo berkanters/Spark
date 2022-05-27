@@ -5,6 +5,7 @@ import { Button } from 'react-native-paper';
 
 const LandingScreen = props => {
   const navigation = useNavigation();
+  console.log(props?.route?.params?.data?.data.age,'doğru data')
   return (
   
     <View style={styles.container}>
@@ -12,7 +13,7 @@ const LandingScreen = props => {
       <Image source={require('../assets/yellow-lightning-png-images-928255.png')} style={{width: 200, height: 200}}/>
         <Text style={styles.text}>Spark</Text>
       </View>
-      <View style={{flex:1,alignItems:'center'}}><Button style={styles.button}  mode="contained" onPress={()=>navigation.navigate('Login')}>Login</Button>
+      <View style={{flex:1,alignItems:'center'}}><Button style={styles.button}  mode="contained" onPress={()=>navigation.navigate('Login',{data:props?.route?.params?.data})}>Login</Button>
       <Button style={styles.button} mode="contained" onPress={()=>navigation.navigate('Register')}>Register</Button>
       </View>
     </View>

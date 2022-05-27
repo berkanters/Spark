@@ -67,5 +67,17 @@ namespace Spark.API.Controllers
             return Ok((int)location + " KM");
         }
 
+        [HttpPost("Login")]
+        public async Task<IActionResult> Login(LoginDto userdto1)
+        {
+            var user = await _userService.FirstOrDefaultAsync(x => x.Email == userdto1.Email) ;
+            if (user.Email != null && user.Password == userdto1.Password)
+            {
+                return Ok(_mapper.Map<UserDto>(user));
+            }
+            
+            return BadRequest("Wrong Password or Email");
+        }
+
     }
 }
