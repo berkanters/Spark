@@ -16,9 +16,10 @@ const RegisterScreen = props => {
   ]);
   const [date, setDate] = React.useState(new Date());
   const [open, setOpen] = React.useState(false);
+  console.log(date)
   return (
     <View style={styles.container}>
-      <View style={{flex: 5, justifyContent: 'center', alignItems: 'center'}}>
+      <View style={{flex: 7, justifyContent: 'center', alignItems: 'center'}}>
         <TextInput
           style={styles.textInput}
           mode="outlined"
@@ -54,7 +55,9 @@ const RegisterScreen = props => {
           outlineColor="#ffd500"
           activeOutlineColor="#ffd500"
           activeUnderlineColor="ffd500"></TextInput>
-        <SafeAreaView style={{justifyContent:'center', alignItems:'center'}}>
+        <View style={{flex:1,justifyContent:'center', alignItems:'center'}}>
+          <View style={{flex:1, flexDirection:'row', justifyContent:'center' ,alignItems:'center'}}>
+            <View style={{flex:1,justifyContent:'center'}}>
           <DropDownPicker
             style={{width: '20%'}}
             open={opens}
@@ -64,7 +67,9 @@ const RegisterScreen = props => {
             setValue={setValue}
             setItems={setItems}
           />
-          <Button style={styles.button} title="Open" onPress={() => setOpen(true)} >Birthday</Button>
+          </View>
+          <View style={{flex:1}}>
+          <Button  title="Open" onPress={() => setOpen(true)} >Birthday</Button>
           <DatePicker
           
             modal
@@ -80,7 +85,9 @@ const RegisterScreen = props => {
               setOpen(false);
             }}
           />
-        </SafeAreaView>
+          </View>
+          </View>
+        </View>
 
         <Button
           style={styles.button}
@@ -116,7 +123,7 @@ const styles = {
   textInput: {
     width: '90%',
     marginTop: 10,
-    height: '5%',
+    height: 40,
   },
   button: {
     width: '70%',

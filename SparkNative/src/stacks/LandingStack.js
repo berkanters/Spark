@@ -10,7 +10,7 @@ const LandingStack = props => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="First">
+      <Stack.Navigator initialRouteName="Landing">
         <Stack.Screen name="Landing" component={LandingScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
