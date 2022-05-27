@@ -1,31 +1,32 @@
 import React,{useState,useEffect} from 'react';
 import {View} from 'react-native';
-import {NavigationContainer, useNavigation} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import {Button, TextInput, Text} from 'react-native-paper';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import axios from 'axios';
-import { useValue } from 'react-native-reanimated';
-import { string } from 'prop-types';
 
-const LoginScreen = props => {
+
+const LoginScreen = (props) => {
   const navigation = useNavigation();
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const pass=password;
-  let ema=JSON.stringify(email);
-  let pas=JSON.stringify(password);
-  console.log('ema',ema);
-  console.log('pas',pas);
-  useEffect(()=>{
-    
-  },[])
+  const [data,setData]=useState("")
 
-const onClick =()=>{
-  setEmail(email);
-  setPassword(password);
-  axios.post(`https://spark-api.conveyor.cloud/api/user/login/${ema}&${pas}`)
+
+useEffect(()=>{
+if(data.status=== 200){
+  navigation.navigate('Landing',{data});  
+}else{
+  alert("Yanlış Şifre")
+}
+},[data.status])
+const onClak =()=>{
+  axios.post('https://spark-api.conveyor.cloud/api/User/Login',{
+    "email": email,
+    "password": password
+  })
   .then(function (response) {
-    console.log(response);
+    setData(response);
   })
   .catch(function (error) {
     console.log(error);
@@ -42,10 +43,10 @@ const onClick =()=>{
           outlineColor="#ffd500"
           activeOutlineColor="#ffd500"
           activeUnderlineColor="ffd500"
-          onChange={()=>email}></TextInput>
+          onChangeText={(val)=>setEmail(val)}></TextInput>
         <TextInput
           style={styles.textInput}
-          onChange={()=>password}
+          onChangeText={(val)=>setPassword(val)}
           mode="outlined"
           label="Password"
           outlineColor="#ffd500"
@@ -54,24 +55,16 @@ const onClick =()=>{
         <Button
           style={styles.button}
           mode="contained"
-          onPress={onClick}>
+          onPress={onClak}>
           Login
         </Button>
       </View>
-      <View
-        style={{
-          flex: 1,
-          flexDirection: 'row',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-        <Text style={styles.text}>
-          If you not have accaount then{' '}
-          <TouchableOpacity onPress={onClick}>
-            <Text style={styles.textTou}>register</Text>
-          </TouchableOpacity>{' '}
-        </Text>
-      </View>
+<View style={{flexDirection:'row',flex:1,justifyContent:'center',alignItems:'center'}}>
+  <Text style={styles.text}>hesabın yoksa kaydol amk </Text>
+  <TouchableOpacity>
+    <Text style={styles.textTou}>Kaydol</Text>
+  </TouchableOpacity>
+</View>
     </View>
   );
 };
@@ -101,8 +94,7 @@ const styles = {
     color: 'black',
   },
   textTou: {
-    marginTop: 10,
-    fontSize: 15,
+    fontSize: 22,
     fontWeight: 'bold',
     color: '#ffd500',
   },
