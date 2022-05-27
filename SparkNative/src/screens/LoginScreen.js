@@ -1,38 +1,51 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import {View} from 'react-native';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import {Button, TextInput, Text} from 'react-native-paper';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import axios from 'axios';
+import { useValue } from 'react-native-reanimated';
+import { string } from 'prop-types';
 
 const LoginScreen = props => {
   const navigation = useNavigation();
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  useEffect(() => {
-    const response = axios
-      .post(
-        'https://spark-api.conveyor.cloud/api/user/login',{
-          name, email
-        }
-      )
-      .then(response => (response.status === 200 ? response.data : null));
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const pass=password;
+  let ema=JSON.stringify(email);
+  let pas=JSON.stringify(password);
+  console.log('ema',ema);
+  console.log('pas',pas);
+  useEffect(()=>{
+    
+  },[])
 
-    // empty dependency array means this effect will only run once (like componentDidMount in classes)
-  },);
+const onClick =()=>{
+  setEmail(email);
+  setPassword(password);
+  axios.post(`https://spark-api.conveyor.cloud/api/user/login/${ema}&${pas}`)
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+}
+
   return (
     <View style={styles.container}>
       <View style={{flex: 2, justifyContent: 'center', alignItems: 'center'}}>
         <TextInput
           style={styles.textInput}
           mode="outlined"
-          value='email'
           label="E-mail"
           outlineColor="#ffd500"
           activeOutlineColor="#ffd500"
           activeUnderlineColor="ffd500"
-          onChange={()=>setEmail}></TextInput>
+          onChange={()=>email}></TextInput>
         <TextInput
           style={styles.textInput}
+          onChange={()=>password}
           mode="outlined"
           label="Password"
           outlineColor="#ffd500"
@@ -41,7 +54,7 @@ const LoginScreen = props => {
         <Button
           style={styles.button}
           mode="contained"
-          onPress={() => navigation.navigate('Register')}>
+          onPress={onClick}>
           Login
         </Button>
       </View>
@@ -54,7 +67,7 @@ const LoginScreen = props => {
         }}>
         <Text style={styles.text}>
           If you not have accaount then{' '}
-          <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+          <TouchableOpacity onPress={onClick}>
             <Text style={styles.textTou}>register</Text>
           </TouchableOpacity>{' '}
         </Text>

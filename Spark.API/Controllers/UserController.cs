@@ -67,7 +67,7 @@ namespace Spark.API.Controllers
             return Ok((int)location + " KM");
         }
 
-        [HttpPost("Login/{email}/{password}")]
+        [HttpPost("Login/{email}&{password}")]
         public async Task<IActionResult> Login(string email, string password)
         {
             var user = await _userService.FirstOrDefaultAsync(x => x.Email == email);
