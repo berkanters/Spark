@@ -20,7 +20,7 @@ if(data.status=== 200){
   alert("Yanlış Şifre")
 }
 },[data.status])
-const onClak =()=>{
+const onClick =()=>{
   axios.post('https://spark-api.conveyor.cloud/api/User/Login',{
     "email": email,
     "password": password
@@ -55,14 +55,14 @@ const onClak =()=>{
         <Button
           style={styles.button}
           mode="contained"
-          onPress={onClak}>
+          onPress={onClick}>
           Login
         </Button>
       </View>
 <View style={{flexDirection:'row',flex:1,justifyContent:'center',alignItems:'center'}}>
-  <Text style={styles.text}>hesabın yoksa kaydol amk </Text>
+  <Text style={styles.text}>İf you dont have account </Text>
   <TouchableOpacity>
-    <Text style={styles.textTou}>Kaydol</Text>
+    <Text style={styles.textTou}>Register</Text>
   </TouchableOpacity>
 </View>
     </View>

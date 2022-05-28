@@ -1,25 +1,65 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react';
 import {View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {TextInput, Button, Text} from 'react-native-paper';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import DatePicker from 'react-native-date-picker';
 import DropDownPicker from 'react-native-dropdown-picker';
+import axios from 'axios';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 
+
 const RegisterScreen = props => {
-  const [opens, setOpens] = React.useState(false);
-  const [value, setValue] = React.useState(null);
-  const [items, setItems] = React.useState([
+  const [opens, setOpens] = useState(false);
+  const [value, setValue] = useState(null);
+  const [items, setItems] = useState([
     {label: 'Man', value: 'Man'},
     {label:'Woman',value:'Woman'},
     {label:'Other',value:'Other'}
   ]);
-  const [date, setDate] = React.useState(new Date());
-  const [open, setOpen] = React.useState(false);
- const [name,setName]=React.useState('')
-const tarih = date.getDate()+'-'+date.getMonth()+'-'+date.getFullYear()
+  const [date, setDate] = useState(new Date());
+  const [open, setOpen] = useState(false);
+ const [ndate,setNDate]= useState('')
+const tarih = date.getDate()+'-'+date.getMonth()+'-'+date.getFullYear();
+const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const[name,setName] = useState("");
+  const[lastname,setLastname] = useState("");
+  const[phone,setPhone] = useState("");
+  const [data,setData]=useState("")
+  const age=2022-date.getFullYear();
+  console.log(age);
+  console.log(value)
+
+
+  useEffect(()=>{
+    if(data.status=== 200){
+      navigation.navigate('Login',{data});  
+    }else{
+      alert("Yanlış Şifre")
+    }
+    },[data.status])
+
+  const onClick =()=>{
+    axios.post('https://spark-api.conveyor.cloud/api/User/Register',{
+      "name": name,
+      "lastName": lastname,
+      "email": email,
+      "password": password,
+      "age": age,
+      "gender": value,
+      "phone": phone,
+    })
+    .then(function (response) {
+      setData(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
+
   return (
     <View style={styles.container}>
       <View style={{flex: 7, justifyContent: 'center', alignItems: 'center'}}>
@@ -29,28 +69,40 @@ const tarih = date.getDate()+'-'+date.getMonth()+'-'+date.getFullYear()
           label="Name"
           outlineColor="#ffd500"
           activeOutlineColor="#ffd500"
-          activeUnderlineColor="ffd500"></TextInput>
+          activeUnderlineColor="ffd500"
+          onChangeText={(val)=>setName(val)}></TextInput>
         <TextInput
           style={styles.textInput}
           mode="outlined"
           label="Lastname"
           outlineColor="#ffd500"
           activeOutlineColor="#ffd500"
-          activeUnderlineColor="ffd500"></TextInput>
+          activeUnderlineColor="ffd500"
+          onChangeText={(val)=>setLastname(val)}></TextInput>
         <TextInput
           style={styles.textInput}
           mode="outlined"
           label="E-mail"
           outlineColor="#ffd500"
           activeOutlineColor="#ffd500"
-          activeUnderlineColor="ffd500"></TextInput>
+          activeUnderlineColor="ffd500"
+          onChangeText={(val)=>setEmail(val)}></TextInput>
+        <TextInput
+          style={styles.textInput}
+          mode="outlined"
+          label="Phone"
+          outlineColor="#ffd500"
+          activeOutlineColor="#ffd500"
+          activeUnderlineColor="ffd500"
+          onChangeText={(val)=>setPhone(val)}></TextInput>
         <TextInput
           style={styles.textInput}
           mode="outlined"
           label="Password"
           outlineColor="#ffd500"
           activeOutlineColor="#ffd500"
-          activeUnderlineColor="ffd500"></TextInput>
+          activeUnderlineColor="ffd500"
+          onChangeText={(val)=>setPassword(val)}></TextInput>
         <TextInput
           style={styles.textInput}
           mode="outlined"
@@ -72,7 +124,7 @@ const tarih = date.getDate()+'-'+date.getMonth()+'-'+date.getFullYear()
           </View>
           <View style={{flex:1}}>
           <TouchableOpacity style={{borderWidth:1,borderColor:'black',paddingVertical:15,borderRadius:8,marginLeft:5,alignItems:'center'}} title="Open" onPress={() => setOpen(true)}>
-           <Text >{name === false ? tarih :'Birthday'}</Text> 
+           <Text >{ndate === false ? tarih :'Birthday'}</Text> 
           
           </TouchableOpacity>
           <DatePicker
@@ -85,7 +137,7 @@ const tarih = date.getDate()+'-'+date.getMonth()+'-'+date.getFullYear()
             onConfirm={date => {
               setOpen(false);
               setDate(date);
-              setName(false)
+              setNDate(false)
             }}
             onCancel={() => {
               setOpen(false);
@@ -98,23 +150,15 @@ const tarih = date.getDate()+'-'+date.getMonth()+'-'+date.getFullYear()
         <Button
           style={styles.button}
           mode="contained"
-          onPress={() => navigation.navigate('Register')}>
+          onPress={onClick}>
           Register
         </Button>
       </View>
-      <View
-        style={{
-          flex: 1,
-          flexDirection: 'row',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-        <Text style={styles.text}>
-          If you not have accaount then{' '}
-          <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-            <Text style={styles.textTou}>Login</Text>
-          </TouchableOpacity>{' '}
-        </Text>
+      <View style={{flexDirection:'row',flex:1,justifyContent:'center',alignItems:'center'}}>
+  <Text style={styles.text}>İf you already have account </Text>
+  <TouchableOpacity>
+    <Text style={styles.textTou}>Login</Text>
+  </TouchableOpacity>
       </View>
     </View>
   );
@@ -146,8 +190,7 @@ const styles = {
     color: 'black',
   },
   textTou: {
-    marginTop: 10,
-    fontSize: 17,
+    fontSize: 22,
     fontWeight: 'bold',
     color: '#ffd500',
   },

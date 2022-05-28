@@ -27,7 +27,7 @@ namespace Spark.API.Controllers
             return Ok(_mapper.Map<IEnumerable<LikeDto>>(like));
         }
 
-        [HttpPost("{id:guid}/{lId:guid}")]
+        [HttpPost("/match=id&lid")]
         public async Task<IActionResult> Save(Guid id, Guid lId)
         {
             _likeService.MatchUsersWithUserIDs(id, lId);
@@ -41,7 +41,7 @@ namespace Spark.API.Controllers
             }
         }
 
-        [HttpDelete("unmatch/{id:guid}/{lId:guid}")]
+        [HttpDelete("/unmatch=id&lid")]
         public async Task<IActionResult> UnMatch(Guid id, Guid lId)
         {
             _likeService.RemoveMatch(id,lId);
@@ -49,7 +49,7 @@ namespace Spark.API.Controllers
 
         }
 
-        [HttpGet("{id:guid}")]
+        [HttpGet("/getbylikeid")]
         public async Task<IActionResult> GetAllMyMatches(Guid id)
         {
             var like = await _likeService.GetAllMyMatches(id);
