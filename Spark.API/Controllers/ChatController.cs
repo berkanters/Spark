@@ -36,7 +36,7 @@ namespace Spark.API.Controllers
             await _chatService.AddAsync(chat);
             return Ok();
         }
-        [HttpGet("messages/{id:guid}/{id2:guid}")]
+        [HttpGet("/messages=id&id2")]
         public async Task<IActionResult> GetMessages(Guid id, Guid id2)
         {
             var messages = await _chatService.GetMessagesBetween2Person(id, id2);

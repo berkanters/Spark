@@ -20,7 +20,7 @@ namespace Spark.Services.Services
             _repo = repo;
         }
 
-        public async Task<IEnumerable<User>> GetUserByGenderAndAge(string gender, short minAge, short maxAge)
+        public async Task<IEnumerable<User>> GetUserByGenderAndAge(string gender, int minAge, int maxAge)
         {
             return await _unit.User.GetUserByGenderAndAge(gender, minAge, maxAge);
         }

@@ -28,7 +28,7 @@ namespace Spark.API.Controllers
             return Ok(que);
         }
 
-        [HttpGet("{qId:guid}")]
+        [HttpGet("/getquestionwithanswer=id")]
         public async Task<IActionResult> GetById(Guid qId)
         {
             var que = await _gameService.GetWithAnswersByIdAsync(qId);
@@ -41,14 +41,14 @@ namespace Spark.API.Controllers
             var que = await _userAnswerService.GetAllAsync();
             return Ok(que);
         }
-        [HttpGet("/useranswer/{userId:guid}/{qId:guid}")]
+        [HttpGet("/useranswer=id&qid")]
         public async Task<IActionResult> GetUserAnswer(Guid userId, Guid qId)
         {
             var que = await _userAnswerService.GetUserAnswer(userId, qId);
             return Ok(que);
         }
 
-        [HttpPost("{uId:guid}/{aId:guid}/{qId:guid}")]
+        [HttpPost("/chooseuseranswer=uid&aid&qid")]
         public async Task<IActionResult> ChooseAnswerCont(Guid uId, Guid aId,Guid qId)
         {
             await _gameService.GetWithAnswersByIdAsync(aId);
@@ -62,7 +62,7 @@ namespace Spark.API.Controllers
         }
 
 
-        [HttpPut("/Score/{id1:guid}/{id2:guid}/{score:int}")]
+        [HttpPut("/ScoreUp=id1&id2&score")]
         public async Task<IActionResult> ScoreUp(Guid id1, Guid id2, int score)
         {
 
@@ -79,7 +79,7 @@ namespace Spark.API.Controllers
 
         }
 
-        [HttpGet("{qId:guid}/{uId:guid}/answers")]
+        [HttpGet("/wronganswers=qid&uid")]
         public async Task<IActionResult> GetFakeAnswers(Guid qId, Guid uId)
         {
             return Ok(_gameService.GetFakeAnswers(qId, uId));

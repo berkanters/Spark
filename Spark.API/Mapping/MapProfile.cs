@@ -16,6 +16,9 @@ using AutoMapper;
         CreateMap<ChatDto, Chat>();
         CreateMap<Chat, ChatDto>();
         CreateMap<User, LoginDto>();
+        CreateMap<LoginDto, User>();
+        CreateMap<User, RegisterDto>();
+        CreateMap<RegisterDto, User>();
         }
     
 }

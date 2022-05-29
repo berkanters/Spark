@@ -25,14 +25,14 @@ namespace Spark.API.Controllers
             return Ok(_mapper.Map<IEnumerable<UserDto>>(users));
         }
 
-        [HttpGet("{id:guid}")]
+        [HttpGet("getbyid")]
         public async Task<IActionResult> GetById(Guid id)
         {
             var user = await _userService.GetByIdAsync(id);
             return Ok(_mapper.Map<UserDto>(user));
         }
 
-        [HttpGet("{gender:alpha}/{minAge:int}/{maxAge:int}")]
+        [HttpGet("filterby=gender&minage&maxage")]
         public async Task<IActionResult> GetByGenderAndAge(string gender, short minAge, short maxAge)
         {
             var user = await _userService.GetUserByGenderAndAge(gender, minAge, maxAge);
@@ -52,14 +52,14 @@ namespace Spark.API.Controllers
             return NoContent();
         }
 
-        [HttpPut("delete/{id:guid}")]
+        [HttpPut("/deletebyid")]
         public IActionResult Delete(Guid id)
         {
             _userService.SoftDelete(id);
             return NoContent();
         }
 
-        [HttpGet("location/{id:guid}/{id2:guid}")]
+        [HttpGet("/location=id&id1")]
         public async Task<IActionResult> CalculateDistance(Guid id, Guid id2)
         {
             var location =  _userService.CalculateDistance(id, id2);
@@ -67,7 +67,7 @@ namespace Spark.API.Controllers
             return Ok((int)location + " KM");
         }
 
-        [HttpPost("Login")]
+        [HttpPost("/Login")]
         public async Task<IActionResult> Login(LoginDto userdto1)
         {
             var user = await _userService.FirstOrDefaultAsync(x => x.Email == userdto1.Email) ;
@@ -78,6 +78,12 @@ namespace Spark.API.Controllers
             
             return BadRequest("Wrong Password or Email");
         }
+        [HttpPost("/Register")]
+        public async Task<IActionResult> Register(RegisterDto registerDto)
+        {
+            var users = await _userService.AddAsync(_mapper.Map<User>(registerDto));
+            return Created(string.Empty, registerDto);
+        }        
 
     }
 }
