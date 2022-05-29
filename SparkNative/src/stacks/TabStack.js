@@ -29,6 +29,7 @@ const TabStack = props => {
       >
         <Tab.Screen name="tinder" component={tinder} />
         <Tab.Screen name="tinder" component={tinder} />
+        <Tab.Screen name="tinder" component={tinder} />
       </Tab.Navigator>    
     </NavigationContainer>
   );
