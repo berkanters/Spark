@@ -24,14 +24,14 @@ const TabStack = props => {
             } 
             return <Ionicons name={iconName} size={size} color={color} />;
           },
-          tabBarActiveTintColor: 'tomato',
+          tabBarActiveTintColor: '#ffd500',
           tabBarInactiveTintColor: 'gray',
         })}
       >
-        <Tab.Screen name="Profile" component={ProfileScreen} />
-        <Tab.Screen name="Match" component={MatchScreen} />
-        <Tab.Screen name="Game" component={GameScreen} />
-        <Tab.Screen name="Chat" component={ChatScreen} />
+        <Tab.Screen name="Profile" component={ProfileScreen}/>
+        <Tab.Screen name="Match" component={MatchScreen} options={{ tabBarBadge: 3 }} />
+        <Tab.Screen name="Game" component={GameScreen} options={{ tabBarBadge: 3 }} />
+        <Tab.Screen name="Chat" component={ChatScreen} options={{ tabBarBadge: 3 }} />
       </Tab.Navigator>    
     </NavigationContainer>
   );
