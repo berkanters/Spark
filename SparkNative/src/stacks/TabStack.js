@@ -1,12 +1,13 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
-import LoginScreen from '../screens/LoginScreen';
-import LandingScreen from '../screens/LandingScreen';
-import RegisterScreen from '../screens/RegisterScreen';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import tinder from '../screens/afterLogin/tinder'
+import ProfileScreen from '../screens/afterLogin/ProfileScreen';
+import MatchScreen from '../screens/afterLogin/MatchScreen';
+import GameScreen from '../screens/afterLogin/GameScreen';
+import ChatScreen from '../screens/afterLogin/ChatScreen';
+
 const TabStack = props => {
   const Tab = createBottomTabNavigator();
   return (
@@ -27,9 +28,10 @@ const TabStack = props => {
           tabBarInactiveTintColor: 'gray',
         })}
       >
-        <Tab.Screen name="tinder" component={tinder} />
-        <Tab.Screen name="tinder" component={tinder} />
-        <Tab.Screen name="tinder" component={tinder} />
+        <Tab.Screen name="Profile" component={ProfileScreen} />
+        <Tab.Screen name="Match" component={MatchScreen} />
+        <Tab.Screen name="Game" component={GameScreen} />
+        <Tab.Screen name="Chat" component={ChatScreen} />
       </Tab.Navigator>    
     </NavigationContainer>
   );
