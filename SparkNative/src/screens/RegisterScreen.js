@@ -11,6 +11,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 const RegisterScreen = props => {
+  const navigation = useNavigation();
   const [opens, setOpens] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
@@ -23,16 +24,24 @@ const RegisterScreen = props => {
  const [ndate,setNDate]= useState('')
 const tarih = date.getDate()+'-'+date.getMonth()+'-'+date.getFullYear();
 const [password, setPassword] = useState("");
+
+const [passwordSecond,setPasswordSecond]=useState("");  
+const [validPassword,setValidPassword]=useState(false); 
   const [email, setEmail] = useState("");
   const[name,setName] = useState("");
   const[lastname,setLastname] = useState("");
   const[phone,setPhone] = useState("");
   const [data,setData]=useState("")
   const age=2022-date.getFullYear();
-  console.log(age);
-  console.log(value)
-
-
+  console.log( age,'age');
+  console.log( value,'gender');
+  console.log( lastname,'last');
+  console.log( phone,'phone');
+  console.log( name,'name');
+  console.log( email,'email');
+  console.log( password,'password');
+console.log(data)
+/*
   useEffect(()=>{
     if(data.status=== 200){
       navigation.navigate('Login',{data});  
@@ -41,22 +50,35 @@ const [password, setPassword] = useState("");
     }
     },[data.status])
 
+
+*/
+
+useEffect(()=>{
+  if(validPassword){
+  axios.post('https://spark-api.conveyor.cloud/Register',{
+    "name": name,
+    "lastName": lastname,
+    "email": email,
+    "password": password,
+    "age": age,
+    "gender": value,
+    "phone": phone
+  })
+  .then(function (response) {
+    setData(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });}
+
+},[validPassword])
+
   const onClick =()=>{
-    axios.post('https://spark-api.conveyor.cloud/api/User/Register',{
-      "name": name,
-      "lastName": lastname,
-      "email": email,
-      "password": password,
-      "age": age,
-      "gender": value,
-      "phone": phone,
-    })
-    .then(function (response) {
-      setData(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+    if(password===passwordSecond){
+      setValidPassword(true);
+    }else{
+      alert('Siktirgit doğru yaz şifreyi')
+    }
   }
 
 
@@ -109,7 +131,9 @@ const [password, setPassword] = useState("");
           label="Re-Password"
           outlineColor="#ffd500"
           activeOutlineColor="#ffd500"
-          activeUnderlineColor="ffd500"></TextInput>
+          activeUnderlineColor="ffd500"
+          onChangeText={(val)=>setPasswordSecond(val)}></TextInput>
+          
         <View style={{flex:1,justifyContent:'center', alignItems:'center',flexDirection:'row',paddingHorizontal:20}}>
             <View style={{flex:1,justifyContent:'center'}}>
           <DropDownPicker

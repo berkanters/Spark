@@ -20,7 +20,7 @@ namespace Spark.DataAccessLayer.Repository
         {
         }
 
-        public async Task<IEnumerable<User>> GetUserByGenderAndAge(string gender, short minAge,short maxAge)
+        public async Task<IEnumerable<User>> GetUserByGenderAndAge(string gender, int minAge,int maxAge)
         {
             var user = sparkDBContext.Users.Where(x => x.Gender == gender && x.Age >= minAge && x.Age <= maxAge)
                 .ToListAsync();
