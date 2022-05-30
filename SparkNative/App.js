@@ -3,6 +3,6 @@ import LandingStack from './src/stacks/LandingStack';
 import TabStack from './src/stacks/TabStack';
 
 const App = () => {
-  return <TabStack />;
+  return <LandingStack />;
 };
 export default App;
