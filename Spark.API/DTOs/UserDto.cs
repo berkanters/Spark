@@ -3,13 +3,13 @@
     public class UserDto
     {
         public Guid Id { get; set; }
-        public String Name { get; set; }
-        public String LastName { get; set; }
-        public String Email { get; set; }
-        public String Password { get; set; }
+        public string Name { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
         public int Age { get; set; }
-        public String Gender { get; set; }
-        public String Phone { get; set; }
+        public string Gender { get; set; }
+        public string Phone { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
     }
