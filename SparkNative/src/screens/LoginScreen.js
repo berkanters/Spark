@@ -4,17 +4,18 @@ import {useNavigation} from '@react-navigation/native';
 import {Button, TextInput, Text, ActivityIndicator} from 'react-native-paper';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoginScreen = props => {
   const navigation = useNavigation();
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [data, setData] = useState('');
-  console.log(data);
+  
 
   useEffect(() => {
     if (data.status === 200) {
-      navigation.reset({index: 0, routes: [{name: 'tab'}]});
+      navigation.reset({index: 0, routes: [{name: 'tab'}]},{data});
     } else {
       console.log('error');
     }
@@ -27,6 +28,8 @@ const LoginScreen = props => {
       })
       .then(function (response) {
         setData(response);
+        const jsonValue =JSON.stringify(response.data);
+        AsyncStorage.setItem('token',jsonValue);
       })
       .catch(function (error) {
         console.log(error);
@@ -35,7 +38,7 @@ const LoginScreen = props => {
 
   return (
     <View style={styles.container}>
-      <View style={{flex: 2, justifyContent: 'center', alignItems: 'center'}}>
+      <View style={{flex: 6, justifyContent: 'center', alignItems: 'center'}}>
         <TextInput
           style={styles.textInput}
           mode="outlined"
