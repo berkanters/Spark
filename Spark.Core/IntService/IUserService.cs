@@ -9,7 +9,7 @@ namespace Spark.Core.IntService
 {
     public interface IUserService : IService<User>
     {
-        Task<IEnumerable<User>> GetUserByGenderAndAge(string gender, int minAge, int maxAge);
+        Task<IEnumerable<User>> GetUserByGenderAndAge(string gender, int minAge, int maxAge, int distance,Guid user1);
         double CalculateDistance(Guid user1Id, Guid user2Id);
     }
 }

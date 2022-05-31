@@ -20,9 +20,9 @@ namespace Spark.Services.Services
             _repo = repo;
         }
 
-        public async Task<IEnumerable<User>> GetUserByGenderAndAge(string gender, int minAge, int maxAge)
+        public async Task<IEnumerable<User>> GetUserByGenderAndAge(string gender, int minAge, int maxAge,int distance,Guid user1)
         {
-            return await _unit.User.GetUserByGenderAndAge(gender, minAge, maxAge);
+            return await _unit.User.GetUserByGenderAndAge(gender, minAge, maxAge,distance,user1);
         }
 
         public double CalculateDistance(Guid user1Id, Guid user2Id)

@@ -33,13 +33,16 @@ namespace Spark.API.Controllers
         }
 
         [HttpGet("filterby=gender&minage&maxage")]
-        public async Task<IActionResult> GetByGenderAndAge(string gender, int minAge, int maxAge,Guid User1,int distance)
+        public async Task<IActionResult> GetByGenderAndAge(string gender, int minAge, int maxAge,int distance,Guid user1)
         {
-            var user = await _userService.GetUserByGenderAndAge(gender, minAge, maxAge);
+            if (ModelState.IsValid)
+            {
+                var user = await _userService.GetUserByGenderAndAge(gender, minAge, maxAge, distance, user1);
+                return Ok(_mapper.Map<IEnumerable<UserDto>>(user));
+            }
 
-            return Ok(_mapper.Map<UserDto>(user));
+            return BadRequest();
         }
-
         [HttpPost]
         public async Task<IActionResult> Save(UserDto userDto)
         {

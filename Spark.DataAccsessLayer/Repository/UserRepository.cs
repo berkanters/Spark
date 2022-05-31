@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 using Spark.Core.IntRepository;
 using Spark.Core.Models;
 
@@ -20,11 +21,19 @@ namespace Spark.DataAccessLayer.Repository
         {
         }
 
-        public async Task<IEnumerable<User>> GetUserByGenderAndAge(string gender, int minAge,int maxAge)
+        public async Task<IEnumerable<User>> GetUserByGenderAndAge(string gender, int minAge,int maxAge,int distance, Guid user1)
         {
-            var user = sparkDBContext.Users.Where(x => x.Gender == gender && x.Age >= minAge && x.Age <= maxAge)
-                .ToListAsync();
-            return (await user);
+            var user = sparkDBContext.Users.Where(x => x.Gender == gender && x.Age >= minAge && x.Age <= maxAge&&x.Id!=user1);
+            IList<User> filter= new List<User>();
+            foreach (var i in user)
+            {
+                if ((int) CalculateDistance(user1, i.Id) < distance)
+                {
+                    filter.Add(i);
+                }
+
+            }
+            return (filter);
         }
 
         public double CalculateDistance(Guid user1Id, Guid user2Id)
