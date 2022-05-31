@@ -33,9 +33,10 @@ namespace Spark.API.Controllers
         }
 
         [HttpGet("filterby=gender&minage&maxage")]
-        public async Task<IActionResult> GetByGenderAndAge(string gender, short minAge, short maxAge)
+        public async Task<IActionResult> GetByGenderAndAge(string gender, int minAge, int maxAge,Guid User1,int distance)
         {
             var user = await _userService.GetUserByGenderAndAge(gender, minAge, maxAge);
+
             return Ok(_mapper.Map<UserDto>(user));
         }
 

@@ -7,6 +7,7 @@ import DatePicker from 'react-native-date-picker';
 import DropDownPicker from 'react-native-dropdown-picker';
 import axios from 'axios';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
@@ -23,7 +24,11 @@ const RegisterScreen = props => {
   const [open, setOpen] = useState(false);
  const [ndate,setNDate]= useState('')
 const tarih = date.getDate()+'-'+date.getMonth()+'-'+date.getFullYear();
-const [password, setPassword] = useState("");
+const [password, setPassword] = useState(""); 
+const [user, setUser] = useState('');
+console.log(user);
+
+AsyncStorage.getItem('token').then((token) => {setUser(token)});
 
 const [passwordSecond,setPasswordSecond]=useState("");  
 const [validPassword,setValidPassword]=useState(false); 
@@ -83,8 +88,8 @@ useEffect(()=>{
 
 
   return (
-    <View style={styles.container}>
-      <View style={{flex: 7, justifyContent: 'center', alignItems: 'center'}}>
+    <SafeAreaView style={styles.container}>
+      <View style={{flex: 8, justifyContent: 'center', alignItems: 'center'}}>
         <TextInput
           style={styles.textInput}
           mode="outlined"
@@ -184,7 +189,7 @@ useEffect(()=>{
     <Text style={styles.textTou}>Login</Text>
   </TouchableOpacity>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

@@ -11,6 +11,7 @@ import ChatScreen from '../screens/afterLogin/ChatScreen';
 const TabStack = props => {
   const Tab = createBottomTabNavigator();
   return (
+  
     <Tab.Navigator
       screenOptions={({route}) => ({
         tabBarIcon: ({focused, color, size}) => {
@@ -47,6 +48,7 @@ const TabStack = props => {
         options={{tabBarBadge: 3, headerShown: false}}
       />
     </Tab.Navigator>
+    
   );
 };
 export default TabStack;
