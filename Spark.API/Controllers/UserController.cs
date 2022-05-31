@@ -43,7 +43,6 @@ namespace Spark.API.Controllers
 
             return BadRequest();
         }
-
         [HttpPost]
         public async Task<IActionResult> Save(UserDto userDto)
         {
