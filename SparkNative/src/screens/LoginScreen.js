@@ -11,6 +11,7 @@ const LoginScreen = props => {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [data, setData] = useState('');
+  const [user, setUser] = useState('');
   
 
   useEffect(() => {
@@ -22,7 +23,7 @@ const LoginScreen = props => {
   }, [data.status]);
   const onClick = () => {
     axios
-      .post('https://spark-api-qv6.conveyor.cloud/Login', {
+      .post('https://spark-api.conveyor.cloud/Login', {
         email: email,
         password: password,
       })
