@@ -55,5 +55,12 @@ namespace Spark.DataAccessLayer.Repository
             double d = c * r;
             return d;
         }
+
+        public void SetLocation(Guid userId, double latitude, double longitude)
+        {
+            var user = sparkDBContext.Users.FirstOrDefault(x => x.Id == userId);
+            user.Latitude = latitude;
+            user.Longitude = longitude;
+        }
     }
 }
