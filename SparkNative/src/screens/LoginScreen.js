@@ -12,25 +12,24 @@ const LoginScreen = props => {
   const [email, setEmail] = useState('');
   const [data, setData] = useState('');
   const [user, setUser] = useState('');
-  
 
   useEffect(() => {
     if (data.status === 200) {
-      navigation.reset({index: 0, routes: [{name: 'tab'}]},{data});
+      navigation.reset({index: 0, routes: [{name: 'tab'}]});
     } else {
       console.log('error');
     }
   }, [data.status]);
   const onClick = () => {
     axios
-      .post('https://spark-api.conveyor.cloud/Login', {
+      .post('https://spark-api-qv6.conveyor.cloud/Login', {
         email: email,
         password: password,
       })
       .then(function (response) {
         setData(response);
-        const jsonValue =JSON.stringify(response.data);
-        AsyncStorage.setItem('token',jsonValue);
+        const jsonValue = JSON.stringify(response.data);
+        AsyncStorage.setItem('token', jsonValue);
       })
       .catch(function (error) {
         console.log(error);
