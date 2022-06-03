@@ -87,7 +87,12 @@ namespace Spark.API.Controllers
         {
             var users = await _userService.AddAsync(_mapper.Map<User>(registerDto));
             return Created(string.Empty, registerDto);
-        }        
-
+        }
+        [HttpPut("/SetLocation")]
+        public IActionResult SetLocation(Guid userId, double latitude, double longitude)
+        {
+            _userService.SetLocation(userId, latitude, longitude);
+            return NoContent();
+        }
     }
 }

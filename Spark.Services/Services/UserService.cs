@@ -29,6 +29,12 @@ namespace Spark.Services.Services
         {
             return _unit.User.CalculateDistance(user1Id, user2Id);
         }
+
+        public void SetLocation(Guid userId, double latitude, double longitude)
+        {
+            _unit.User.SetLocation(userId, latitude, longitude);
+            _unit.Commit();
+        }
     }
 
 }

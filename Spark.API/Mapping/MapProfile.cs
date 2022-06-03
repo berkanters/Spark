@@ -4,11 +4,11 @@ using Spark.Core.Models;
 namespace Spark.API.Mapping;
 using AutoMapper;
 
-    public class MapProfile:Profile
-    {
+public class MapProfile : Profile
+{
 
-        public MapProfile()
-        {
+    public MapProfile()
+    {
         CreateMap<User, UserDto>();
         CreateMap<UserDto, User>();
         CreateMap<Like, LikeDto>();
@@ -19,6 +19,8 @@ using AutoMapper;
         CreateMap<LoginDto, User>();
         CreateMap<User, RegisterDto>();
         CreateMap<RegisterDto, User>();
-        }
-    
+        CreateMap<User, LocationDto>();
+        CreateMap<LocationDto, User>();
+    }
 }
+
