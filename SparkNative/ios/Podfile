@@ -21,6 +21,8 @@ target 'SparkNative' do
 
   pod 'react-native-date-picker', :path => '../node_modules/react-native-date-picker'
 
+  pod 'react-native-geolocation', :path => '../node_modules/@react-native-community/geolocation'
+
   target 'SparkNativeTests' do
     inherit! :complete
     # Pods for testing

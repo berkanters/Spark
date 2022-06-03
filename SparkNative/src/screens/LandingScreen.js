@@ -8,10 +8,14 @@ const LandingScreen = props => {
   const navigation = useNavigation();
   //console.log(props?.route?.params?.data, 'doğru data');
   const [user, setUser] = useState('');
-  AsyncStorage.getItem('token').then((token) => {setUser(token)});
-if(user){
-navigation.reset({index: 0, routes: [{name: 'tab'}]});
-}
+
+  AsyncStorage.getItem('token').then(token => {
+    setUser(token);
+    if (user) {
+      navigation.reset({index: 0, routes: [{name: 'tab'}]});
+    }
+  });
+
   return (
     <View style={styles.container}>
       <View style={{flex: 2, flexDirection: 'row', alignItems: 'center'}}>
