@@ -21,6 +21,8 @@ public class MapProfile : Profile
         CreateMap<RegisterDto, User>();
         CreateMap<User, LocationDto>();
         CreateMap<LocationDto, User>();
+        CreateMap<UserWithLastMessageDto, User>();
+        CreateMap<User, UserWithLastMessageDto>();
     }
 }
 
