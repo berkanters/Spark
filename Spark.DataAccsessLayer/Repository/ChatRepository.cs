@@ -20,6 +20,8 @@ namespace Spark.DataAccessLayer.Repository
 
         public Task<IQueryable<Chat>> GetMessagesBetween2Person(Guid id, Guid id2)
         {
+            //var check = sparkDBContext.Likes.FirstOrDefault(c => c.UserId == id && c.LikedUserId == id2&&c.IsWin==true);
+            
             var messages = sparkDBContext.Chats.Where(x =>
                 x.User1Id == id && x.User2Id == id2 || x.User1Id == id2 && x.User2Id == id);
             return Task.FromResult(messages);

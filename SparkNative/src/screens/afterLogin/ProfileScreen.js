@@ -20,6 +20,7 @@ const ProfileScreen = props => {
   const {age, image, info1, info2, info3, info4, location, match, name} =
     Demo[7];
   const [user, setUser] = useState('');
+  const [data, setData] = useState('');
   // const [testValue, setTestValue] = useState('');
   // const savedProfile = AsyncStorage.getItem('token');
   // const profile = JSON.parse(savedProfile);
@@ -29,22 +30,46 @@ const ProfileScreen = props => {
   // });
 
   useEffect(() => {
+    let isCancelled = false;
     getData();
+    return () => {
+      isCancelled = true;
+    };
   }, []);
 
+  useEffect(() => {
+    let isCancelled = false;
+    getLocation();
+    return () => {
+      isCancelled = true;
+    };
+  }, [user]);
+
   const getLocation = async () => {
+    console.log('getLocation');
     Geolocation.getCurrentPosition(
       position => {
         const initialPosition = JSON.stringify(position);
         setCoordinates(initialPosition);
-        console.log(initialPosition);
-
         axios
           .put(
             `https://spark-api-qv6.conveyor.cloud/SetLocation?userId=${user.id}&latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`,
           )
           .then(function (response) {
-            console.log(response);
+            console.log('Location Setted to DB');
+
+            axios
+              .get(
+                `https://spark-api-qv6.conveyor.cloud/api/User/getbyid=${user.id}`,
+              )
+              .then(function (response) {
+                setData(response);
+                const jsonValue = JSON.stringify(response.data);
+                AsyncStorage.setItem('token', jsonValue);
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
           })
           .catch(function (error) {
             console.log(error);
@@ -56,8 +81,8 @@ const ProfileScreen = props => {
   };
 
   const getData = async () => {
-    getLocation();
     try {
+      console.log('getData');
       AsyncStorage.getItem('token').then(value => {
         if (value != null) {
           let veri = JSON.parse(value);
