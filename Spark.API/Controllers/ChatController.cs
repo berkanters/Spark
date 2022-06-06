@@ -26,7 +26,7 @@ namespace Spark.API.Controllers
             var chats = await _chatService.GetAllAsync();
             return Ok(_mapper.Map<IEnumerable<ChatDto>>(chats));
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> SendMessage([FromBody] ChatDto chatDto)
         {
@@ -41,6 +41,26 @@ namespace Spark.API.Controllers
         {
             var messages = await _chatService.GetMessagesBetween2Person(id, id2);
             return Ok(_mapper.Map<IEnumerable<ChatDto>>(messages));
+        }
+        [HttpGet("/getWinMatches={id:guid}")]
+        public async Task<IActionResult> GetWinMatches(Guid id)
+        {
+            var messages = _chatService.GetMyWinMatches(id).Result.ToList();
+            var res = new List<UserWithLastMessageDto>();
+            // List<UserWithLastMessageDto> winMatches = new List<UserWithLastMessageDto>();
+            for (int i = 0; i < messages.Count; i++)
+            {
+                res.Add(new UserWithLastMessageDto()
+                {
+                    Id = messages[i].Id,
+                    Age = messages[i].Age,
+                    Name = messages[i].Name,
+                    LastName = messages[i].LastName,
+                    LastMessage = _chatService.GetLastMessage(id, messages[i].Id)
+                }
+                );
+            }
+            return Ok(_mapper.Map<IEnumerable<UserWithLastMessageDto>>(res));
         }
     }
 }

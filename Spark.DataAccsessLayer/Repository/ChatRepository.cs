@@ -26,5 +26,21 @@ namespace Spark.DataAccessLayer.Repository
                 x.User1Id == id && x.User2Id == id2 || x.User1Id == id2 && x.User2Id == id);
             return Task.FromResult(messages);
         }
+
+        public Task<IQueryable<User>> GetMyWinMatches(Guid id)
+        {
+            //var check = sparkDBContext.Likes.Where(c => (c.UserId == id || c.LikedUserId == id) && c.IsWin == true);
+            var users = sparkDBContext.Likes.Where(x => (x.UserId == id || x.LikedUserId != id)&&x.IsWin==true).Select(x => x.LikedUser);
+            var users2 = sparkDBContext.Likes.Where(x => (x.UserId != id || x.LikedUserId == id) && x.IsWin == true).Select(x => x.User);
+            var winMatches = users.Concat(users2);
+            return Task.FromResult(winMatches);
+        }
+
+        public  string GetLastMessage(Guid id,Guid id2)
+        {
+            var lastMessage = sparkDBContext.Chats.Where(x =>
+                (x.User1Id == id && x.User2Id == id2) || (x.User1Id == id2 && x.User2Id == id)).OrderByDescending(x=>x.MessageDate).FirstOrDefault();
+            return lastMessage!.MessageText;
+        }
     }
 }
