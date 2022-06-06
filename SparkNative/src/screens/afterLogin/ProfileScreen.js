@@ -20,13 +20,13 @@ const ProfileScreen = props => {
   const {age, image, info1, info2, info3, info4, location, match, name} =
     Demo[7];
   const [user, setUser] = useState('');
-  const [testValue, setTestValue] = useState('');
+  // const [testValue, setTestValue] = useState('');
   // const savedProfile = AsyncStorage.getItem('token');
   // const profile = JSON.parse(savedProfile);
   // console.log((profile));
-  AsyncStorage.getItem('token').then(value => {
-    setTestValue(value);
-  });
+  // AsyncStorage.getItem('token').then(value => {
+  //   setTestValue(value);
+  // });
 
   useEffect(() => {
     getData();
@@ -37,6 +37,7 @@ const ProfileScreen = props => {
       position => {
         const initialPosition = JSON.stringify(position);
         setCoordinates(initialPosition);
+        console.log(initialPosition);
 
         axios
           .put(
@@ -55,13 +56,13 @@ const ProfileScreen = props => {
   };
 
   const getData = async () => {
+    getLocation();
     try {
       AsyncStorage.getItem('token').then(value => {
         if (value != null) {
           let veri = JSON.parse(value);
           setUser(veri);
         }
-        getLocation();
       });
     } catch (e) {
       // error reading value
