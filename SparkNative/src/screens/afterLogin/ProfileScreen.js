@@ -14,12 +14,23 @@ import Icon from '../../components/Icon';
 import Demo from '../../components/Demo';
 import {getDrawerStatusFromState} from '@react-navigation/drawer';
 import Geolocation from '@react-native-community/geolocation';
+import { Modal, Portal, Button, Provider } from 'react-native-paper';
+import Slider from '@react-native-community/slider';
+import { min } from 'react-native-reanimated';
 
 const ProfileScreen = props => {
   const [coordinates, setCoordinates] = useState('');
   const {age, image, info1, info2, info3, info4, location, match, name} =
     Demo[7];
   const [user, setUser] = useState('');
+  const [minAge, setMinAge] = useState('');
+  const [maxAge, setMaxAge] = useState('');
+  const [range, setRange] = useState('');
+  const [visible, setVisible] = React.useState(false);
+
+  const showModal = () => setVisible(true);
+  const hideModal = () => setVisible(false);
+  const containerStyle = {backgroundColor: 'white', padding: 20};
   // const [testValue, setTestValue] = useState('');
   // const savedProfile = AsyncStorage.getItem('token');
   // const profile = JSON.parse(savedProfile);
@@ -54,7 +65,7 @@ const ProfileScreen = props => {
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000},
     );
   };
-
+console.log(minAge);
   const getData = async () => {
     getLocation();
     try {
@@ -68,6 +79,15 @@ const ProfileScreen = props => {
       // error reading value
     }
   };
+  const onClick = () => {
+    const jsonMinAge = JSON.stringify(minAge);
+    const jsonMaxAge = JSON.stringify(maxAge);
+    const jsonRange = JSON.stringify(range);
+    AsyncStorage.setItem('minAge', jsonMinAge);
+    AsyncStorage.setItem('maxAge', jsonMaxAge);
+    AsyncStorage.setItem('range', jsonRange);
+    hideModal();
+  }
 
   //  const getData = async () => {
   //    try {
@@ -166,13 +186,56 @@ const ProfileScreen = props => {
             </Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.roundedButton}>
-            <Text style={styles.iconButton}>
-              <Icon name="chat" />
-            </Text>
-            <Text style={styles.textButton}>Start chatting</Text>
-          </TouchableOpacity>
+          <Button style={styles.button} mode="contained" onPress={showModal}>
+          Preferences
+        </Button>
         </View>
+
+        <Provider>
+      <Portal>
+        <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
+          <View flexDirection='row'>
+        <Slider
+  style={{width: 200, height: 80}}
+  minimumValue={18}
+  maximumValue={80}
+  minimumTrackTintColor="#ffd500"
+  maximumTrackTintColor="#ffd500"
+  thumbTintColor="#ffd500"
+  onValueChange={value => setMinAge(value)}
+  step={1}
+/><Text>{minAge}</Text>
+</View>
+<View flexDirection='row'>
+<Slider
+  style={{width: 200, height: 80}}
+  minimumValue={18}
+  maximumValue={80}
+  minimumTrackTintColor="#ffd500"
+  maximumTrackTintColor="#ffd500"
+  thumbTintColor="#ffd500"
+  onValueChange={value => setMaxAge(value)}
+  step={1}
+/><Text>{maxAge}</Text>
+</View>
+<View flexDirection='row'>
+        <Slider
+  style={{width: 200, height: 80}}
+  minimumValue={18}
+  maximumValue={80}
+  minimumTrackTintColor="#ffd500"
+  maximumTrackTintColor="#ffd500"
+  thumbTintColor="#ffd500"
+  onValueChange={value => setRange(value)}
+  step={1}
+/><Text>{range}</Text>
+</View>
+<Button style={styles.button} mode="contained" onPress={() => {onClick()}}>Okay</Button>
+
+        </Modal>
+      </Portal>
+    </Provider>
+
       </ScrollView>
     </View>
   );

@@ -1,18 +1,23 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ProfileScreen from '../screens/afterLogin/ProfileScreen';
 import MatchScreen from '../screens/afterLogin/MatchScreen';
 import GameScreen from '../screens/afterLogin/GameScreen';
 import ChatScreen from '../screens/afterLogin/ChatScreen';
+import { Avatar } from 'react-native-paper';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const TabStack = props => {
-  const Tab = createBottomTabNavigator();
+  const Tab = createMaterialBottomTabNavigator();
   return (
   
     <Tab.Navigator
+    activeColor="#ffd500"
+    barStyle={{ backgroundColor: 'white' }}
       screenOptions={({route}) => ({
         tabBarIcon: ({focused, color, size}) => {
           let iconName;
@@ -21,7 +26,6 @@ const TabStack = props => {
               ? 'ios-information-circle'
               : 'ios-information-circle-outline';
           }
-          return <Ionicons name={iconName} size={size} color={color} />;
         },
         tabBarActiveTintColor: '#ffd500',
         tabBarInactiveTintColor: 'gray',
@@ -29,7 +33,14 @@ const TabStack = props => {
       <Tab.Screen
         name="Profile"
         component={ProfileScreen}
-        options={{headerShown: false}}
+        
+        options={{
+          headerShown: false,
+          tabBarLabel: 'Home',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="account" color={color} size={26} />
+          ),}}
+        
       />
 
       <Tab.Screen

@@ -76,12 +76,12 @@ export default StyleSheet.create({
 		paddingVertical: 30
 	},
 	button: {
-		width: 60,
+		width: "40%",
 		height: 60,
 		borderRadius: 30,
-		backgroundColor: WHITE,
+		backgroundColor:'#ffd500',
 		marginHorizontal: 7,
-		alignItems: "center",
+		marginBottom: 10,
 		justifyContent: "center",
 		shadowOpacity: 0.15,
 		shadowRadius: 20,
