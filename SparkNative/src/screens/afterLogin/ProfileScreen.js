@@ -6,6 +6,7 @@ import {
   ScrollView,
   View,
   Text,
+  Alert,
   ImageBackground,
   TouchableOpacity,
 } from 'react-native';
@@ -17,6 +18,7 @@ import Geolocation from '@react-native-community/geolocation';
 import { Modal, Portal, Button, Provider } from 'react-native-paper';
 import Slider from '@react-native-community/slider';
 import { min } from 'react-native-reanimated';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 const ProfileScreen = props => {
   const [coordinates, setCoordinates] = useState('');
@@ -27,6 +29,13 @@ const ProfileScreen = props => {
   const [maxAge, setMaxAge] = useState('');
   const [range, setRange] = useState('');
   const [visible, setVisible] = React.useState(false);
+  const [opens, setOpens] = useState(false);
+  const [value, setValue] = useState(null);
+  const [items, setItems] = useState([
+    {label: 'Man', value: 'man'},
+    {label:'Woman',value:'woman'},
+    {label:'Other',value:'other'}
+  ]);
 
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
@@ -43,31 +52,31 @@ const ProfileScreen = props => {
     getData();
   }, []);
 
-  const getLocation = async () => {
-    Geolocation.getCurrentPosition(
-      position => {
-        const initialPosition = JSON.stringify(position);
-        setCoordinates(initialPosition);
-        console.log(initialPosition);
+  // const getLocation = async () => {
+  //   Geolocation.getCurrentPosition(
+  //     position => {
+  //       const initialPosition = JSON.stringify(position);
+  //       setCoordinates(initialPosition);
+  //       console.log(initialPosition);
 
-        axios
-          .put(
-            `https://spark-api-qv6.conveyor.cloud/SetLocation?userId=${user.id}&latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`,
-          )
-          .then(function (response) {
-            console.log(response);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-      },
-      error => Alert.alert('Error', JSON.stringify(error)),
-      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000},
-    );
-  };
+  //       axios
+  //         .put(
+  //           `https://spark-api-qv6.conveyor.cloud/SetLocation?userId=${user.id}&latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`,
+  //         )
+  //         .then(function (response) {
+  //           console.log(response);
+  //         })
+  //         .catch(function (error) {
+  //           console.log(error);
+  //         });
+  //     },
+  //     error => Alert.alert('Error', JSON.stringify(error)),
+  //     {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000},
+  //   );
+  // };
 console.log(minAge);
   const getData = async () => {
-    getLocation();
+    //getLocation();
     try {
       AsyncStorage.getItem('token').then(value => {
         if (value != null) {
@@ -83,9 +92,11 @@ console.log(minAge);
     const jsonMinAge = JSON.stringify(minAge);
     const jsonMaxAge = JSON.stringify(maxAge);
     const jsonRange = JSON.stringify(range);
+    const jsonGender = JSON.stringify(value);
     AsyncStorage.setItem('minAge', jsonMinAge);
     AsyncStorage.setItem('maxAge', jsonMaxAge);
     AsyncStorage.setItem('range', jsonRange);
+    AsyncStorage.setItem('gender', jsonGender);
     hideModal();
   }
 
@@ -148,7 +159,7 @@ console.log(minAge);
 
   return (
     <View>
-      <ScrollView style={styles.containerProfile}>
+      <View style={styles.containerProfile}>
         <ImageBackground
           source={require('../../assets/user.png')}
           style={styles.photo}>
@@ -176,7 +187,10 @@ console.log(minAge);
           info1={user.email}
           info2={user.gender}
           info3={user.phone}
-          info4={info4}
+          minage={minAge}
+          maxage={maxAge}
+          range={range}
+          gender={value}
         />
 
         <View style={styles.actionsProfile}>
@@ -221,8 +235,8 @@ console.log(minAge);
 <View flexDirection='row'>
         <Slider
   style={{width: 200, height: 80}}
-  minimumValue={18}
-  maximumValue={80}
+  minimumValue={1}
+  maximumValue={10000}
   minimumTrackTintColor="#ffd500"
   maximumTrackTintColor="#ffd500"
   thumbTintColor="#ffd500"
@@ -230,13 +244,22 @@ console.log(minAge);
   step={1}
 /><Text>{range}</Text>
 </View>
+<DropDownPicker
+            style={{}}
+            open={opens}
+            value={value}
+            items={items}
+            setOpen={setOpens}
+            setValue={setValue}
+            setItems={setItems}
+          />
 <Button style={styles.button} mode="contained" onPress={() => {onClick()}}>Okay</Button>
 
         </Modal>
       </Portal>
     </Provider>
 
-      </ScrollView>
+      </View>
     </View>
   );
 };

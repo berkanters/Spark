@@ -12,7 +12,11 @@ const ProfileItem = ({
   location,
   matches,
   name,
-  lastname
+  lastname,
+  minage,
+  maxage,
+  range,
+  gender
 }) => {
   return (
     <View style={styles.containerProfileItem}>
@@ -53,7 +57,7 @@ const ProfileItem = ({
         <Text style={styles.iconProfile}>
           
         </Text>
-        <Text style={styles.infoContent}>{info4}</Text>
+        <Text style={styles.infoContent}>{minage} {maxage} {range} {gender}</Text>
       </View>
     </View>
   );

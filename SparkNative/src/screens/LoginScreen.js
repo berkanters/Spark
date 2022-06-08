@@ -22,7 +22,7 @@ const LoginScreen = props => {
   }, [data.status]);
   const onClick = () => {
     axios
-      .post('https://spark-api-qv6.conveyor.cloud/Login', {
+      .post('https://spark-api.conveyor.cloud/Login', {
         email: email,
         password: password,
       })

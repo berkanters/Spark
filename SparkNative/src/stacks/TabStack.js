@@ -2,13 +2,14 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import {ImageBackground, View, Text, StyleSheet, Image} from 'react-native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ProfileScreen from '../screens/afterLogin/ProfileScreen';
 import MatchScreen from '../screens/afterLogin/MatchScreen';
 import GameScreen from '../screens/afterLogin/GameScreen';
 import ChatScreen from '../screens/afterLogin/ChatScreen';
-import { Avatar } from 'react-native-paper';
+import { Avatar} from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const TabStack = props => {
@@ -38,7 +39,7 @@ const TabStack = props => {
           headerShown: false,
           tabBarLabel: 'Home',
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="account" color={color} size={26} />
+            <ImageBackground path color={color} size={26} />
           ),}}
         
       />

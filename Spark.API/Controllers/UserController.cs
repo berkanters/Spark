@@ -32,7 +32,7 @@ namespace Spark.API.Controllers
             return Ok(_mapper.Map<UserDto>(user));
         }
 
-        [HttpGet("filterby=gender&minage&maxage")]
+        [HttpGet("filterby={gender:alpha}&{minAge:int}&{maxAge:int}&{distance:int}&{user1:guid}")]
         public async Task<IActionResult> GetByGenderAndAge(string gender, int minAge, int maxAge,int distance,Guid user1)
         {
             if (ModelState.IsValid)

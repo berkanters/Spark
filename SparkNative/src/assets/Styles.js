@@ -82,6 +82,7 @@ export default StyleSheet.create({
 		backgroundColor:'#ffd500',
 		marginHorizontal: 7,
 		marginBottom: 10,
+		marginTop: 10,
 		justifyContent: "center",
 		shadowOpacity: 0.15,
 		shadowRadius: 20,
@@ -275,7 +276,7 @@ export default StyleSheet.create({
 	containerProfile: { marginHorizontal: 0 },
 	photo: {
 		width: DIMENSION_WIDTH,
-		height: 450
+		height: 300
 	},
 	topIconLeft: {
 		fontFamily: ICON_FONT,
