@@ -76,12 +76,13 @@ export default StyleSheet.create({
 		paddingVertical: 30
 	},
 	button: {
-		width: 60,
+		width: "40%",
 		height: 60,
 		borderRadius: 30,
-		backgroundColor: WHITE,
+		backgroundColor:'#ffd500',
 		marginHorizontal: 7,
-		alignItems: "center",
+		marginBottom: 10,
+		marginTop: 10,
 		justifyContent: "center",
 		shadowOpacity: 0.15,
 		shadowRadius: 20,
@@ -275,7 +276,7 @@ export default StyleSheet.create({
 	containerProfile: { marginHorizontal: 0 },
 	photo: {
 		width: DIMENSION_WIDTH,
-		height: 450
+		height: 300
 	},
 	topIconLeft: {
 		fontFamily: ICON_FONT,

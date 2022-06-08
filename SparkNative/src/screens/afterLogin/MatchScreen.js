@@ -1,13 +1,21 @@
-import React, { useState, useMemo } from 'react'
-import { Button } from 'react-native'
+import React, { useState, useMemo, useEffect } from 'react';
+import { View,  Image, StyleSheet, TouchableOpacity, ScrollView, Dimensions, Alert } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Modal, Portal, Button, Provider,Text } from 'react-native-paper';
 import TinderCard from 'react-tinder-card'
 import styled from 'styled-components/native'
+import  axios  from 'axios';
+import styles from '../../assets/Styles';
+
+
+
 
 const Container = styled.View`
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
+    
 `
 
 const Header = styled.Text`
@@ -46,7 +54,7 @@ const CardTitle = styled.Text`
     position: absolute;
     bottom: 0;
     margin: 10px;
-    color: #fff;
+    color: black;
 `
 
 const Buttons = styled.View`
@@ -61,80 +69,190 @@ const InfoText = styled.Text`
     z-index: -100;
 `
 
-const db = [
-  {
-    name: 'Richard Hendricks',
-    
-  },
-  {
-    name: 'Erlich Bachman',
-    
-  },
-  {
-    name: 'Monica Hall',
-    
-  },
-  {
-    name: 'Jared Dunn',
-    
-  },
-  {
-    name: 'Dinesh Chugtai',
-    
-  }
-]
 
-const alreadyRemoved = []
-let charactersState = db // This fixes issues with updating characters state forcing it to use the current state and not the state that was active when the card was created.
+const alreadyRemoved = [] // This fixes issues with updating characters state forcing it to use the current state and not the state that was active when the card was created.
 
 const MatchScreen = () => {
-  const [characters, setCharacters] = useState(db)
+  const [characters, setCharacters] = useState([])
   const [lastDirection, setLastDirection] = useState()
+  const [minAge, setMinAge] = useState('');
+const [maxAge, setMaxAge] = useState('');
+const [range, setRange] = useState('');
+const [gender, setGender] = useState('');
+const [idToDelete, setIdToDelete] = useState('');
+const [nameToDelete, setNameToDelete] = useState('');
+  const [user, setUser] = useState('');
+  const [match,setMatch] = useState('');
+  const [visible, setVisible] = React.useState(false);
+  const containerStyle = {backgroundColor: 'white', padding: 20};
+  
+  const userId=user.id;
 
-  const childRefs = useMemo(() => Array(db.length).fill(0).map(i => React.createRef()), [])
+  const showModal = () => setVisible(true);
+  const hideModal = () => setVisible(false);
 
-  const swiped = (direction, nameToDelete) => {
-    console.log('removing: ' + nameToDelete + ' to the ' + direction)
+useEffect(() => {
+  getData1(); 
+  getData2();
+  getData3();
+  getData4();
+  getUser();
+}, []);
+
+const getUser = async () => { 
+  try {
+    AsyncStorage.getItem('token').then(value => {
+      if (value != null) {
+        let veri = JSON.parse(value);
+        setUser(veri)
+        
+      }
+    });
+  } catch (e) {
+    // error reading value
+  }
+};
+
+
+const getData1 = async () => {
+  try {
+    AsyncStorage.getItem('minAge').then(value => {
+      if (value != null) {
+        let veri = JSON.parse(value);
+        setMinAge(veri)
+        
+      }
+    });
+  } catch (e) {
+    // error reading value
+  }
+};
+
+const getData2 = async () => {
+  try {
+    AsyncStorage.getItem('maxAge').then(value => {
+      if (value != null) {
+        let veri = JSON.parse(value);
+        setMaxAge(veri)
+        
+      }
+    });
+  } catch (e) {
+    // error reading value
+  }
+};
+
+const getData3 = async () => {
+  try {
+    AsyncStorage.getItem('range').then(value => {
+      if (value != null) {
+        let veri = JSON.parse(value);
+        setRange(veri)
+        
+      }
+    });
+  } catch (e) {
+    // error reading value
+  }
+};
+
+const getData4 = async () => {
+  try {
+   await AsyncStorage.getItem('gender').then(value => {
+      if (value != null) {
+        let veri = JSON.parse(value);
+        setGender(veri)
+        
+      }
+    });
+  } catch (e) {
+    // error reading value
+  }
+};
+
+useEffect(()=>{
+  if(user?.id !== null){
+  axios.get(`https://spark-api.conveyor.cloud/api/User/filterby=${gender}&${minAge}&${maxAge}&${range}&${userId}`)
+  .then(function (response) {
+    console.log('Winners fetched');
+    setCharacters(response.data);
+    console.log(response.data);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });}
+},[user?.id]);
+
+useEffect(()=>{
+  if(lastDirection == 'right'){
+    axios.post(`https://spark-api.conveyor.cloud/match=id&lid?id=${user.id}&lId=${idToDelete}`).then(function (response) {
+        console.log(response.status);
+        setMatch(response);
+        
+      })
+      .catch(function (error) {
+        console.log(error);
+      });}
+    },[idToDelete]);
+
+    useEffect(() => {
+      if (match.status === 200) {
+        showModal();
+      } else {
+        console.log('error');
+      }
+    }, [match.status]);
+
+console.log(user.id);
+   
+    console.log(match);
+    console.log(lastDirection);
+
+    
+
+  const swiped = (direction, idToDelete,nameToDelete) => {
+    console.log('removing: ' + idToDelete)
     setLastDirection(direction)
-    alreadyRemoved.push(nameToDelete)
+    setIdToDelete(idToDelete)
+    setNameToDelete(nameToDelete)
   }
 
   const outOfFrame = (name) => {
     console.log(name + ' left the screen!')
-    charactersState = charactersState.filter(character => character.name !== name)
-    setCharacters(charactersState)
-  }
-
-  const swipe = (dir) => {
-    const cardsLeft = characters.filter(person => !alreadyRemoved.includes(person.name))
-    if (cardsLeft.length) {
-      const toBeRemoved = cardsLeft[cardsLeft.length - 1].name // Find the card object to be removed
-      const index = db.map(person => person.name).indexOf(toBeRemoved) // Find the index of which to make the reference to
-      alreadyRemoved.push(toBeRemoved) // Make sure the next card gets removed next time if this card do not have time to exit the screen
-      childRefs[index].current.swipe(dir) // Swipe the card!
-    }
+    
   }
 
   return (
+    <View style={{flex:1}}>
     <Container>
       <Header>React Native Tinder Card</Header>
       <CardContainer>
-        {characters.map((character, index) =>
-          <TinderCard ref={childRefs[index]} key={character.name} onSwipe={(dir) => swiped(dir, character.name)} onCardLeftScreen={() => outOfFrame(character.name)}>
+        {characters.map((character) =>
+          <TinderCard key={character.id} onSwipe={(dir) => swiped(dir, character.id,character.name)} onCardLeftScreen={() => outOfFrame(character.id)}>
             <Card>
-              <CardImage source={character.img}>
+              <CardImage source={require('../../assets/user.png')}>
                 <CardTitle>{character.name}</CardTitle>
               </CardImage>
             </Card>
           </TinderCard>
         )}
       </CardContainer>
-      <Buttons>
-        <Button onPress={() => swipe('left')} title='Swipe left!' />
-        <Button onPress={() => swipe('right')} title='Swipe right!' />
-      </Buttons>
-      {lastDirection ? <InfoText key={lastDirection}>You swiped {lastDirection}</InfoText> : <InfoText>Swipe a card or press a button to get started!</InfoText>}
+      {lastDirection ? <InfoText>You swiped {lastDirection}</InfoText> : <InfoText />}
     </Container>
+    <Provider>
+      <Portal>
+        <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
+          <View style={{alignItems:'center'}}>
+          
+    <Text style={{color:'black',fontSize:20}}>Tebrikler {nameToDelete} ile eşleştin!!!! </Text>
+    </View>
+    <View style={{alignItems:'center'}}>
+<Button style={styles.button} mode="contained" onPress={() =>{hideModal()}}>Okay</Button>
+      </View>
+        </Modal>
+      </Portal>
+    </Provider>
+    </View>
   )
 }
 
