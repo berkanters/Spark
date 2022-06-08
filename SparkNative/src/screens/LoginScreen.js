@@ -52,6 +52,7 @@ const LoginScreen = props => {
           onChangeText={val => setPassword(val)}
           mode="outlined"
           label="Password"
+          secureTextEntry={true}
           outlineColor="#ffd500"
           activeOutlineColor="#ffd500"
           activeUnderlineColor="ffd500"></TextInput>
@@ -66,8 +67,8 @@ const LoginScreen = props => {
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-        <Text style={styles.text}>İf you dont have account </Text>
-        <TouchableOpacity>
+        <Text style={styles.text}>If you don't have an account </Text>
+        <TouchableOpacity onPress={() => navigation.navigate('Register')}>
           <Text style={styles.textTou}>Register</Text>
         </TouchableOpacity>
       </View>

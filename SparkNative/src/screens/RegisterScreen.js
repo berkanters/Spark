@@ -202,8 +202,8 @@ const RegisterScreen = props => {
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-        <Text style={styles.text}>İf you already have account </Text>
-        <TouchableOpacity>
+        <Text style={styles.text}>If you already have an account </Text>
+        <TouchableOpacity onPress={() => navigation.navigate('Login')}>
           <Text style={styles.textTou}>Login</Text>
         </TouchableOpacity>
       </View>

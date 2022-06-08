@@ -4,6 +4,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import LoginScreen from '../screens/LoginScreen';
 import LandingScreen from '../screens/LandingScreen';
 import RegisterScreen from '../screens/RegisterScreen';
+import TextingScreen from '../screens/outTabScreens/TextingScreen';
 import TabStack from './TabStack';
 const LandingStack = props => {
   const Stack = createStackNavigator();
@@ -25,6 +26,12 @@ const LandingStack = props => {
           component={RegisterScreen}
           options={{headerShown: false}}
         />
+        <Stack.Screen
+          name="Texting"
+          component={TextingScreen}
+          options={{headerShown: false}}
+        />
+
         <Stack.Screen
           name="tab"
           component={TabStack}
