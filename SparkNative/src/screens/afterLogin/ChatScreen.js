@@ -1,4 +1,5 @@
-import React, {useState, useEffect, Component} from 'react';
+import React, {useState, useEffect, Component, useFocusEffect} from 'react';
+import {useNavigation} from '@react-navigation/native';
 import {Button, TextInput, Text} from 'react-native-paper';
 import styles from '../../assets/Styles';
 import {
@@ -15,6 +16,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ChatScreen = props => {
+  const navigation = useNavigation();
   const [winUsers, setWinUsers] = useState([]);
   const [user, setUser] = useState('');
   const [data, setData] = useState('');
@@ -26,6 +28,15 @@ const ChatScreen = props => {
   useEffect(() => {
     getWinMatches();
   }, [user]);
+
+  const onClick = (id, name, lastname) => {
+    navigation.navigate('Texting', {
+      itemId: id,
+      itemName: name,
+      itemLastName: lastname,
+    });
+    getWinMatches();
+  };
 
   const getData = async () => {
     try {
@@ -73,13 +84,13 @@ const ChatScreen = props => {
             <TouchableOpacity
               key={item.id}
               onPress={() => {
-                console.log(item.name);
+                onClick(item.id, item.name, item.lastName);
               }}>
               <Message
                 image={item.image}
                 name={item.name}
                 lastName={item.lastName}
-                lastMessage={item.lastMessage}
+                lastMessage={item.lastMessage.substring(0, 40)}
               />
             </TouchableOpacity>
           ))}

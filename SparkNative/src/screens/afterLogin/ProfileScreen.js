@@ -43,7 +43,7 @@ const ProfileScreen = props => {
     return () => {
       isCancelled = true;
     };
-  }, [user]);
+  }, [user?.id]);
 
   const getLocation = async () => {
     console.log('getLocation');
