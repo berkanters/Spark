@@ -25,6 +25,7 @@ const ProfileScreen = props => {
   const {age, image, info1, info2, info3, info4, location, match, name} =
     Demo[7];
   const [user, setUser] = useState('');
+
   const [minAge, setMinAge] = useState('');
   const [maxAge, setMaxAge] = useState('');
   const [range, setRange] = useState('');
@@ -36,10 +37,12 @@ const ProfileScreen = props => {
     {label:'Woman',value:'woman'},
     {label:'Other',value:'other'}
   ]);
+  const [data, setData] = useState('');
 
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
   const containerStyle = {backgroundColor: 'white', padding: 20};
+
   // const [testValue, setTestValue] = useState('');
   // const savedProfile = AsyncStorage.getItem('token');
   // const profile = JSON.parse(savedProfile);
@@ -49,15 +52,56 @@ const ProfileScreen = props => {
   // });
 
   useEffect(() => {
+    let isCancelled = false;
     getData();
+    return () => {
+      isCancelled = true;
+    };
   }, []);
 
-  // const getLocation = async () => {
-  //   Geolocation.getCurrentPosition(
-  //     position => {
-  //       const initialPosition = JSON.stringify(position);
-  //       setCoordinates(initialPosition);
-  //       console.log(initialPosition);
+
+  useEffect(() => {
+    let isCancelled = false;
+    getLocation();
+    return () => {
+      isCancelled = true;
+    };
+  }, [user?.id]);
+
+  const getLocation = async () => {
+    console.log('getLocation');
+    Geolocation.getCurrentPosition(
+      position => {
+        const initialPosition = JSON.stringify(position);
+        setCoordinates(initialPosition);
+        axios
+          .put(
+            `https://spark-api-qv6.conveyor.cloud/SetLocation?userId=${user.id}&latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`,
+          )
+          .then(function (response) {
+            console.log('Location Setted to DB');
+
+            axios
+              .get(
+                `https://spark-api-qv6.conveyor.cloud/api/User/getbyid=${user.id}`,
+              )
+              .then(function (response) {
+                setData(response);
+                const jsonValue = JSON.stringify(response.data);
+                AsyncStorage.setItem('token', jsonValue);
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      },
+      error => Alert.alert('Error', JSON.stringify(error)),
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000},
+    );
+  };
 
   //       axios
   //         .put(
@@ -76,8 +120,8 @@ const ProfileScreen = props => {
   // };
 console.log(minAge);
   const getData = async () => {
-    //getLocation();
     try {
+      console.log('getData');
       AsyncStorage.getItem('token').then(value => {
         if (value != null) {
           let veri = JSON.parse(value);

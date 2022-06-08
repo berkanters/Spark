@@ -25,5 +25,15 @@ namespace Spark.Services.Services
             return await _unit.Chat.GetMessagesBetween2Person(id, id2);
             
         }
+
+        public Task<IQueryable<User>> GetMyWinMatches(Guid id)
+        {
+            return _unit.Chat.GetMyWinMatches(id);
+        }
+
+        public string GetLastMessage(Guid id, Guid id2)
+        {
+            return _unit.Chat.GetLastMessage(id, id2);
+        }
     }
 }

@@ -10,5 +10,7 @@ namespace Spark.Core.IntRepository
     public interface IChatRepository:IRepository<Chat>
     {
         Task<IQueryable<Chat>> GetMessagesBetween2Person (Guid id,Guid id2);
+        Task<IQueryable<User>> GetMyWinMatches(Guid id);
+        string GetLastMessage(Guid id,Guid id2);
     }
 }

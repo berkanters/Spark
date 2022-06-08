@@ -25,7 +25,7 @@ namespace Spark.API.Controllers
             return Ok(_mapper.Map<IEnumerable<UserDto>>(users));
         }
 
-        [HttpGet("getbyid")]
+        [HttpGet("getbyid={id:guid}")]
         public async Task<IActionResult> GetById(Guid id)
         {
             var user = await _userService.GetByIdAsync(id);
@@ -90,8 +90,7 @@ namespace Spark.API.Controllers
         }
         [HttpPut("/SetLocation")]
         public IActionResult SetLocation(Guid userId, double latitude, double longitude)
-        {
-            _userService.SetLocation(userId, latitude, longitude);
+        { _userService.SetLocation(userId, latitude, longitude);
             return NoContent();
         }
     }
