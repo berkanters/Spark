@@ -9,12 +9,14 @@ import {
   StyleSheet,
   FlatList,
 } from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 import {Button, Text} from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import ChatScreen from '../afterLogin/ChatScreen';
 
 const TextingScreen = props => {
+  const navigation = useNavigation();
   const [user2id, setUser2id] = useState('');
   const [user2name, setUser2name] = useState('');
   const [user2lastName, setUser2lastName] = useState('');
@@ -65,12 +67,15 @@ const TextingScreen = props => {
         console.log(error);
       });
   };
-
+  const openUser2Profile = () => {
+    console.log('openUser2Profile');
+    navigation.navigate('ChatToProfile', {user2id: user2id});
+  };
   const getMessages = () => {
     console.log('getMessages');
     axios
       .get(
-        `https://spark-api.conveyor.cloud/messages=${user.id}&${user2id}`,
+        `https://spark-api-qv6.conveyor.cloud/messages=${user.id}&${user2id}`,
       )
       .then(function (response) {
         console.log('Messages fetched');
@@ -88,7 +93,12 @@ const TextingScreen = props => {
   }
   return (
     <View style={styles.container}>
-      <Text>Chat Screen With {user2name}</Text>
+      <Text>
+        Chat Screen With{' '}
+        <TouchableOpacity onPress={openUser2Profile}>
+          <Text style={{color: '#ffd500'}}>{user2name}</Text>
+        </TouchableOpacity>
+      </Text>
       <ScrollView
         style={styles.list}
         ref={scrollViewRef}

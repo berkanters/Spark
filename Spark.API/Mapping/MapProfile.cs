@@ -23,6 +23,8 @@ public class MapProfile : Profile
         CreateMap<LocationDto, User>();
         CreateMap<UserWithLastMessageDto, User>();
         CreateMap<User, UserWithLastMessageDto>();
+        CreateMap<User, UserProfileChangeDto>();
+        CreateMap<UserProfileChangeDto, User>();
     }
 }
 
