@@ -49,7 +49,7 @@ namespace Spark.API.Controllers
             var users = await _userService.AddAsync(_mapper.Map<User>(userDto));
             return Created(string.Empty, userDto);
         }
-        [HttpPut]
+        [HttpPut("/UpdateUser")]
         public  IActionResult Update(UserDto userDto)
         {
             _userService.Update(_mapper.Map<User>(userDto));
@@ -63,7 +63,7 @@ namespace Spark.API.Controllers
             return NoContent();
         }
 
-        [HttpGet("/location=id&id1")]
+        [HttpGet("/location={id:guid}&{id2:guid}")]
         public async Task<IActionResult> CalculateDistance(Guid id, Guid id2)
         {
             var location =  _userService.CalculateDistance(id, id2);

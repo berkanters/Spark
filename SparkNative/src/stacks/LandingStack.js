@@ -5,6 +5,8 @@ import LoginScreen from '../screens/LoginScreen';
 import LandingScreen from '../screens/LandingScreen';
 import RegisterScreen from '../screens/RegisterScreen';
 import TextingScreen from '../screens/outTabScreens/TextingScreen';
+import ProfileEditScreen from '../screens/outTabScreens/ProfileEditScreen';
+import ChatToProfileScreen from '../screens/outTabScreens/ChatToProfileScreen';
 import TabStack from './TabStack';
 const LandingStack = props => {
   const Stack = createStackNavigator();
@@ -29,6 +31,16 @@ const LandingStack = props => {
         <Stack.Screen
           name="Texting"
           component={TextingScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="ProfileEdit"
+          component={ProfileEditScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="ChatToProfile"
+          component={ChatToProfileScreen}
           options={{headerShown: false}}
         />
 

@@ -55,7 +55,7 @@ const ChatScreen = props => {
   const getWinMatches = async () => {
     console.log('getData');
     axios
-      .get(`https://spark-api.conveyor.cloud/getWinMatches=${user.id}`)
+      .get(`https://spark-api-qv6.conveyor.cloud/getWinMatches=${user.id}`)
       .then(function (response) {
         console.log('Winners fetched');
         setWinUsers(response.data);
