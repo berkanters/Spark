@@ -60,7 +60,9 @@ namespace Spark.API.Controllers
                 }
                 );
             }
+            if(res.Count>0)
             return Ok(_mapper.Map<IEnumerable<UserWithLastMessageDto>>(res));
+            return BadRequest();
         }
     }
 }
