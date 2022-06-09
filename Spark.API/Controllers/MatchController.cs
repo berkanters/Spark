@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Collections;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Spark.API.DTOs;
@@ -54,6 +55,26 @@ namespace Spark.API.Controllers
         {
             var like = await _likeService.GetAllMyMatches(id);
             return Ok(_mapper.Map < IEnumerable<LikeDto>>(like));
+        }
+
+        [HttpGet("/getmymatcheswithuser={id:guid}")]
+        public async Task<IActionResult> GetMyMatchesWithUser(Guid id)
+        {
+            var like=  _likeService.GetMyMatchesWithUsers(id).Result.ToList();
+            return Ok(_mapper.Map<IEnumerable<UserDto>>(like));
+
+
+
+
+
+
+
+
+
+
+
+
+
         }
 
     }

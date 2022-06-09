@@ -15,5 +15,6 @@ namespace Spark.Core.IntService
         void ScoreUp(Guid id1, Guid id2, int score);
         bool IsThereAnyWin(Guid id1, Guid id2);
         Task<IEnumerable<Like>> GetAllMyMatches(Guid id);
+        Task<IQueryable<User>> GetMyMatchesWithUsers(Guid id);
     }
 }

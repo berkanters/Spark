@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO.Enumeration;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -136,6 +138,52 @@ namespace Spark.DataAccessLayer.Repository
         public async Task<IEnumerable<Like>> GetAllMyMatches(Guid id)
         {
             return await sparkDBContext.Likes.Where(x =>( x.UserId == id|| x.LikedUserId==id) && x.IsMatch == true).ToListAsync();
+            //var user1 = sparkDBContext.Likes.Where(x => x.UserId == id && x.IsMatch == true).Select(x => x.LikedUser);
+            //var user2 = sparkDBContext.Likes.Where(x => x.LikedUserId == id && x.IsMatch == true).Select(x => x.User);
+            //var Users = user1.Concat(user2).ToList();
+            //    return Task.FromResult(Users);
+
+            //    foreach (var i in user1)
+            //{
+            //    Users.Add(i);
+            //}foreach (var i in user2)
+            //{
+            //    Users.Add(i);
+            //}
+
+            //if (Users.Count != 0)
+            //{
+            //   await return Users;
+            //}
+            //else
+            //{
+                
+            //}
+        }
+
+        public Task<IQueryable<User>> GetMyMatchesWithUsers(Guid id)
+        {
+            //var check = sparkDBContext.Likes.Where(c => (c.UserId == id || c.LikedUserId == id) && c.IsWin == true);
+            var users = sparkDBContext.Likes.Where(x => x.UserId == id  && x.IsMatch == true).Select(x => x.LikedUser);
+            var users2 = sparkDBContext.Likes.Where(x =>  x.LikedUserId == id && x.IsMatch == true).Select(x => x.User);
+            var winMatches = users.Concat(users2);
+            return Task.FromResult(winMatches);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         }
     }
 }

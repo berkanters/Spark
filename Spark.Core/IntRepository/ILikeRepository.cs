@@ -18,6 +18,7 @@ namespace Spark.Core.IntRepository
         bool IsThereAnyWin(Guid id1, Guid id2);
 
         Task<IEnumerable<Like>> GetAllMyMatches(Guid id);
+        Task<IQueryable<User>> GetMyMatchesWithUsers(Guid id);
 
 
     }

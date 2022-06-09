@@ -172,7 +172,7 @@ const getData4 = async () => {
 
 useEffect(()=>{
   if(user?.id !== null){
-  axios.get(`https://spark-api.conveyor.cloud/api/User/filterby=${gender}&${minAge}&${maxAge}&${range}&${userId}`)
+  axios.get(`https://spark-api-qv6.conveyor.cloud/api/User/filterby=${gender}&${minAge}&${maxAge}&${range}&${userId}`)
   .then(function (response) {
     console.log('Winners fetched');
     setCharacters(response.data);
@@ -185,7 +185,7 @@ useEffect(()=>{
 
 useEffect(()=>{
   if(lastDirection == 'right'){
-    axios.post(`https://spark-api.conveyor.cloud/match=id&lid?id=${user.id}&lId=${idToDelete}`).then(function (response) {
+    axios.post(`https://spark-api-qv6.conveyor.cloud/match=id&lid?id=${user.id}&lId=${idToDelete}`).then(function (response) {
         console.log(response.status);
         setMatch(response);
         

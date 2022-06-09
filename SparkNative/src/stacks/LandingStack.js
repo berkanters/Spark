@@ -10,7 +10,7 @@ const LandingStack = props => {
   const Stack = createStackNavigator();
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Landing">
+      <Stack.Navigator initialRouteName="LandingStack">
         <Stack.Screen
           name="Landing"
           component={LandingScreen}
