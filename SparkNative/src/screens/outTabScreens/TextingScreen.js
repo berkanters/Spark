@@ -54,7 +54,7 @@ const TextingScreen = props => {
   const onClick = () => {
     console.log('onClick');
     axios
-      .post('https://spark-api-qv6.conveyor.cloud/api/Chat', {
+      .post('https://spark-api.conveyor.cloud/api/Chat', {
         user1id: user.id,
         user2id: user2id,
         messageText: text,

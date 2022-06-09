@@ -69,5 +69,10 @@ namespace Spark.Services.Services
         {
             return await _unit.Like.GetAllMyMatches(id);
         }
+
+        public Task<IQueryable<User>> GetMyMatchesWithUsers(Guid id)
+        {
+            return  _unit.Like.GetMyMatchesWithUsers(id);
+        }
     }
 }

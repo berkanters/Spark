@@ -3,6 +3,7 @@ import React, {useState, useEffect, Component} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import styles from '../../assets/Styles';
 import axios from 'axios';
+import { CommonActions } from '@react-navigation/native';
 import {
   ScrollView,
   View,
@@ -20,6 +21,8 @@ import {Modal, Portal, Button, Provider} from 'react-native-paper';
 import Slider from '@react-native-community/slider';
 import {min} from 'react-native-reanimated';
 import DropDownPicker from 'react-native-dropdown-picker';
+import { faLongArrowAltUp } from '@fortawesome/free-solid-svg-icons';
+import {useNavigation} from '@react-navigation/native';
 
 const ProfileScreen = props => {
   const [coordinates, setCoordinates] = useState('');
@@ -43,6 +46,7 @@ const ProfileScreen = props => {
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
   const containerStyle = {backgroundColor: 'white', padding: 20};
+  const navigation = useNavigation();
 
   // const [testValue, setTestValue] = useState('');
   // const savedProfile = AsyncStorage.getItem('token');
@@ -143,6 +147,19 @@ const ProfileScreen = props => {
     AsyncStorage.setItem('gender', jsonGender);
     hideModal();
   };
+
+  const logOut = async ()=>{
+
+    
+    try {
+      await AsyncStorage.removeItem('token')
+    } catch(e) {
+      // remove error
+    }
+    console.log('Done.')
+    navigation.reset({index: 0, routes: [{name: 'Landing'}]});
+
+  }
 
   //  const getData = async () => {
   //    try {
@@ -248,6 +265,10 @@ const ProfileScreen = props => {
           <Button style={styles.button} mode="contained" onPress={showModal}>
             Preferences
           </Button>
+        </View>
+        <View style={{alignItems:'center'}}>
+
+          <TouchableOpacity style={{color:'#ffd500', marginTop:10}} onPress={logOut}><Text style={{color:'#ffd500', fontSize:15}}>LogOut</Text></TouchableOpacity>
         </View>
 
         <Provider>

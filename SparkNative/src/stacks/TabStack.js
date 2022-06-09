@@ -11,9 +11,11 @@ import GameScreen from '../screens/afterLogin/GameScreen';
 import ChatScreen from '../screens/afterLogin/ChatScreen';
 import { Avatar} from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import LandingStack from './LandingStack';
 
 const TabStack = props => {
   const Tab = createMaterialBottomTabNavigator();
+  const Stack = createStackNavigator();
   return (
   
     <Tab.Navigator
@@ -59,7 +61,11 @@ const TabStack = props => {
         component={ChatScreen}
         options={{tabBarBadge: 3, headerShown: false}}
       />
+
+
     </Tab.Navigator>
+
+   
     
   );
 };
