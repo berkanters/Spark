@@ -70,7 +70,7 @@ const TextingScreen = props => {
     console.log('getMessages');
     axios
       .get(
-        `https://spark-api-qv6.conveyor.cloud/messages=${user.id}&${user2id}`,
+        `https://spark-api.conveyor.cloud/messages=${user.id}&${user2id}`,
       )
       .then(function (response) {
         console.log('Messages fetched');

@@ -76,14 +76,14 @@ const ProfileScreen = props => {
         setCoordinates(initialPosition);
         axios
           .put(
-            `https://spark-api-qv6.conveyor.cloud/SetLocation?userId=${user.id}&latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`,
+            `https://spark-api.conveyor.cloud/SetLocation?userId=${user.id}&latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`,
           )
           .then(function (response) {
             console.log('Location Setted to DB');
 
             axios
               .get(
-                `https://spark-api-qv6.conveyor.cloud/api/User/getbyid=${user.id}`,
+                `https://spark-api.conveyor.cloud/api/User/getbyid=${user.id}`,
               )
               .then(function (response) {
                 setData(response);
@@ -238,11 +238,9 @@ console.log(minAge);
         />
 
         <View style={styles.actionsProfile}>
-          <TouchableOpacity style={styles.circledButton}>
-            <Text style={styles.iconButton}>
-              <Icon name="optionsH" />
-            </Text>
-          </TouchableOpacity>
+          <Button style={styles.button} mode="contained">
+            Profile
+          </Button>
 
           <Button style={styles.button} mode="contained" onPress={showModal}>
           Preferences
