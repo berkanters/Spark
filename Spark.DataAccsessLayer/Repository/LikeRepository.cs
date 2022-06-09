@@ -25,11 +25,16 @@ namespace Spark.DataAccessLayer.Repository
         {
             Like entity = new Like();
             var checkLike = sparkDBContext.Likes.FirstOrDefaultAsync(x => x.LikedUserId == id && x.UserId == lId).Result;
-            if (checkLike == null)
+            var checkMyLike = sparkDBContext.Likes.FirstOrDefaultAsync(x => x.UserId == id && x.LikedUserId == lId).Result;
+            if (checkLike == null && checkMyLike == null)
             {
                 entity.UserId = id;
                 entity.LikedUserId = lId;
                 _dbSet.AddAsync(entity);
+            }
+            else if (checkMyLike !=null )
+            {
+                
             }
             else
             {

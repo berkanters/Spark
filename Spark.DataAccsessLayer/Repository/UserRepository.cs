@@ -24,16 +24,30 @@ namespace Spark.DataAccessLayer.Repository
         public async Task<IEnumerable<User>> GetUserByGenderAndAge(string gender, int minAge,int maxAge,int distance, Guid user1)
         {
             var user = sparkDBContext.Users.Where(x => x.Gender == gender && x.Age >= minAge && x.Age <= maxAge&&x.Id!=user1);
+            var undoUser1 = sparkDBContext.Likes.Where(x => x.UserId == user1).Select(x=>x.LikedUser);
+            var undoUser2 = sparkDBContext.Likes.Where(x => x.LikedUserId == user1).Select(x => x.User);
             IList<User> filter= new List<User>();
-            foreach (var i in user)
-            {
-                if ((int) CalculateDistance(user1, i.Id) < distance)
+            
+                foreach (var i in user)
                 {
-                    filter.Add(i);
+
+                    if ((int)CalculateDistance(user1, i.Id) < distance)
+                    {
+                        filter.Add(i);
+                    }
+
                 }
 
-            }
-            return (filter);
+                foreach (var i in undoUser1)
+                {
+                    filter.Remove(i);
+                }
+
+                foreach (var i in undoUser2)
+                {
+                    filter.Remove(i);
+                }
+                return (filter);
         }
 
         public double CalculateDistance(Guid user1Id, Guid user2Id)
