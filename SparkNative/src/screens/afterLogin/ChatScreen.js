@@ -14,12 +14,14 @@ import Icon from '../../components/Icon';
 import Demo from '../../components/Demo';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import SparkSplash from '../../components/SparkSplash';
 
 const ChatScreen = props => {
   const navigation = useNavigation();
   const [winUsers, setWinUsers] = useState([]);
   const [user, setUser] = useState('');
   const [data, setData] = useState('');
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
     getData();
@@ -60,12 +62,15 @@ const ChatScreen = props => {
         console.log('Winners fetched');
         setWinUsers(response.data);
         console.log(response.data);
+        setLoading(false);
       })
       .catch(function (error) {
         console.log(error);
       });
   };
-
+  if (isLoading) {
+    return <SparkSplash />;
+  }
   return (
     <ImageBackground
       source={require('../../assets/beyaz.jpg')}

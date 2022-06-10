@@ -8,6 +8,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import axios from 'axios';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import SparkSplash from '../../components/SparkSplash';
 
 const ProfileEditScreen = props => {
   const navigation = useNavigation();
@@ -16,6 +17,7 @@ const ProfileEditScreen = props => {
   const [lastname, setLastname] = useState('');
   const [phone, setPhone] = useState('');
   const [user, setUser] = useState('');
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
     let isCancelled = false;
@@ -37,6 +39,9 @@ const ProfileEditScreen = props => {
         setLastname(user.lastName);
         setEmail(user.email);
         setPhone(user.phone);
+        setInterval(() => {
+          setLoading(false);
+        }, 100);
       });
     } catch (e) {
       // error reading value
@@ -66,7 +71,9 @@ const ProfileEditScreen = props => {
         console.log(error);
       });
   };
-
+  if (isLoading) {
+    return <SparkSplash />;
+  }
   return (
     <SafeAreaView style={styles.container}>
       <View style={{flex: 8, justifyContent: 'center', alignItems: 'center'}}>

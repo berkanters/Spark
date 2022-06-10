@@ -14,6 +14,7 @@ import {Button, Text} from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import ChatScreen from '../afterLogin/ChatScreen';
+import SparkSplash from '../../components/SparkSplash';
 
 const TextingScreen = props => {
   const navigation = useNavigation();
@@ -54,7 +55,7 @@ const TextingScreen = props => {
   const onClick = () => {
     console.log('onClick');
     axios
-      .post('https://spark-api.conveyor.cloud/api/Chat', {
+      .post('https://spark-api-qv6.conveyor.cloud/api/Chat', {
         user1id: user.id,
         user2id: user2id,
         messageText: text,
@@ -89,16 +90,20 @@ const TextingScreen = props => {
   };
   console.log(messages);
   if (isLoading) {
-    return <Text>Loading...</Text>;
+    return <SparkSplash />;
   }
   return (
     <View style={styles.container}>
-      <Text>
-        Chat Screen With{' '}
-        <TouchableOpacity onPress={openUser2Profile}>
-          <Text style={{color: '#ffd500'}}>{user2name}</Text>
-        </TouchableOpacity>
-      </Text>
+      <View style={styles.header}>
+        <Text>
+          <TouchableOpacity onPress={openUser2Profile}>
+            <Text style={{color: '#000', fontFamily: '#46A575'}}>
+              {user2name}
+            </Text>
+          </TouchableOpacity>
+        </Text>
+      </View>
+
       <ScrollView
         style={styles.list}
         ref={scrollViewRef}
@@ -141,8 +146,9 @@ const TextingScreen = props => {
         <View style={styles.inputContainer}>
           <TextInput
             value={text}
-            style={styles.input}
+            style={styles.inputs}
             placeholder="Type a message"
+            placeholderTextColor="#959696"
             underlineColorAndroid="transparent"
             onChangeText={val => setText(val)}
           />
@@ -166,6 +172,15 @@ const styles = StyleSheet.create({
   },
   list: {
     paddingHorizontal: 17,
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 10,
+    backgroundColor: '#ffd500',
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd',
   },
   footer: {
     flexDirection: 'row',
@@ -201,6 +216,7 @@ const styles = StyleSheet.create({
   inputs: {
     height: 40,
     marginLeft: 16,
+    color: '#242424',
     borderBottomColor: '#FFFFFF',
     flex: 1,
   },

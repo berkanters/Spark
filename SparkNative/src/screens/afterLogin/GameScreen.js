@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, {useState, useMemo, useEffect} from 'react';
 import styles from '../../assets/Styles';
 
 import {
@@ -7,27 +7,26 @@ import {
   Text,
   TouchableOpacity,
   ImageBackground,
-  FlatList
+  FlatList,
 } from 'react-native';
 import CardItem from '../../components/CardItem';
 import Icon from '../../components/Icon';
 import Demo from '../../components/Demo';
-import  Axios  from 'axios';
+import Axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-
+import SparkSplash from '../../components/SparkSplash';
 
 const GameScreen = () => {
   const [users, setUsers] = useState('');
   const [user, setUser] = useState('');
+  const [isLoading, setLoading] = useState(true);
 
-  const getUser = async () => { 
+  const getUser = async () => {
     try {
       AsyncStorage.getItem('token').then(value => {
         if (value != null) {
           let veri = JSON.parse(value);
-          setUser(veri)
-          
+          setUser(veri);
         }
       });
     } catch (e) {
@@ -35,27 +34,33 @@ const GameScreen = () => {
     }
   };
 
-useEffect(() => {
-  getUser();}, []);
   useEffect(() => {
-    
-    if(user?.id !== null){
-Axios.get(`https://spark-api.conveyor.cloud/getmymatcheswithuser=${user.id}`).then(res=>{
-  console.log(res.data)
-  setUsers(res.data)
-}) .catch(function (error) {
-  console.log(error);
-});
+    getUser();
+  }, []);
+  useEffect(() => {
+    if (user?.id !== null) {
+      Axios.get(
+        `https://spark-api-qv6.conveyor.cloud/getmymatcheswithuser=${user.id}`,
+      )
+        .then(res => {
+          console.log(res.data);
+          setUsers(res.data);
+          setLoading(false);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     }
-  },[user?.id]);
-
+  }, [user?.id]);
+  if (isLoading) {
+    return <SparkSplash />;
+  }
   return (
     <ImageBackground
       source={require('../../assets/beyaz.jpg')}
-      style={styles.bg}
-    >
+      style={styles.bg}>
       <View style={styles.containerMatches}>
-        <ScrollView>
+        <View>
           <View style={styles.top}>
             <Text style={styles.title}>Matches</Text>
             <TouchableOpacity>
@@ -69,7 +74,7 @@ Axios.get(`https://spark-api.conveyor.cloud/getmymatcheswithuser=${user.id}`).th
             numColumns={2}
             data={users}
             keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item }) => (
+            renderItem={({item}) => (
               <TouchableOpacity>
                 <CardItem
                   image={item.image}
@@ -81,7 +86,7 @@ Axios.get(`https://spark-api.conveyor.cloud/getmymatcheswithuser=${user.id}`).th
               </TouchableOpacity>
             )}
           />
-        </ScrollView>
+        </View>
       </View>
     </ImageBackground>
   );

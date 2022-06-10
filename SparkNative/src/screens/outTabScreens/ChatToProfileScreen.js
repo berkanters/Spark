@@ -15,6 +15,7 @@ import ProfileItem2 from '../../components/ProfileItem2';
 import Icon from '../../components/Icon';
 import Demo from '../../components/Demo';
 import {getDrawerStatusFromState} from '@react-navigation/drawer';
+import SparkSplash from '../../components/SparkSplash';
 
 const ChatToProfileScreen = props => {
   const navigation = useNavigation();
@@ -26,6 +27,7 @@ const ChatToProfileScreen = props => {
   const [user2, setUser2] = useState('');
   const [distance, setDistance] = useState('');
   const [user, setUser] = useState('');
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
     let isCancelled = false;
@@ -58,6 +60,7 @@ const ChatToProfileScreen = props => {
         console.log('Distance fetched');
         setDistance(response.data);
         console.log(response.data);
+        setLoading(false);
       })
       .catch(function (error) {
         console.log(error);
@@ -92,6 +95,9 @@ const ChatToProfileScreen = props => {
       // error reading value
     }
   };
+  if (isLoading) {
+    return <SparkSplash />;
+  }
   return (
     <View>
       <View style={styles.containerProfile}>

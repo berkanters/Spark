@@ -1,7 +1,7 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import {ImageBackground, View, Text, StyleSheet, Image} from 'react-native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -9,18 +9,22 @@ import ProfileScreen from '../screens/afterLogin/ProfileScreen';
 import MatchScreen from '../screens/afterLogin/MatchScreen';
 import GameScreen from '../screens/afterLogin/GameScreen';
 import ChatScreen from '../screens/afterLogin/ChatScreen';
-import { Avatar} from 'react-native-paper';
+import {Avatar} from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import LandingStack from './LandingStack';
+import FontAwesome, {
+  SolidIcons,
+  RegularIcons,
+  BrandIcons,
+  parseIconFromClassName,
+} from 'react-native-fontawesome';
 
 const TabStack = props => {
   const Tab = createMaterialBottomTabNavigator();
   const Stack = createStackNavigator();
   return (
-  
     <Tab.Navigator
-    activeColor="#ffd500"
-    barStyle={{ backgroundColor: 'white' }}
+      activeColor="#ffd500"
+      barStyle={{backgroundColor: 'white'}}
       screenOptions={({route}) => ({
         tabBarIcon: ({focused, color, size}) => {
           let iconName;
@@ -36,14 +40,13 @@ const TabStack = props => {
       <Tab.Screen
         name="Profile"
         component={ProfileScreen}
-        
         options={{
           headerShown: false,
           tabBarLabel: 'Home',
-          tabBarIcon: ({ color }) => (
+          tabBarIcon: ({color}) => (
             <ImageBackground path color={color} size={26} />
-          ),}}
-        
+          ),
+        }}
       />
 
       <Tab.Screen
@@ -61,12 +64,7 @@ const TabStack = props => {
         component={ChatScreen}
         options={{tabBarBadge: 3, headerShown: false}}
       />
-
-
     </Tab.Navigator>
-
-   
-    
   );
 };
 export default TabStack;
