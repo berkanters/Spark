@@ -3,7 +3,7 @@ import React, {useState, useEffect, Component} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import styles from '../../assets/Styles';
 import axios from 'axios';
-import { CommonActions } from '@react-navigation/native';
+import {CommonActions} from '@react-navigation/native';
 import {
   ScrollView,
   View,
@@ -21,8 +21,8 @@ import {Modal, Portal, Button, Provider} from 'react-native-paper';
 import Slider from '@react-native-community/slider';
 import {min} from 'react-native-reanimated';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { faLongArrowAltUp } from '@fortawesome/free-solid-svg-icons';
-import {useNavigation} from '@react-navigation/native';
+import {faLongArrowAltUp} from '@fortawesome/free-solid-svg-icons';
+import SparkSplash from '../../components/SparkSplash';
 
 const ProfileScreen = props => {
   const [coordinates, setCoordinates] = useState('');
@@ -42,11 +42,10 @@ const ProfileScreen = props => {
     {label: 'Other', value: 'other'},
   ]);
   const [data, setData] = useState('');
-
+  const [isLoading, setLoading] = useState(true);
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
   const containerStyle = {backgroundColor: 'white', padding: 20};
-  const navigation = useNavigation();
 
   // const [testValue, setTestValue] = useState('');
   // const savedProfile = AsyncStorage.getItem('token');
@@ -130,6 +129,7 @@ const ProfileScreen = props => {
         if (value != null) {
           let veri = JSON.parse(value);
           setUser(veri);
+          setLoading(false);
         }
       });
     } catch (e) {
@@ -148,18 +148,15 @@ const ProfileScreen = props => {
     hideModal();
   };
 
-  const logOut = async ()=>{
-
-    
+  const logOut = async () => {
     try {
-      await AsyncStorage.removeItem('token')
-    } catch(e) {
+      await AsyncStorage.removeItem('token');
+    } catch (e) {
       // remove error
     }
-    console.log('Done.')
+    console.log('Done.');
     navigation.reset({index: 0, routes: [{name: 'Landing'}]});
-
-  }
+  };
 
   //  const getData = async () => {
   //    try {
@@ -217,59 +214,64 @@ const ProfileScreen = props => {
   // }
 
   //  AsyncStorage.getItem('token').then((token) => JSON.parse(token)).then((token) => JSON.parse(token));
-
+  if (isLoading) {
+    return <SparkSplash />;
+  }
   return (
     <View>
       <View style={styles.containerProfile}>
-        <ImageBackground
-          source={require('../../assets/user.png')}
-          style={styles.photo}>
-          <View style={styles.top}>
-            <TouchableOpacity>
-              <Text style={styles.topIconLeft}>
-                <Icon name="chevronLeft" />
-              </Text>
-            </TouchableOpacity>
+        <ScrollView>
+          <ImageBackground
+            source={require('../../assets/user.png')}
+            style={styles.photo}>
+            <View style={styles.top}>
+              <TouchableOpacity>
+                <Text style={styles.topIconLeft}>
+                  <Icon name="chevronLeft" />
+                </Text>
+              </TouchableOpacity>
 
-            <TouchableOpacity>
-              <Text style={styles.topIconRight}>
-                <Icon name="optionsV" />
-              </Text>
-            </TouchableOpacity>
+              <TouchableOpacity>
+                <Text style={styles.topIconRight}>
+                  <Icon name="optionsV" />
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </ImageBackground>
+
+          <ProfileItem
+            matches={'Standart User'}
+            name={user.name}
+            lastname={user.lastName}
+            age={user.age}
+            location={user.location}
+            info1={user.email}
+            info2={user.gender}
+            info3={user.phone}
+            minage={minAge}
+            maxage={maxAge}
+            range={range}
+            gender={value}
+          />
+
+          <View style={styles.actionsProfile}>
+            <Button
+              style={styles.button}
+              mode="contained"
+              onPress={() => navigation.navigate('ProfileEdit')}>
+              Edit Profile
+            </Button>
+
+            <Button style={styles.button} mode="contained" onPress={showModal}>
+              Preferences
+            </Button>
           </View>
-        </ImageBackground>
-
-        <ProfileItem
-          matches={'Standart User'}
-          name={user.name}
-          lastname={user.lastName}
-          age={user.age}
-          location={user.location}
-          info1={user.email}
-          info2={user.gender}
-          info3={user.phone}
-          minage={minAge}
-          maxage={maxAge}
-          range={range}
-          gender={value}
-        />
-
-        <View style={styles.actionsProfile}>
-          <Button
-            style={styles.button}
-            mode="contained"
-            onPress={() => navigation.navigate('ProfileEdit')}>
-            Edit Profile
-          </Button>
-
-          <Button style={styles.button} mode="contained" onPress={showModal}>
-            Preferences
-          </Button>
-        </View>
-        <View style={{alignItems:'center'}}>
-
-          <TouchableOpacity style={{color:'#ffd500', marginTop:10}} onPress={logOut}><Text style={{color:'#ffd500', fontSize:15}}>LogOut</Text></TouchableOpacity>
-        </View>
+          <View style={styles.actionsProfile}>
+            <Button style={styles.buttonLogout} onPress={logOut}>
+              <Text style={{color: 'white', fontSize: 15}}>LogOut</Text>
+            </Button>
+          </View>
+        </ScrollView>
 
         <Provider>
           <Portal>
@@ -277,6 +279,17 @@ const ProfileScreen = props => {
               visible={visible}
               onDismiss={hideModal}
               contentContainerStyle={containerStyle}>
+              <View
+                style={{
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  marginBottom: 20,
+                }}>
+                <Text style={{color: '#000', fontSize: 20}}>
+                  Set Your Filters
+                </Text>
+              </View>
+
               <View flexDirection="row">
                 <Slider
                   style={{width: 200, height: 80}}
@@ -288,7 +301,7 @@ const ProfileScreen = props => {
                   onValueChange={value => setMinAge(value)}
                   step={1}
                 />
-                <Text>{minAge}</Text>
+                <Text style={{color: '#000'}}>Min Age ({minAge})</Text>
               </View>
               <View flexDirection="row">
                 <Slider
@@ -301,7 +314,7 @@ const ProfileScreen = props => {
                   onValueChange={value => setMaxAge(value)}
                   step={1}
                 />
-                <Text>{maxAge}</Text>
+                <Text style={{color: '#000'}}>Max Age ({maxAge})</Text>
               </View>
               <View flexDirection="row">
                 <Slider
@@ -314,7 +327,7 @@ const ProfileScreen = props => {
                   onValueChange={value => setRange(value)}
                   step={1}
                 />
-                <Text>{range}</Text>
+                <Text style={{color: '#000'}}>Set your range ({range} KM)</Text>
               </View>
               <DropDownPicker
                 style={{}}

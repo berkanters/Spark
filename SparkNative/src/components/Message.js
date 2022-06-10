@@ -8,7 +8,7 @@ const Message = ({image, lastMessage, name, lastName}) => {
     <View style={styles.containerMessage}>
       <Image source={image} style={styles.avatar} />
       <View style={styles.content}>
-        <Text>
+        <Text style={{color: '#000'}}>
           {name} {lastName}
         </Text>
         <Text style={styles.message}>{lastMessage}</Text>

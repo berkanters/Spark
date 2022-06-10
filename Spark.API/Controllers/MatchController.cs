@@ -12,8 +12,8 @@ namespace Spark.API.Controllers
     [ApiController]
     public class MatchController : ControllerBase
     {
-        private ILikeService _likeService;
-        private IMapper _mapper;
+        private readonly ILikeService _likeService;
+        private readonly IMapper _mapper;
 
         public MatchController(ILikeService likeService, IMapper mapper)
         {
