@@ -292,6 +292,10 @@ export default StyleSheet.create({
     width: DIMENSION_WIDTH,
     height: 300,
   },
+  miniPhoto: {
+    width: 50,
+    height: 50,
+  },
   topIconLeft: {
     fontFamily: ICON_FONT,
     fontSize: 20,
