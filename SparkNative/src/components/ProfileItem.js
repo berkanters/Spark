@@ -1,8 +1,8 @@
 import React from 'react';
 import styles from '../assets/Styles';
-import {Text, View} from 'react-native';
+import {Text, View, TouchableOpacity} from 'react-native';
 import Icon from './Icon';
-
+import {useNavigation} from '@react-navigation/native';
 const ProfileItem = ({
   age,
   info1,
@@ -18,12 +18,24 @@ const ProfileItem = ({
   range,
   gender,
 }) => {
+  const navigation = useNavigation();
   return (
     <View style={styles.containerProfileItem}>
       <View style={styles.matchesProfileItem}>
         <Text style={styles.matchesTextProfileItem}>{matches}</Text>
       </View>
-
+      <TouchableOpacity
+        style={{
+          borderRadius: 25,
+          backgroundColor: '#575656',
+          width: 120,
+          height: 25,
+          paddingTop: 3,
+          alignSelf: 'flex-end',
+        }}
+        onPress={() => navigation.navigate('ImageUpload')}>
+        <Text style={{color: '#ffd500'}}>{'  '}Upload an Image</Text>
+      </TouchableOpacity>
       <Text style={styles.name}>
         {name} {lastname}
       </Text>

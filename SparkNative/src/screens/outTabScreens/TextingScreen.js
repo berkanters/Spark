@@ -7,6 +7,7 @@ import {
   TextInput,
   Image,
   StyleSheet,
+  Icon,
   FlatList,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
@@ -15,6 +16,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import ChatScreen from '../afterLogin/ChatScreen';
 import SparkSplash from '../../components/SparkSplash';
+import styless from '../../assets/Styles';
 
 const TextingScreen = props => {
   const navigation = useNavigation();
@@ -55,7 +57,7 @@ const TextingScreen = props => {
   const onClick = () => {
     console.log('onClick');
     axios
-      .post('https://spark-api.conveyor.cloud/api/Chat', {
+      .post('https://spark-api-qv6.conveyor.cloud/api/Chat', {
         user1id: user.id,
         user2id: user2id,
         messageText: text,
@@ -76,7 +78,7 @@ const TextingScreen = props => {
     console.log('getMessages');
     axios
       .get(
-        `https://spark-api.conveyor.cloud/messages=${user.id}&${user2id}`,
+        `https://spark-api-qv6.conveyor.cloud/messages=${user.id}&${user2id}`,
       )
       .then(function (response) {
         console.log('Messages fetched');
@@ -96,9 +98,18 @@ const TextingScreen = props => {
     <View style={styles.container}>
       <View style={styles.header}>
         <Text>
+          <ImageBackground
+            source={require('../../assets/user.png')}
+            style={styless.miniPhoto}></ImageBackground>
           <TouchableOpacity onPress={openUser2Profile}>
-            <Text style={{color: '#000', fontFamily: '#46A575'}}>
-              {user2name}
+            <Text
+              style={{
+                color: '#fff',
+                fontFamily: '#46A575',
+                paddingLeft: 25,
+                paddingBottom: 15,
+              }}>
+              {user2name} {user2lastName}
             </Text>
           </TouchableOpacity>
         </Text>

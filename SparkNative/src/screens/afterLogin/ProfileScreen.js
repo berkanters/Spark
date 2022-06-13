@@ -79,14 +79,14 @@ const ProfileScreen = props => {
         setCoordinates(initialPosition);
         axios
           .put(
-            `https://spark-api.conveyor.cloud/SetLocation?userId=${user.id}&latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`,
+            `https://spark-api-qv6.conveyor.cloud/SetLocation?userId=${user.id}&latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`,
           )
           .then(function (response) {
             console.log('Location Setted to DB');
 
             axios
               .get(
-                `https://spark-api.conveyor.cloud/api/User/getbyid=${user.id}`,
+                `https://spark-api-qv6.conveyor.cloud/api/User/getbyid=${user.id}`,
               )
               .then(function (response) {
                 setData(response);
@@ -267,8 +267,12 @@ const ProfileScreen = props => {
             </Button>
           </View>
           <View style={styles.actionsProfile}>
-            <TouchableOpacity style={{color:'red',fontSize:12,marginTop:10}} onPress={logOut}>
-              <Text style={{color: 'red', fontSize: 15}}>Logout</Text>
+            <TouchableOpacity
+              style={{color: 'red', fontSize: 12, marginTop: 10}}
+              onPress={logOut}>
+              <Text style={{color: 'red', fontSize: 15, marginBottom: 20}}>
+                Logout
+              </Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
