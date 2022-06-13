@@ -16,14 +16,14 @@ import {useNavigation} from '@react-navigation/native';
 import Axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SparkSplash from '../../components/SparkSplash';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 const GameScreen = () => {
   const navigation = useNavigation();
   const [users, setUsers] = useState('');
   const [user, setUser] = useState('');
   const [isLoading, setLoading] = useState(true);
-  const [itemId,setItemId] = useState('');
+  const [itemId, setItemId] = useState('');
 
   const getUser = async () => {
     try {
@@ -55,20 +55,16 @@ const GameScreen = () => {
           console.log(error);
         });
     }
-    
   }, [user?.id]);
 
-  
-
-  useEffect(() => {console.log(itemId)}, [itemId]);
+  useEffect(() => {
+    console.log(itemId);
+  }, [itemId]);
   if (isLoading) {
     return <SparkSplash />;
   }
   return (
-    <SafeAreaView
-      source={require('../../assets/beyaz.jpg')}
-      style={styles.bg}>
-        
+    <SafeAreaView source={require('../../assets/beyaz.jpg')} style={styles.bg}>
       <View style={styles.containerMatches}>
         <View>
           <View style={styles.top}>
@@ -85,7 +81,10 @@ const GameScreen = () => {
             data={users}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({item}) => (
-              <TouchableOpacity onPress={()=>{navigation.navigate('ChatToProfile', { user2id: item.id})}} >
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate('ChatToProfile', {user2id: item.id});
+                }}>
                 <CardItem
                   image={item.image}
                   name={item.name}
@@ -98,6 +97,7 @@ const GameScreen = () => {
           />
         </View>
       </View>
+      <View style={{margin: 50}} />
     </SafeAreaView>
   );
 };
