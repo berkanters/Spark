@@ -50,12 +50,12 @@ const TabStack = props => {
       />
 
       <Tab.Screen
-        name="Match"
+        name="Swipe"
         component={MatchScreen}
         options={{tabBarBadge: 3, headerShown: false}}
       />
       <Tab.Screen
-        name="Game"
+        name="Match"
         component={GameScreen}
         options={{tabBarBadge: 3, headerShown: false}}
       />

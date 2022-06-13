@@ -14,6 +14,7 @@ import TinderCard from 'react-tinder-card';
 import styled from 'styled-components/native';
 import axios from 'axios';
 import styles from '../../assets/Styles';
+import ProfileItem from '../../components/ProfileItem';
 import SparkSplash from '../../components/SparkSplash';
 
 const Container = styled.View`
@@ -172,7 +173,7 @@ const MatchScreen = () => {
     if (user?.id !== null) {
       axios
         .get(
-          `https://spark-api-qv6.conveyor.cloud/api/User/filterby=${gender}&${minAge}&${maxAge}&${range}&${userId}`,
+          `https://spark-api.conveyor.cloud/api/User/filterby=${gender}&${minAge}&${maxAge}&${range}&${userId}`,
         )
         .then(function (response) {
           console.log('Winners fetched');
@@ -190,7 +191,7 @@ const MatchScreen = () => {
     if (lastDirection == 'right') {
       axios
         .post(
-          `https://spark-api-qv6.conveyor.cloud/match=id&lid?id=${user.id}&lId=${idToDelete}`,
+          `https://spark-api.conveyor.cloud/match=id&lid?id=${user.id}&lId=${idToDelete}`,
         )
         .then(function (response) {
           console.log(response.status);
@@ -271,6 +272,22 @@ const MatchScreen = () => {
           <InfoText />
         )}
       </Container>
+      {/* <View  >
+      {characters.map(character => (
+      <ProfileItem  
+      
+            matches={'Standart User'}
+            name={character.name}
+            lastname={characters.lastName}
+            age={characters.age}
+            location={characters.location}
+            info1={characters.email}
+            info2={characters.gender}
+            info3={characters.phone}
+            gender={characters.gender}
+           />
+           ))}
+          </View> */}
       <Provider>
         <Portal>
           <Modal

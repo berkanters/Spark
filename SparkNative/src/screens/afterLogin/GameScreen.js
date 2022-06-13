@@ -12,14 +12,18 @@ import {
 import CardItem from '../../components/CardItem';
 import Icon from '../../components/Icon';
 import Demo from '../../components/Demo';
+import {useNavigation} from '@react-navigation/native';
 import Axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SparkSplash from '../../components/SparkSplash';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const GameScreen = () => {
+  const navigation = useNavigation();
   const [users, setUsers] = useState('');
   const [user, setUser] = useState('');
   const [isLoading, setLoading] = useState(true);
+  const [itemId,setItemId] = useState('');
 
   const getUser = async () => {
     try {
@@ -40,7 +44,7 @@ const GameScreen = () => {
   useEffect(() => {
     if (user?.id !== null) {
       Axios.get(
-        `https://spark-api-qv6.conveyor.cloud/getmymatcheswithuser=${user.id}`,
+        `https://spark-api.conveyor.cloud/getmymatcheswithuser=${user.id}`,
       )
         .then(res => {
           console.log(res.data);
@@ -51,14 +55,20 @@ const GameScreen = () => {
           console.log(error);
         });
     }
+    
   }, [user?.id]);
+
+  
+
+  useEffect(() => {console.log(itemId)}, [itemId]);
   if (isLoading) {
     return <SparkSplash />;
   }
   return (
-    <ImageBackground
+    <SafeAreaView
       source={require('../../assets/beyaz.jpg')}
       style={styles.bg}>
+        
       <View style={styles.containerMatches}>
         <View>
           <View style={styles.top}>
@@ -75,7 +85,7 @@ const GameScreen = () => {
             data={users}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({item}) => (
-              <TouchableOpacity>
+              <TouchableOpacity onPress={()=>{navigation.navigate('ChatToProfile', { user2id: item.id})}} >
                 <CardItem
                   image={item.image}
                   name={item.name}
@@ -88,7 +98,7 @@ const GameScreen = () => {
           />
         </View>
       </View>
-    </ImageBackground>
+    </SafeAreaView>
   );
 };
 export default GameScreen;
