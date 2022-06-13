@@ -13,6 +13,7 @@ const CardItem = ({
   lastName,
   onPressLeft,
   onPressRight,
+  id,
   status,
   variant
 }) => {

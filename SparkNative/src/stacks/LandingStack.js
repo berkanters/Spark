@@ -7,6 +7,7 @@ import RegisterScreen from '../screens/RegisterScreen';
 import TextingScreen from '../screens/outTabScreens/TextingScreen';
 import ProfileEditScreen from '../screens/outTabScreens/ProfileEditScreen';
 import ChatToProfileScreen from '../screens/outTabScreens/ChatToProfileScreen';
+import QuizScreen from '../screens/outTabScreens/QuizScreen';
 import TabStack from './TabStack';
 const LandingStack = props => {
   const Stack = createStackNavigator();
@@ -43,12 +44,17 @@ const LandingStack = props => {
           component={ChatToProfileScreen}
           options={{headerShown: false}}
         />
-
+        <Stack.Screen
+        name="Quiz"
+        component={QuizScreen}
+        options={{headerShown: false}} 
+        />
         <Stack.Screen
           name="tab"
           component={TabStack}
           options={{headerShown: false}}
         />
+        
       </Stack.Navigator>
     </NavigationContainer>
   );
