@@ -57,7 +57,7 @@ const TextingScreen = props => {
   const onClick = () => {
     console.log('onClick');
     axios
-      .post('https://spark-api-qv6.conveyor.cloud/api/Chat', {
+      .post('https://spark-api.conveyor.cloud/api/Chat', {
         user1id: user.id,
         user2id: user2id,
         messageText: text,
@@ -78,7 +78,7 @@ const TextingScreen = props => {
     console.log('getMessages');
     axios
       .get(
-        `https://spark-api-qv6.conveyor.cloud/messages=${user.id}&${user2id}`,
+        `https://spark-api.conveyor.cloud/messages=${user.id}&${user2id}`,
       )
       .then(function (response) {
         console.log('Messages fetched');

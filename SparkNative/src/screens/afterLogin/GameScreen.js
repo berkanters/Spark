@@ -44,7 +44,7 @@ const GameScreen = () => {
   useEffect(() => {
     if (user?.id !== null) {
       Axios.get(
-        `https://spark-api-qv6.conveyor.cloud/getmymatcheswithuser=${user.id}`,
+        `https://spark-api.conveyor.cloud/getmymatcheswithuser=${user.id}`,
       )
         .then(res => {
           console.log(res.data);

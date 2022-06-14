@@ -16,7 +16,7 @@ const QuizScreen = () => {
     const [showScoreModal, setShowScoreModal] = useState(false)
 
     useEffect(() => {
-      axios.get('https://spark-api-qv6.conveyor.cloud/api/Game') .then(res => {
+      axios.get('https://spark-api.conveyor.cloud/api/Game') .then(res => {
         console.log(res.data);
         setAllQuestions(res.data);
         // setLoading(false);

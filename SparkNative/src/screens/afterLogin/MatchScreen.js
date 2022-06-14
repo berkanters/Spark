@@ -173,7 +173,7 @@ const MatchScreen = () => {
     if (user?.id !== null) {
       axios
         .get(
-          `https://spark-api-qv6.conveyor.cloud/api/User/filterby=${gender}&${minAge}&${maxAge}&${range}&${userId}`,
+          `https://spark-api.conveyor.cloud/api/User/filterby=${gender}&${minAge}&${maxAge}&${range}&${userId}`,
         )
         .then(function (response) {
           console.log('Winners fetched');
@@ -191,7 +191,7 @@ const MatchScreen = () => {
     if (lastDirection == 'right') {
       axios
         .post(
-          `https://spark-api-qv6.conveyor.cloud/match=id&lid?id=${user.id}&lId=${idToDelete}`,
+          `https://spark-api.conveyor.cloud/match=id&lid?id=${user.id}&lId=${idToDelete}`,
         )
         .then(function (response) {
           console.log(response.status);

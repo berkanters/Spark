@@ -31,6 +31,7 @@ const ProfileScreen = props => {
   const [user, setUser] = useState('');
   const navigation = useNavigation();
   const [minAge, setMinAge] = useState('');
+  const [isPhotoLoading, setPhotoLoading] = useState(true);
   const [maxAge, setMaxAge] = useState('');
   const [range, setRange] = useState('');
   const [visible, setVisible] = React.useState(false);
@@ -41,6 +42,7 @@ const ProfileScreen = props => {
     {label: 'Woman', value: 'woman'},
     {label: 'Other', value: 'other'},
   ]);
+  const [profileImage, setProfileImage] = useState('');
   const [data, setData] = useState('');
   const [isLoading, setLoading] = useState(true);
   const showModal = () => setVisible(true);
@@ -58,6 +60,7 @@ const ProfileScreen = props => {
   useEffect(() => {
     let isCancelled = false;
     getData();
+
     return () => {
       isCancelled = true;
     };
@@ -66,6 +69,15 @@ const ProfileScreen = props => {
   useEffect(() => {
     let isCancelled = false;
     getLocation();
+    return () => {
+      isCancelled = true;
+    };
+  }, [user?.id]);
+  useEffect(() => {
+    let isCancelled = false;
+    if (user?.id) {
+      getPhoto();
+    }
     return () => {
       isCancelled = true;
     };
@@ -79,14 +91,14 @@ const ProfileScreen = props => {
         setCoordinates(initialPosition);
         axios
           .put(
-            `https://spark-api-qv6.conveyor.cloud/SetLocation?userId=${user.id}&latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`,
+            `https://spark-api.conveyor.cloud/SetLocation?userId=${user.id}&latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`,
           )
           .then(function (response) {
             console.log('Location Setted to DB');
 
             axios
               .get(
-                `https://spark-api-qv6.conveyor.cloud/api/User/getbyid=${user.id}`,
+                `https://spark-api.conveyor.cloud/api/User/getbyid=${user.id}`,
               )
               .then(function (response) {
                 setData(response);
@@ -129,11 +141,28 @@ const ProfileScreen = props => {
         if (value != null) {
           let veri = JSON.parse(value);
           setUser(veri);
-          setLoading(false);
         }
       });
     } catch (e) {
       // error reading value
+    }
+  };
+  const getPhoto = () => {
+    if (isPhotoLoading) {
+      console.log('getPhoto');
+      axios
+        .get(
+          `https://spark-api.conveyor.cloud/getImage&Resources%5C%5CImages%5C%5C${user.id}.jpg`,
+        )
+        .then(function (response) {
+          console.log(response.data);
+          setProfileImage(response.data);
+          setPhotoLoading(false);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      setLoading(false);
     }
   };
   const onClick = () => {
@@ -221,9 +250,7 @@ const ProfileScreen = props => {
     <View>
       <View style={styles.containerProfile}>
         <ScrollView>
-          <ImageBackground
-            source={require('../../assets/user.png')}
-            style={styles.photo}>
+          <ImageBackground source={{uri: profileImage}} style={styles.photo}>
             <View style={styles.top}>
               <TouchableOpacity>
                 <Text style={styles.topIconLeft}>
@@ -252,6 +279,7 @@ const ProfileScreen = props => {
             maxage={maxAge}
             range={range}
             gender={value}
+            userId={user.id}
           />
 
           <View style={styles.actionsProfile}>
