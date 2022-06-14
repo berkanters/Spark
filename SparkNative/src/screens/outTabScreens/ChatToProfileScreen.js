@@ -24,11 +24,15 @@ const ChatToProfileScreen = props => {
   const [user2lastName, setUser2lastName] = useState('');
   const [user2age, setUser2age] = useState('');
   const [user2gender, setUser2gender] = useState('');
+  const [user2imagePath, setUser2imagePath] = useState('');
   const [user2, setUser2] = useState('');
   const [distance, setDistance] = useState('');
   const [user, setUser] = useState('');
   const [isLoading, setLoading] = useState(true);
-
+  const [isPhotoLoading, setPhotoLoading] = useState(true);
+  const [profileImage, setProfileImage] = useState(
+    'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAwBQTFRF7c5J78kt+/Xm78lQ6stH5LI36bQh6rcf7sQp671G89ZZ8c9V8c5U9+u27MhJ/Pjv9txf8uCx57c937Ay5L1n58Nb67si8tVZ5sA68tJX/Pfr7dF58tBG9d5e8+Gc6chN6LM+7spN1pos6rYs6L8+47hE7cNG6bQc9uFj7sMn4rc17cMx3atG8duj+O7B686H7cAl7cEm7sRM26cq/vz5/v767NFY7tJM78Yq8s8y3agt9dte6sVD/vz15bY59Nlb8txY9+y86LpA5LxL67pE7L5H05Ai2Z4m58Vz89RI7dKr+/XY8Ms68dx/6sZE7sRCzIEN0YwZ67wi6rk27L4k9NZB4rAz7L0j5rM66bMb682a5sJG6LEm3asy3q0w3q026sqC8cxJ6bYd685U5a457cIn7MBJ8tZW7c1I7c5K7cQ18Msu/v3678tQ3aMq7tNe6chu6rgg79VN8tNH8c0w57Q83akq7dBb9Nld9d5g6cdC8dyb675F/v327NB6////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/LvB3QAAAMFJREFUeNpiqIcAbz0ogwFKm7GgCjgyZMihCLCkc0nkIAnIMVRw2UhDBGp5fcurGOyLfbhVtJwLdJkY8oscZCsFPBk5spiNaoTC4hnqk801Qi2zLQyD2NlcWWP5GepN5TOtSxg1QwrV01itpECG2kaLy3AYiCWxcRozQWyp9pNMDWePDI4QgVpbx5eo7a+mHFOqAxUQVeRhdrLjdFFQggqo5tqVeSS456UEQgWE4/RBboxyC4AKCEI9Wu9lUl8PEGAAV7NY4hyx8voAAAAASUVORK5CYII=',
+  );
   useEffect(() => {
     let isCancelled = false;
     getData();
@@ -53,7 +57,9 @@ const ChatToProfileScreen = props => {
   useEffect(() => {
     console.log('calculating distance', user.id, user2id);
     axios
-      .get(`https://spark-api-qv6.conveyor.cloud/location=${user.id}&${user2id}`)
+      .get(
+        `https://spark-api-qv6.conveyor.cloud/location=${user.id}&${user2id}`,
+      )
       .then(function (response) {
         console.log('Distance fetched');
         setDistance(response.data);
@@ -65,6 +71,28 @@ const ChatToProfileScreen = props => {
       });
   }, [user.id, user2id]);
 
+  useEffect(() => {
+    if (isPhotoLoading) {
+      console.log(
+        `https://spark-api-qv6.conveyor.cloud/getImage&${props.route.params.user2ImagePath}.jpg`,
+        props.route.params.user2ImagePath,
+      );
+      axios
+        .get(
+          `https://spark-api-qv6.conveyor.cloud/getImage&Resources%5C%5CImages%5C%5C${props.route.params.user2ImagePath}.jpg`,
+        )
+        .then(function (response) {
+          console.log(response.data);
+          setProfileImage(response.data);
+
+          setPhotoLoading(false);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+  });
+
   const getData = async () => {
     try {
       console.log('getData');
@@ -74,7 +102,9 @@ const ChatToProfileScreen = props => {
           setUser2id(props.route.params.user2id);
           setUser(veri);
           axios
-            .get(`https://spark-api-qv6.conveyor.cloud/api/User/getbyid=${user2id}`)
+            .get(
+              `https://spark-api-qv6.conveyor.cloud/api/User/getbyid=${user2id}`,
+            )
             .then(function (response) {
               console.log('User2 fetched');
               setUser2(response.data);
@@ -97,9 +127,7 @@ const ChatToProfileScreen = props => {
   return (
     <View>
       <View style={styles.containerProfile}>
-        <ImageBackground
-          source={require('../../assets/user.png')}
-          style={styles.photo}>
+        <ImageBackground source={{uri: profileImage}} style={styles.photo}>
           <View style={styles.top}>
             <TouchableOpacity>
               <Text style={styles.topIconLeft}>

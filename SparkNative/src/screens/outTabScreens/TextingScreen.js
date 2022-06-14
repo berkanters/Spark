@@ -28,7 +28,13 @@ const TextingScreen = props => {
   const [itemStyle, setItemStyle] = useState('');
   const [isLoading, setLoading] = useState(true);
   const [text, setText] = useState('');
+  const [user2ImagePath, setUser2ImagePath] = useState('');
   const scrollViewRef = useRef();
+  const [profileImage, setProfileImage] = useState(defaultProfileImage);
+  const defaultProfileImage = useState(
+    'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAwBQTFRF7c5J78kt+/Xm78lQ6stH5LI36bQh6rcf7sQp671G89ZZ8c9V8c5U9+u27MhJ/Pjv9txf8uCx57c937Ay5L1n58Nb67si8tVZ5sA68tJX/Pfr7dF58tBG9d5e8+Gc6chN6LM+7spN1pos6rYs6L8+47hE7cNG6bQc9uFj7sMn4rc17cMx3atG8duj+O7B686H7cAl7cEm7sRM26cq/vz5/v767NFY7tJM78Yq8s8y3agt9dte6sVD/vz15bY59Nlb8txY9+y86LpA5LxL67pE7L5H05Ai2Z4m58Vz89RI7dKr+/XY8Ms68dx/6sZE7sRCzIEN0YwZ67wi6rk27L4k9NZB4rAz7L0j5rM66bMb682a5sJG6LEm3asy3q0w3q026sqC8cxJ6bYd685U5a457cIn7MBJ8tZW7c1I7c5K7cQ18Msu/v3678tQ3aMq7tNe6chu6rgg79VN8tNH8c0w57Q83akq7dBb9Nld9d5g6cdC8dyb675F/v327NB6////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/LvB3QAAAMFJREFUeNpiqIcAbz0ogwFKm7GgCjgyZMihCLCkc0nkIAnIMVRw2UhDBGp5fcurGOyLfbhVtJwLdJkY8oscZCsFPBk5spiNaoTC4hnqk801Qi2zLQyD2NlcWWP5GepN5TOtSxg1QwrV01itpECG2kaLy3AYiCWxcRozQWyp9pNMDWePDI4QgVpbx5eo7a+mHFOqAxUQVeRhdrLjdFFQggqo5tqVeSS456UEQgWE4/RBboxyC4AKCEI9Wu9lUl8PEGAAV7NY4hyx8voAAAAASUVORK5CYII=',
+  );
+
   useEffect(() => {
     getData();
   }, []);
@@ -36,6 +42,7 @@ const TextingScreen = props => {
   useEffect(() => {
     getMessages();
   }, [user?.id]);
+
   console.log(text);
   const getData = async () => {
     try {
@@ -46,6 +53,7 @@ const TextingScreen = props => {
           setUser2id(props.route.params.itemId);
           setUser2name(props.route.params.itemName);
           setUser2lastName(props.route.params.itemLastName);
+          setUser2ImagePath(props.route.params.itemImagePath);
           setUser(veri);
         }
       });
@@ -53,7 +61,19 @@ const TextingScreen = props => {
       // error reading value
     }
   };
-
+  // const getUser2Photo = () => {
+  //   axios
+  //     .get(
+  //       `https://spark-api-qv6.conveyor.cloud/getImage&Resources%5C%5CImages%5C%5C${user2id}.jpg`,
+  //     )
+  //     .then(function (response) {
+  //       console.log(response.data);
+  //       setProfileImage(response.data);
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error);
+  //     });
+  // };
   const onClick = () => {
     console.log('onClick');
     axios
@@ -72,7 +92,10 @@ const TextingScreen = props => {
   };
   const openUser2Profile = () => {
     console.log('openUser2Profile');
-    navigation.navigate('ChatToProfile', {user2id: user2id});
+    navigation.navigate('ChatToProfile', {
+      user2id: user2id,
+      user2ImagePath: user2ImagePath,
+    });
   };
   const getMessages = () => {
     console.log('getMessages');
@@ -99,7 +122,7 @@ const TextingScreen = props => {
       <View style={styles.header}>
         <Text>
           <ImageBackground
-            source={require('../../assets/user.png')}
+            source={{uri: profileImage}}
             style={styless.miniPhoto}></ImageBackground>
           <TouchableOpacity onPress={openUser2Profile}>
             <Text
