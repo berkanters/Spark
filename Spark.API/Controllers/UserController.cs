@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Net.Http.Headers;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Spark.API.DTOs;
@@ -92,6 +93,36 @@ namespace Spark.API.Controllers
         public IActionResult SetLocation(Guid userId, double latitude, double longitude)
         { _userService.SetLocation(userId, latitude, longitude);
             return NoContent();
+        }
+
+        [HttpPost("/image"), DisableRequestSizeLimit]
+        public IActionResult UploadImage(Guid id)
+        {
+            try
+            {
+                var file = Request.Form.Files[0];
+                var folderName = Path.Combine("Resources", "Images");
+                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+                if (file.Length > 0)
+                {
+                    var fileName = id.ToString()+".jpg";
+                    var fullPath = Path.Combine(pathToSave, fileName);
+                    var dbPath = Path.Combine(folderName, fileName);
+                    using (var stream = new FileStream(fullPath, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
+                    return Ok(new { dbPath });
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex}");
+            }
         }
     }
 }

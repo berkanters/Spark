@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
 using Spark.Core.IntRepository;
 using Spark.Core.IntService;
@@ -39,6 +40,12 @@ builder.Services.AddScoped<IChatService, ChatService>();
 
 builder.Services.AddScoped<IGameService,GameService>();
 builder.Services.AddScoped<IUserAnswerService,UserAnswerService>();
+builder.Services.Configure<FormOptions>(o =>
+{
+    o.ValueLengthLimit = int.MaxValue;
+    o.MultipartBodyLengthLimit = int.MaxValue;
+    o.MemoryBufferThreshold = int.MaxValue;
+});
 
 
 var app = builder.Build();
