@@ -77,5 +77,11 @@ namespace Spark.DataAccessLayer.Repository
             user.Latitude = latitude;
             user.Longitude = longitude;
         }
+
+        public void SetImagePath(Guid userId, string imagePath)
+        {
+            var user = sparkDBContext.Users.FirstOrDefault(x => x.Id == userId);
+            user.ImagePath = imagePath;
+        }
     }
 }
