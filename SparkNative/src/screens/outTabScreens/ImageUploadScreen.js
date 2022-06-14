@@ -20,6 +20,7 @@ import styless from '../../assets/Styles';
 // Import Image Picker
 // import ImagePicker from 'react-native-image-picker';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import axios from 'axios';
 
 const ImageUploadScreen = () => {
   const [filePath, setFilePath] = useState({});
@@ -112,11 +113,11 @@ const ImageUploadScreen = () => {
       maxWidth: 300,
       maxHeight: 550,
       quality: 1,
-      mediaType: 'photo',
-      includeBase64: true,
+      // mediaType: 'photo',
+      // includeBase64: true,
     };
     launchImageLibrary(options, response => {
-      console.log('Response = ', response);
+      console.log('Response = ', response.assets[0]);
 
       if (response.didCancel) {
         alert('User cancelled camera picker');
@@ -131,14 +132,22 @@ const ImageUploadScreen = () => {
         alert(response.errorMessage);
         return;
       }
-      console.log('base64 -> ', response.base64);
-      console.log('uri -> ', response.uri);
-      console.log('width -> ', response.width);
-      console.log('height -> ', response.height);
-      console.log('fileSize -> ', response.fileSize);
-      console.log('type -> ', response.type);
-      console.log('fileName -> ', response.fileName);
+      console.log('base64 -> ', response.assets[0].base64);
+      console.log('uri -> ', response.assets[0].uri);
+      console.log('width -> ', response.assets[0].width);
+      console.log('height -> ', response.assets[0].height);
+      console.log('fileSize -> ', response.assets[0].fileSize);
+      console.log('type -> ', response.assets[0].type);
+      console.log('fileName -> ', response.assets[0].fileName);
       setFilePath(response);
+      var fdata = new FormData();
+      fdata.append('file', {
+        uri: response.assets[0].uri,
+        name: response.assets[0].fileName,
+        type: response.assets[0].type,
+      });
+
+      console.log(fdata);
     });
   };
 
