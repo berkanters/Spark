@@ -30,8 +30,8 @@ namespace Spark.DataAccessLayer.Repository
         public Task<IQueryable<User>> GetMyWinMatches(Guid id)
         {
             //var check = sparkDBContext.Likes.Where(c => (c.UserId == id || c.LikedUserId == id) && c.IsWin == true);
-            var users = sparkDBContext.Likes.Where(x => (x.UserId == id && x.LikedUserId != id)&&x.IsWin==true).Select(x => x.LikedUser);
-            var users2 = sparkDBContext.Likes.Where(x => (x.UserId != id && x.LikedUserId == id) && x.IsWin == true).Select(x => x.User);
+            var users = sparkDBContext.Likes.Where(x => (x.UserId == id && x.LikedUserId != id)&&x.IsMatch==true).Select(x => x.LikedUser);
+            var users2 = sparkDBContext.Likes.Where(x => (x.UserId != id && x.LikedUserId == id) && x.IsMatch == true).Select(x => x.User);
             var winMatches = users.Concat(users2);
             return Task.FromResult(winMatches);
         }
