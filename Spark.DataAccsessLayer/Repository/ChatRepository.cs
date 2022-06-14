@@ -40,6 +40,8 @@ namespace Spark.DataAccessLayer.Repository
         {
             var lastMessage = sparkDBContext.Chats.Where(x =>
                 (x.User1Id == id && x.User2Id == id2) || (x.User1Id == id2 && x.User2Id == id)).OrderByDescending(x=>x.MessageDate).FirstOrDefault();
+            if (lastMessage == null)
+                return "You have never chat before !";
             return lastMessage!.MessageText!;
         }
     }

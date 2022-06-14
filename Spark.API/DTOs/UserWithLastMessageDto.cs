@@ -12,5 +12,6 @@
         //public double Latitude { get; set; }
         //public double Longitude { get; set; }
         public string LastMessage { get; set; }
+        public string ImagePath { get; set; }
     }
 }

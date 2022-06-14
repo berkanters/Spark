@@ -56,7 +56,9 @@ namespace Spark.API.Controllers
                     Age = messages[i].Age,
                     Name = messages[i].Name,
                     LastName = messages[i].LastName,
-                    LastMessage = _chatService.GetLastMessage(id, messages[i].Id)
+                    LastMessage = _chatService.GetLastMessage(id, messages[i].Id),
+                    ImagePath = messages[i].ImagePath
+                    
                 }
                 );
             }
