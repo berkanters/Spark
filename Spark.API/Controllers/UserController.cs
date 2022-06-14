@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Spark.API.DTOs;
 using Spark.Core.IntService;
 using Spark.Core.Models;
+using System.Drawing;
 
 namespace Spark.API.Controllers
 {
@@ -112,6 +113,7 @@ namespace Spark.API.Controllers
                     {
                         file.CopyTo(stream);
                     }
+                    _userService.SetImagePath(id, dbPath);
                     return Ok(new { dbPath });
                 }
                 else
@@ -124,5 +126,23 @@ namespace Spark.API.Controllers
                 return StatusCode(500, $"Internal server error: {ex}");
             }
         }
+        [HttpGet("/getImage&{_imagePath}")]
+        public string  ImageToBase64(string _imagePath)
+        {
+            string _base64String = null;
+
+            using (Image _image =Image.FromFile(_imagePath))
+            {
+                using (MemoryStream _mStream = new MemoryStream())
+                {
+                    _image.Save(_mStream, _image.RawFormat);
+                    byte[] _imageBytes = _mStream.ToArray();
+                    _base64String = Convert.ToBase64String(_imageBytes);
+                    
+                    return "data:image/jpg;base64," + _base64String;
+                    
+                }
+            }
+        }        
     }
 }

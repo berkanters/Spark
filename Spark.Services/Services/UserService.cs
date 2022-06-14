@@ -35,6 +35,12 @@ namespace Spark.Services.Services
             _unit.User.SetLocation(userId, latitude, longitude);
             _unit.Commit();
         }
+
+        public void SetImagePath(Guid userId, string imagePath)
+        {
+            _unit.User.SetImagePath(userId, imagePath);
+            _unit.Commit();
+        }
     }
 
 }

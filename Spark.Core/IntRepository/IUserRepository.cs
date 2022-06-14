@@ -15,5 +15,7 @@ namespace Spark.Core.IntRepository
         
         void SetLocation (Guid userId,double latitude,double longitude);
 
+        void SetImagePath(Guid userId, string imagePath);
+
     }
 }
