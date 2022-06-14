@@ -2,7 +2,7 @@
 // https://aboutreact.com/example-of-image-picker-in-react-native/
 
 // Import React
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 // Import required components
 import {
   SafeAreaView,
@@ -21,10 +21,11 @@ import styless from '../../assets/Styles';
 // import ImagePicker from 'react-native-image-picker';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import axios from 'axios';
+import SparkSplash from '../../components/SparkSplash';
 
-const ImageUploadScreen = () => {
+const ImageUploadScreen = props => {
   const [filePath, setFilePath] = useState({});
-
+  const [isLoading, setLoading] = useState(false);
   const requestCameraPermission = async () => {
     if (Platform.OS === 'android') {
       try {
@@ -73,8 +74,8 @@ const ImageUploadScreen = () => {
       videoQuality: 'low',
       durationLimit: 30, //Video max duration in seconds
       saveToPhotos: true,
-      mediaType: 'photo',
-      includeBase64: true,
+      // mediaType: 'photo',
+      // includeBase64: true,
     };
     let isCameraPermitted = await requestCameraPermission();
     let isStoragePermitted = await requestExternalWritePermission();
@@ -95,14 +96,41 @@ const ImageUploadScreen = () => {
           alert(response.errorMessage);
           return;
         }
-        console.log('base64 -> ', response.base64);
-        console.log('uri -> ', response.uri);
-        console.log('width -> ', response.width);
-        console.log('height -> ', response.height);
-        console.log('fileSize -> ', response.fileSize);
-        console.log('type -> ', response.type);
-        console.log('fileName -> ', response.fileName);
+        console.log('base64 -> ', response.assets[0].base64);
+        console.log('uri -> ', response.assets[0].uri);
+        console.log('width -> ', response.assets[0].width);
+        console.log('height -> ', response.assets[0].height);
+        console.log('fileSize -> ', response.assets[0].fileSize);
+        console.log('type -> ', response.assets[0].type);
+        console.log('fileName -> ', response.assets[0].fileName);
         setFilePath(response);
+        var fdata = new FormData();
+        fdata.append('file', {
+          uri: response.assets[0].uri,
+          name: response.assets[0].fileName,
+          type: response.assets[0].type,
+        });
+
+        axios
+          .post(
+            `https://spark-api.conveyor.cloud/image?id=${props.route.params.userId}`,
+            fdata,
+            {
+              headers: {
+                'Content-Type': 'multipart/form-data',
+              },
+            },
+          )
+          .then(res => {
+            console.log(res);
+            alert('Image uploaded successfully');
+          })
+          .catch(err => {
+            console.log(err);
+            alert('Image upload failed');
+          });
+
+        console.log(fdata);
       });
     }
   };
@@ -147,9 +175,32 @@ const ImageUploadScreen = () => {
         type: response.assets[0].type,
       });
 
+      axios
+        .post(
+          `https://spark-api.conveyor.cloud/image?id=${props.route.params.userId}`,
+          fdata,
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          },
+        )
+        .then(res => {
+          console.log(res);
+          alert('Image uploaded successfully');
+        })
+        .catch(err => {
+          console.log(err);
+          alert('Image upload failed');
+        });
+
       console.log(fdata);
     });
   };
+  console.log(props.route.params.userId);
+  if (isLoading) {
+    return <SparkSplash />;
+  }
 
   return (
     <SafeAreaView style={{flex: 1}}>

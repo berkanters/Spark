@@ -51,7 +51,7 @@ const ProfileEditScreen = props => {
   const saveChanges = () => {
     console.log('saveChanges');
     axios
-      .put(`https://spark-api-qv6.conveyor.cloud/UpdateUser`, {
+      .put(`https://spark-api.conveyor.cloud/UpdateUser`, {
         id: user.id,
         name: name,
         lastName: lastname,

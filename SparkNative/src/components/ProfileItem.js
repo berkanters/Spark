@@ -4,6 +4,7 @@ import {Text, View, TouchableOpacity} from 'react-native';
 import Icon from './Icon';
 import {useNavigation} from '@react-navigation/native';
 const ProfileItem = ({
+  userId,
   age,
   info1,
   info2,
@@ -33,7 +34,7 @@ const ProfileItem = ({
           paddingTop: 3,
           alignSelf: 'flex-end',
         }}
-        onPress={() => navigation.navigate('ImageUpload')}>
+        onPress={() => navigation.navigate('ImageUpload', {userId: userId})}>
         <Text style={{color: '#ffd500'}}>{'  '}Upload an Image</Text>
       </TouchableOpacity>
       <Text style={styles.name}>
