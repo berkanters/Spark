@@ -113,7 +113,7 @@ const ImageUploadScreen = props => {
 
         axios
           .post(
-            `https://spark-api.conveyor.cloud/image?id=${props.route.params.userId}`,
+            `https://spark-api-qv6.conveyor.cloud/image?id=${props.route.params.userId}`,
             fdata,
             {
               headers: {
@@ -177,7 +177,7 @@ const ImageUploadScreen = props => {
 
       axios
         .post(
-          `https://spark-api.conveyor.cloud/image?id=${props.route.params.userId}`,
+          `https://spark-api-qv6.conveyor.cloud/image?id=${props.route.params.userId}`,
           fdata,
           {
             headers: {
