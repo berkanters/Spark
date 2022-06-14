@@ -35,7 +35,7 @@ namespace Spark.DataAccessLayer.Seed
                     Gender = "Man",
                     Latitude = FakeData.NumberData.GetNumber(-90, 90),
                     Longitude = FakeData.NumberData.GetNumber(-180, 180),
-                    ImagePath =""
+                    ImagePath = "user"
 
                 },
           
@@ -54,7 +54,7 @@ namespace Spark.DataAccessLayer.Seed
                     Gender = "Man",
                     Latitude = FakeData.NumberData.GetNumber(-90, 90),
                     Longitude = FakeData.NumberData.GetNumber(-180, 180),
-                    ImagePath = ""
+                    ImagePath = "user"
 
                 });
             for (int i = 0; i < 20; i++)
@@ -77,7 +77,7 @@ namespace Spark.DataAccessLayer.Seed
                         Gender = "Man",
                         Latitude = FakeData.NumberData.GetNumber(-90,90),
                         Longitude = FakeData.NumberData.GetNumber(-180,180),
-                        ImagePath = ""
+                        ImagePath = "user"
                     },
                 new User()
                     {
@@ -94,7 +94,7 @@ namespace Spark.DataAccessLayer.Seed
                         Gender = "Woman",
                         Latitude = FakeData.NumberData.GetNumber(-90, 90),
                         Longitude = FakeData.NumberData.GetNumber(-180, 180),
-                        ImagePath = ""
+                        ImagePath = "user"
                 }
                     );
             }

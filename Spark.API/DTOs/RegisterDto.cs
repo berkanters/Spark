@@ -9,5 +9,6 @@
         public int Age { get; set; }
         public String Gender { get; set; }
         public String Phone { get; set; }
+        public String ImagePath { get; set; }
     }
 }

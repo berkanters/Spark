@@ -38,7 +38,7 @@ const ChatToProfileScreen = props => {
   }, []);
   useEffect(() => {
     axios
-      .get(`https://spark-api.conveyor.cloud/api/User/getbyid=${user2id}`)
+      .get(`https://spark-api-qv6.conveyor.cloud/api/User/getbyid=${user2id}`)
       .then(function (response) {
         console.log('User2 fetched');
         setUser2(response.data);
@@ -53,7 +53,7 @@ const ChatToProfileScreen = props => {
   useEffect(() => {
     console.log('calculating distance', user.id, user2id);
     axios
-      .get(`https://spark-api.conveyor.cloud/location=${user.id}&${user2id}`)
+      .get(`https://spark-api-qv6.conveyor.cloud/location=${user.id}&${user2id}`)
       .then(function (response) {
         console.log('Distance fetched');
         setDistance(response.data);
@@ -74,7 +74,7 @@ const ChatToProfileScreen = props => {
           setUser2id(props.route.params.user2id);
           setUser(veri);
           axios
-            .get(`https://spark-api.conveyor.cloud/api/User/getbyid=${user2id}`)
+            .get(`https://spark-api-qv6.conveyor.cloud/api/User/getbyid=${user2id}`)
             .then(function (response) {
               console.log('User2 fetched');
               setUser2(response.data);

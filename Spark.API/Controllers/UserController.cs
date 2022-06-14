@@ -108,7 +108,7 @@ namespace Spark.API.Controllers
                 {
                     var fileName = id.ToString()+".jpg";
                     var fullPath = Path.Combine(pathToSave, fileName);
-                    var dbPath = Path.Combine(folderName, fileName);
+                    var dbPath = Path.Combine(id.ToString());
                     using (var stream = new FileStream(fullPath, FileMode.Create))
                     {
                         file.CopyTo(stream);
