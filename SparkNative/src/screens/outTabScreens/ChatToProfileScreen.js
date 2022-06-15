@@ -92,7 +92,15 @@ const ChatToProfileScreen = props => {
         });
     }
   });
-
+  const Unmatch = () => {
+    axios.delete(`https://spark-api-qv6.conveyor.cloud/unmatch=${user.id}&${user2id}`)
+      .then(function (response) {
+        console.log(response.data);
+        navigation.navigate('Profile');
+      }).catch(function (error) {
+        console.log(error);
+      });
+  }
   const getData = async () => {
     try {
       console.log('getData');
@@ -152,6 +160,15 @@ const ChatToProfileScreen = props => {
           info2={user2.gender}
           info3={distance}
         />
+        <View style={styles.actionsProfile}>
+            <TouchableOpacity
+              style={{color: 'red', fontSize: 12, marginTop: 10}}
+              onPress={Unmatch}>
+              <Text style={{color: 'red', fontSize: 15, marginBottom: 20}}>
+                Unmatch
+              </Text>
+            </TouchableOpacity>
+          </View>
       </View>
     </View>
   );

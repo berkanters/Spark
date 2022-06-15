@@ -46,6 +46,8 @@ const ProfileItem = ({
           {minage} {maxage} {range} {gender}
         </Text>
       </View>
+
+      
     </View>
   );
 };
