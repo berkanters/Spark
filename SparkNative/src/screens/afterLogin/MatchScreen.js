@@ -84,6 +84,7 @@ const MatchScreen = () => {
   const [maxAge, setMaxAge] = useState('');
   const [range, setRange] = useState('');
   const [gender, setGender] = useState('');
+  const[opposite ,setOpposite] = useState('');
   const [idToDelete, setIdToDelete] = useState('');
   const [nameToDelete, setNameToDelete] = useState('');
   const [user, setUser] = useState('');
@@ -98,15 +99,15 @@ const MatchScreen = () => {
 
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
-
   useEffect(() => {
     getData1();
     getData2();
     getData3();
     getData4();
     getUser();
+    
   }, []);
-
+console.log(user.gender)
   const getUser = async () => {
     try {
       AsyncStorage.getItem('token').then(value => {
@@ -127,6 +128,9 @@ const MatchScreen = () => {
           let veri = JSON.parse(value);
           setMinAge(veri);
         }
+        else{
+          setMinAge('18')
+        }
       });
     } catch (e) {
       // error reading value
@@ -139,6 +143,9 @@ const MatchScreen = () => {
         if (value != null) {
           let veri = JSON.parse(value);
           setMaxAge(veri);
+        }
+        else{
+          setMaxAge('80')
         }
       });
     } catch (e) {
@@ -153,6 +160,9 @@ const MatchScreen = () => {
           let veri = JSON.parse(value);
           setRange(veri);
         }
+        else{
+          setRange('10000')
+        }
       });
     } catch (e) {
       // error reading value
@@ -166,6 +176,9 @@ const MatchScreen = () => {
           let veri = JSON.parse(value);
           setGender(veri);
         }
+        else{
+          setGender('man');
+        }
       });
     } catch (e) {
       // error reading value
@@ -176,7 +189,7 @@ const MatchScreen = () => {
     if (user?.id !== null) {
       axios
         .get(
-          `https://spark-api-qv6.conveyor.cloud/api/User/filterby=${gender}&${minAge}&${maxAge}&${range}&${userId}`,
+          `https://spark-api.conveyor.cloud/api/User/filterby=${gender}&${minAge}&${maxAge}&${range}&${userId}`,
         )
         .then(function (response) {
           console.log('Winners fetched');
@@ -194,7 +207,7 @@ const MatchScreen = () => {
     if (lastDirection == 'right') {
       axios
         .post(
-          `https://spark-api-qv6.conveyor.cloud/match=id&lid?id=${user.id}&lId=${idToDelete}`,
+          `https://spark-api.conveyor.cloud/match=id&lid?id=${user.id}&lId=${idToDelete}`,
         )
         .then(function (response) {
           console.log(response.status);
@@ -218,6 +231,10 @@ const MatchScreen = () => {
 
   console.log(match);
   console.log(lastDirection);
+  console.log(gender);
+  console.log(range);
+  console.log(minAge);
+  console.log(maxAge);
 
   const swiped = (direction, idToDelete, nameToDelete) => {
     console.log('removing: ' + idToDelete);
@@ -257,17 +274,17 @@ const MatchScreen = () => {
 
         <CardContainer>
           {characters.map(character => {
-            axios
-              .get(
-                `https://spark-api-qv6.conveyor.cloud/getImage&Resources%5C%5CImages%5C%5C${character.imagePath}.jpg`,
-              )
-              .then(function (response) {
-                console.log(response.data);
-                setProfileImage(response.data);
-              })
-              .catch(function (error) {
-                console.log(error);
-              });
+            // axios
+            //   .get(
+            //     `https://spark-api-qv6.conveyor.cloud/getImage&Resources%5C%5CImages%5C%5C${character.imagePath}.jpg`,
+            //   )
+            //   .then(function (response) {
+            //     console.log(response.data);
+            //     setProfileImage(response.data);
+            //   })
+            //   .catch(function (error) {
+            //     console.log(error);
+            //   });
             return (
               <TinderCard
                 key={character.id}

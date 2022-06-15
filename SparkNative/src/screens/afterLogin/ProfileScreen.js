@@ -19,7 +19,7 @@ import {getDrawerStatusFromState} from '@react-navigation/drawer';
 import Geolocation from '@react-native-community/geolocation';
 import {Modal, Portal, Button, Provider} from 'react-native-paper';
 import Slider from '@react-native-community/slider';
-import {min} from 'react-native-reanimated';
+import {min, set} from 'react-native-reanimated';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {faLongArrowAltUp} from '@fortawesome/free-solid-svg-icons';
 import SparkSplash from '../../components/SparkSplash';
@@ -30,13 +30,14 @@ const ProfileScreen = props => {
     Demo[7];
   const [user, setUser] = useState('');
   const navigation = useNavigation();
-  const [minAge, setMinAge] = useState('');
+  const [minAge, setMinAge] = useState('18');
+  const [opposite, setOpposite] = useState('');
   const [isPhotoLoading, setPhotoLoading] = useState(true);
-  const [maxAge, setMaxAge] = useState('');
-  const [range, setRange] = useState('');
+  const [maxAge, setMaxAge] = useState('80');
+  const [range, setRange] = useState('10001');
   const [visible, setVisible] = React.useState(false);
   const [opens, setOpens] = useState(false);
-  const [value, setValue] = useState(null);
+  const [value, setValue] = useState('man');
   const [items, setItems] = useState([
     {label: 'Man', value: 'man'},
     {label: 'Woman', value: 'woman'},
@@ -51,6 +52,8 @@ const ProfileScreen = props => {
   const hideModal = () => setVisible(false);
   const containerStyle = {backgroundColor: 'white', padding: 20};
 
+  console.log(opposite , 'opposite');
+
   // const [testValue, setTestValue] = useState('');
   // const savedProfile = AsyncStorage.getItem('token');
   // const profile = JSON.parse(savedProfile);
@@ -62,28 +65,56 @@ const ProfileScreen = props => {
   useEffect(() => {
     let isCancelled = false;
     getData();
+    getRange();
+    getGender();
+    getMinAge();
+    getMaxAge();
+    setLoading(false);
+    
 
     return () => {
       isCancelled = true;
     };
   }, []);
 
+  // useEffect(() => { onOpenned();}, [value!=''],);
+console.log(user.gender,'usergender')
   useEffect(() => {
+    
+    if(user.gender==='Man'){
+      setOpposite('woman')
+      
+    }
+    else if(user.gender==='Woman'){
+      setOpposite('man')
+    }
+    else if(user.gender==='Other'){
+      setOpposite('other')
+    }
+    
+   
+    
+    
     let isCancelled = false;
     getLocation();
     return () => {
       isCancelled = true;
     };
-  }, [user?.id]);
-  useEffect(() => {
-    let isCancelled = false;
-    if (user?.id) {
-      getPhoto();
-    }
-    return () => {
-      isCancelled = true;
-    };
-  }, [user?.id]);
+   
+  }, [user?.id],[user?.gender]);
+  // useEffect(() => {
+  //   let isCancelled = false;
+  //   if (user?.id) {
+  //     getPhoto();
+  //   }
+  //   return () => {
+  //     isCancelled = true;
+  //   };
+  // }, [user?.id]);
+  
+  //! set Value Belirteç
+  // useEffect(() => {setValue(opposite)},[value=='']);
+  // useEffect(() => {setValue(opposite)},[opposite=='']);
 
   const getLocation = async () => {
     console.log('getLocation');
@@ -93,19 +124,20 @@ const ProfileScreen = props => {
         setCoordinates(initialPosition);
         axios
           .put(
-            `https://spark-api-qv6.conveyor.cloud/SetLocation?userId=${user.id}&latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`,
+            `https://spark-api.conveyor.cloud/SetLocation?userId=${user.id}&latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`,
           )
           .then(function (response) {
             console.log('Location Setted to DB');
 
             axios
               .get(
-                `https://spark-api-qv6.conveyor.cloud/api/User/getbyid=${user.id}`,
+                `https://spark-api.conveyor.cloud/api/User/getbyid=${user.id}`,
               )
               .then(function (response) {
                 setData(response);
                 const jsonValue = JSON.stringify(response.data);
                 AsyncStorage.setItem('token', jsonValue);
+                
               })
               .catch(function (error) {
                 console.log(error);
@@ -143,6 +175,8 @@ const ProfileScreen = props => {
         if (value != null) {
           let veri = JSON.parse(value);
           setUser(veri);
+          
+          
           console.log('image path :', user.imagePath);
         }
       });
@@ -150,28 +184,96 @@ const ProfileScreen = props => {
       // error reading value
     }
   };
-  const getPhoto = () => {
-    if (isPhotoLoading) {
-      console.log('getPhoto');
-      console.log(
-        `https://spark-api-qv6.conveyor.cloud/getImage&${user.imagePath}.jpg`,
-      );
-      axios
-        .get(
-          `https://spark-api-qv6.conveyor.cloud/getImage&Resources%5C%5CImages%5C%5C${user.imagePath}.jpg`,
-        )
-        .then(function (response) {
-          console.log(response.data);
-          setProfileImage(response.data);
-
-          setPhotoLoading(false);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-      setLoading(false);
+  const getRange = async () => {
+    try {
+      console.log('getRange');
+      AsyncStorage.getItem('range').then(value => {
+        if (value != null) {
+          let veri = JSON.parse(value);
+          setRange(veri);
+          
+        }
+      });
+    } catch (e) {
+      // error reading value
     }
   };
+  const getGender = async () => {
+    try {
+      console.log('getRange');
+      AsyncStorage.getItem('gender').then(value => {
+        if (value != null) {
+          let veri = JSON.parse(value);
+          setValue(veri);
+        }
+        else{
+          setValue(opposite);
+        }
+      });
+    } catch (e) {
+      // error reading value
+    }
+  };
+  console.log(value,'value')
+  const getMaxAge = async () => {
+    try {
+      console.log('getMaxage');
+      AsyncStorage.getItem('maxAge').then(value => {
+        if (value != null) {
+          let veri = JSON.parse(value);
+          setMaxAge(veri);
+          
+        }
+      });
+    } catch (e) {
+      // error reading value
+    }
+  };
+  const getMinAge = async () => {
+    try {
+      console.log('getRange');
+      AsyncStorage.getItem('minAge').then(value => {
+        if (value != null) {
+          let veri = JSON.parse(value);
+          setMinAge(veri);
+          
+          
+        }
+      });
+    } catch (e) {
+      // error reading value
+    }
+  };
+
+  // const getPreference = async () => {
+    
+  //   AsyncStorage.getItem('minAge', (result) => { setMinAge = result; });
+  //   AsyncStorage.getItem('maxAge', (result) => { setMaxAge = result; });
+  //   AsyncStorage.getItem('range', (result) => { setRange = result; });
+  //   AsyncStorage.getItem('gender', (result)=>{ setValue = result});
+  //       };
+  // const getPhoto = () => {
+  //   if (isPhotoLoading) {
+  //     console.log('getPhoto');
+  //     console.log(
+  //       `https://spark-api.conveyor.cloud/getImage&${user.imagePath}.jpg`,
+  //     );
+  //     axios
+  //       .get(
+  //         `https://spark-api.conveyor.cloud/getImage&Resources%5C%5CImages%5C%5C${user.imagePath}.jpg`,
+  //       )
+  //       .then(function (response) {
+  //         console.log(response.data);
+  //         setProfileImage(response.data);
+
+  //         setPhotoLoading(false);
+  //       })
+  //       .catch(function (error) {
+  //         console.log(error);
+  //       });
+  //     setLoading(false);
+  //   }
+  // };
   const onClick = () => {
     const jsonMinAge = JSON.stringify(minAge);
     const jsonMaxAge = JSON.stringify(maxAge);
@@ -182,6 +284,19 @@ const ProfileScreen = props => {
     AsyncStorage.setItem('range', jsonRange);
     AsyncStorage.setItem('gender', jsonGender);
     hideModal();
+  };
+  const onOpenned = () => {
+    if(range==10001){
+    const jsonMinAge = JSON.stringify(minAge);
+    const jsonMaxAge = JSON.stringify(maxAge);
+    const jsonRange = JSON.stringify(range);
+    const jsonGender = JSON.stringify(value);
+    AsyncStorage.setItem('minAge', jsonMinAge);
+    AsyncStorage.setItem('maxAge', jsonMaxAge);
+    AsyncStorage.setItem('range', jsonRange);
+    AsyncStorage.setItem('gender', jsonGender);
+    }
+    
   };
 
   const logOut = async () => {
