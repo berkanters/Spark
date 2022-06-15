@@ -42,7 +42,7 @@ namespace Spark.API.Controllers
             }
         }
 
-        [HttpDelete("/unmatch=id&lid")]
+        [HttpDelete("/unmatch={id:guid}&{lId:guid}")]
         public async Task<IActionResult> UnMatch(Guid id, Guid lId)
         {
             _likeService.RemoveMatch(id,lId);
