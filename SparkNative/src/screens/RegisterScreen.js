@@ -62,7 +62,7 @@ const RegisterScreen = props => {
   useEffect(() => {
     if (validPassword) {
       axios
-        .post('https://spark-api-qv6.conveyor.cloud/Register', {
+        .post('https://spark-api.conveyor.cloud/Register', {
           name: name,
           lastName: lastname,
           email: email,
