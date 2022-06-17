@@ -28,6 +28,11 @@ namespace Spark.DataAccessLayer.Repository
             return (await question);
         }
 
+        public async Task<IEnumerable<Question>> GetAllQuestions()
+        {
+            return await sparkDbContext.Questions.ToListAsync();
+        }
+
         public async Task<Question> GetWithAnswersByIdAsync(Guid qId)
         {
             return (await _db.Questions.Include(s => s.Answers).FirstOrDefaultAsync(s => s.Id == qId))!;
@@ -54,6 +59,7 @@ namespace Spark.DataAccessLayer.Repository
             {
                 fakeAns.Add(fakeAnswers[ansRandom[i]]);
             }
+
             return fakeAns;
         }
     }

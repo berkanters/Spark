@@ -11,6 +11,7 @@ namespace Spark.Core.IntRepository
     public interface IGameRepository: IRepository<Question>
     {
         Task<IEnumerable<Question>>GetAllWithAnswersAsync();
+        Task<IEnumerable<Question>> GetAllQuestions();
         Task<Question> GetWithAnswersByIdAsync(Guid qId);
         //Task<Question> GetWithAnswersAndUserAnswerByIdAsync(Guid qId);
 
