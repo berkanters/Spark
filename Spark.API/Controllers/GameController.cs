@@ -47,7 +47,7 @@ namespace Spark.API.Controllers
             return Ok(que);
         }
 
-        [HttpGet("/useranswer")]
+        [HttpGet("/useranswerAll")]
         public async Task<IActionResult> GetUserAnswer()
         {
             var que = await _userAnswerService.GetAllAsync();
@@ -94,10 +94,9 @@ namespace Spark.API.Controllers
         [HttpGet("/wronganswers=qid&uid")]
         public async Task<IActionResult> GetFakeAnswers(Guid qId, Guid uId)
         {
-            var fake = _gameService.GetFakeAnswers(qId, uId);
-            var userAns = _userAnswerService.GetUserAnswer(uId, qId);
+            var fake = _gameService.GetFakeAnswers(qId, uId).Result;
 
-            return Ok((fake, userAns != null ? userAns.Result : null));
+            return Ok(_mapper.Map<IList<AnswersDto>>(fake));
 
         }
     }
