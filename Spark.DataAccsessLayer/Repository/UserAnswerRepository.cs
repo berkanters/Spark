@@ -20,7 +20,7 @@ namespace Spark.DataAccessLayer.Repository
         {
         }
 
-        public  void ChooseAnswer(Guid uId, Guid aId,Guid qId)
+        public void ChooseAnswer(Guid uId, Guid aId,Guid qId)
         {
             sparkDBContext.UserAnswers.Add(new UserAnswer()
             {
@@ -31,10 +31,10 @@ namespace Spark.DataAccessLayer.Repository
             
         }
 
-        public async Task<UserAnswer> GetUserAnswerByQuestion(Guid uId, Guid qId)
+        public Task<IQueryable<Answer>> GetUserAnswerByQuestion(Guid uId, Guid qId)
         {
-            var question = sparkDBContext.UserAnswers.FirstOrDefaultAsync(s => s.Answer.QuestionId == qId && s.UserId == uId);
-            return (await question)!;
+            var question = sparkDBContext.UserAnswers.Where(s => s.Answer.QuestionId == qId && s.UserId == uId).Select(x=>x.Answer);
+            return Task.FromResult(question);
         }
     }
 }

@@ -23,6 +23,12 @@ namespace Spark.Services.Services
                 return await test;
             }
 
+            public async Task<IEnumerable<Question>> GetAllQuestions()
+            {
+                var question = _unit.Game.GetAllQuestions();
+                return await question;
+            }
+
             public async Task<Question> GetWithAnswersByIdAsync(Guid qId)
             {
                 return await _unit.Game.GetWithAnswersByIdAsync(qId);

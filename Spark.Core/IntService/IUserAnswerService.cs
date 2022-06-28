@@ -10,6 +10,6 @@ namespace Spark.Core.IntService
     public interface IUserAnswerService:IService<UserAnswer>
     {
         Task<UserAnswer> ChooseAnswer(Guid uId, Guid aId,Guid qId);
-        Task<UserAnswer> GetUserAnswer(Guid uId, Guid qId);
+        Task<IQueryable<Answer>> GetUserAnswer(Guid uId, Guid qId);
     }
 }

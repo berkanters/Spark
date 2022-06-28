@@ -25,6 +25,12 @@ public class MapProfile : Profile
         CreateMap<User, UserWithLastMessageDto>();
         CreateMap<User, UserProfileChangeDto>();
         CreateMap<UserProfileChangeDto, User>();
+        CreateMap<Question, QuestionDto>();
+        CreateMap<QuestionDto, Question>();
+        CreateMap<Answer, AnswersDto>();
+        CreateMap<AnswersDto, UserAnswer>();
+        CreateMap<UserAnswer, UserAnswersDto>();
+        CreateMap<UserAnswersDto, UserAnswer>();
     }
 }
 

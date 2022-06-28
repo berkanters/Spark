@@ -1,6 +1,8 @@
 ﻿using System.Collections;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Spark.API.DTOs;
 using Spark.Core.IntService;
 using Spark.Core.Models;
 
@@ -13,19 +15,29 @@ namespace Spark.API.Controllers
         private IGameService _gameService;
         private IUserAnswerService _userAnswerService;
         private ILikeService _likeService;
+        private IMapper _mapper;
 
-        public GameController(IGameService gameService, IUserAnswerService userAnswerService, ILikeService likeService)
+        public GameController(IGameService gameService, IUserAnswerService userAnswerService, ILikeService likeService, IMapper mapper)
         {
             _gameService = gameService;
             _userAnswerService = userAnswerService;
             _likeService = likeService;
+            _mapper = mapper;
         }
+
 
         [HttpGet]
         public async Task<IActionResult> GetAllWithAnswer()
         {
             var que = await _gameService.GetAllWithAnswersAsync();
             return Ok(que);
+        }
+
+        [HttpGet("/getquestions")]
+        public async Task<IActionResult> GetAllQuestions()
+        {
+            var que = await _gameService.GetAllQuestions();
+            return Ok(_mapper.Map<IEnumerable<QuestionDto>>(que));
         }
 
         [HttpGet("/getquestionwithanswer=id")]
@@ -35,7 +47,7 @@ namespace Spark.API.Controllers
             return Ok(que);
         }
 
-        [HttpGet("/useranswer")]
+        [HttpGet("/useranswerAll")]
         public async Task<IActionResult> GetUserAnswer()
         {
             var que = await _userAnswerService.GetAllAsync();
@@ -82,7 +94,9 @@ namespace Spark.API.Controllers
         [HttpGet("/wronganswers=qid&uid")]
         public async Task<IActionResult> GetFakeAnswers(Guid qId, Guid uId)
         {
-            return Ok(_gameService.GetFakeAnswers(qId, uId));
+            var fake = _gameService.GetFakeAnswers(qId, uId).Result;
+
+            return Ok(_mapper.Map<IList<AnswersDto>>(fake));
 
         }
     }

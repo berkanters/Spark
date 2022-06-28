@@ -27,7 +27,7 @@ namespace Spark.Services.Services
             return await _repo.GetByIdAsync(uId);
         }
 
-        public async Task<UserAnswer> GetUserAnswer(Guid uId, Guid qId)
+        public async Task<IQueryable<Answer>> GetUserAnswer(Guid uId, Guid qId)
         {
             return await _unit.userAnswer.GetUserAnswerByQuestion(uId, qId);
         }

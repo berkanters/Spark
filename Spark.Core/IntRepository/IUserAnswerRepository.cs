@@ -10,6 +10,6 @@ namespace Spark.Core.IntRepository
     public interface IUserAnswerRepository : IRepository<UserAnswer>
     {
         void ChooseAnswer(Guid uId, Guid aId, Guid qId);
-        Task<UserAnswer> GetUserAnswerByQuestion(Guid uId, Guid qId);
+        Task<IQueryable<Answer>> GetUserAnswerByQuestion(Guid uId, Guid qId);
     }
 }
